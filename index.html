@@ -186,6 +186,116 @@
         
 
 <div class="post">
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B01/">
+        <h2 class="post-title">引擎项目环境配置</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                游戏引擎
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/10/22
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h3 id="1-项目配置"><a href="#1-项目配置" class="headerlink" title="1.项目配置"></a>1.项目配置</h3><p>在vs中创建Hazel项目，然后打开“项目属性 -&gt;  配置属性 -&gt; 常规”中设置一下 </p>
+<ul>
+<li>配置类型： 选择**.dll**</li>
+</ul>
+<blockquote>
+<p>在配置为Dynamic Library时，项目输出的文件是一个DLL文件，其他程序可以在运行时加载和使用它。通常会生成一个<code>.dll</code>文件和一个对应的<code>.lib</code>文件（用于在编译时链接DLL）。</p>
+<p><strong>DLL (Dynamic Link Library)</strong> 是包含可执行代码和数据的二进制文件，在程序运行时动态加载到内存中。</p>
+<p>DLL文件中包含的代码和资源在程序<strong>运行时</strong>才会被加载使用，因此在编译和链接阶段，它不会直接参与到应用程序的构建中。</p>
+<p>对于使用DLL的项目来说，<strong>LIB文件</strong>并不是静态链接库，而是一个“<strong>导入库</strong>”（import library）。这个LIB文件不包含DLL的实际实现代码，而是包含指向DLL中的函数或数据的引用和符号信息。</p>
+<p>当你在Visual Studio中设置项目生成DLL时，Visual Studio同时会生成一个对应的LIB文件。这个LIB文件的作用是告诉链接器：当其他项目引用此库时，链接器应如何找到和使用对应的DLL中的函数和数据。</p>
+</blockquote>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #00bcd4">游戏引擎</a>
+        </span>
+        
+    </div>
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B01/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B02/">
+        <h2 class="post-title">spdlog日志库的配置和使用</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                游戏引擎
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/10/22
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p>在游戏引擎或者大型程序项目中我们必然离不开调式功能，处于方便我们使用了github开源的日志库作为我们的日志库（spdlog）</p>
+<blockquote>
+<p>如果你也在跟随cherno的引擎制作，你也应该遇到了莫名其妙的错误，其实Youtobe正确的库不是给的链接（也许是时间太久，已经更新过了），你需要去cherno的引擎库里找到保存的spdlog库，那个才是正确的</p>
+</blockquote>
+<p>首先在命令行</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #03a9f4">游戏引擎</a>
+        </span>
+        
+    </div>
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B02/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
     <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E5%8A%A8%E7%94%BB%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86/">
         <h2 class="post-title">处理不同形式角色动画资产</h2>
     </a>
@@ -234,65 +344,11 @@
         
         <span class="tag">
             
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #ffa2c4">游戏设计</a>
-        </span>
-        
-    </div>
-    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E5%8A%A8%E7%94%BB%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/">
-        <h2 class="post-title">资源管理器的资源管理设置</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                设计经验
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/9/23
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h2 id="资源管理器的资源管理设置"><a href="#资源管理器的资源管理设置" class="headerlink" title="资源管理器的资源管理设置"></a>资源管理器的资源管理设置</h2><p>关于对于资源文件的加载，在之前的项目都是通过硬编码的方式手写出所有路径加载对应的图片和音频资源。</p>
-<p>相对于之前，我们使用<strong>stl</strong>的<unordered_map>来存储对应的资源</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/cpp/" style="color: #00bcd4">cpp</a>
-        </span>
-        
-        <span class="tag">
-            
             <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #03a9f4">游戏设计</a>
         </span>
         
     </div>
-    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/" class="go-post">阅读全文</a>
+    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E5%8A%A8%E7%94%BB%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
@@ -336,12 +392,12 @@
         
         <span class="tag">
             
-            <a href="/tags/cpp/" style="color: #00a596">cpp</a>
+            <a href="/tags/cpp/" style="color: #ffa2c4">cpp</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #ff7d73">游戏设计</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #00bcd4">游戏设计</a>
         </span>
         
     </div>
@@ -392,7 +448,7 @@
         
         <span class="tag">
             
-            <a href="/tags/cpp/" style="color: #03a9f4">cpp</a>
+            <a href="/tags/cpp/" style="color: #00a596">cpp</a>
         </span>
         
     </div>
@@ -443,16 +499,70 @@
         
         <span class="tag">
             
-            <a href="/tags/cpp/" style="color: #ff7d73">cpp</a>
+            <a href="/tags/cpp/" style="color: #03a9f4">cpp</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #00bcd4">游戏设计</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #ffa2c4">游戏设计</a>
         </span>
         
     </div>
     <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E7%AE%80%E5%8D%95%E8%AE%BE%E8%AE%A1/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/">
+        <h2 class="post-title">资源管理器的资源管理设置</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                设计经验
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/9/23
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="资源管理器的资源管理设置"><a href="#资源管理器的资源管理设置" class="headerlink" title="资源管理器的资源管理设置"></a>资源管理器的资源管理设置</h2><p>关于对于资源文件的加载，在之前的项目都是通过硬编码的方式手写出所有路径加载对应的图片和音频资源。</p>
+<p>相对于之前，我们使用<strong>stl</strong>的<unordered_map>来存储对应的资源</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/cpp/" style="color: #03a9f4">cpp</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #ffa2c4">游戏设计</a>
+        </span>
+        
+    </div>
+    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
@@ -501,12 +611,12 @@ StateMachine state_machine;
         
         <span class="tag">
             
-            <a href="/tags/cpp/" style="color: #00a596">cpp</a>
+            <a href="/tags/cpp/" style="color: #ff7d73">cpp</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #00bcd4">游戏设计</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #03a9f4">游戏设计</a>
         </span>
         
     </div>
@@ -606,128 +716,11 @@ StateMachine state_machine;
         
         <span class="tag">
             
-            <a href="/tags/json/" style="color: #00a596">json</a>
+            <a href="/tags/json/" style="color: #ff7d73">json</a>
         </span>
         
     </div>
     <a href="/articles/%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/cjson/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/articles/c++%E8%AF%AD%E6%B3%95/c++%E7%9A%84%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA/">
-        <h2 class="post-title">c++输入输出</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/c-%E8%AF%AD%E6%B3%95/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                c++语法
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/7/13
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h1 id="c-输入输出"><a href="#c-输入输出" class="headerlink" title="c++输入输出"></a>c++输入输出</h1><blockquote>
-<p>学校对于这一节并没有教，当时看也只是模仿了上面的案例，不是很懂。现在在VoidMatrix的塔防教程中看到了这方面知识点相关，就想相对了解一下</p>
-</blockquote>
-<pre><code class="CPP">std::fstream file(path);			
-if (!file.good())return  false;
-
-std::stringstream str_stream;			
-str_stream &lt;&lt; file.rdbuf();			
-file.close();						
-
-cJSON* json_root = cJSON_Parse(str_stream.str().c_str());
-</code></pre>
-<p>主要弄明白这一段代码的意思。</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/c-%E8%AF%AD%E6%B3%95/" style="color: #00a596">c++语法</a>
-        </span>
-        
-    </div>
-    <a href="/articles/c++%E8%AF%AD%E6%B3%95/c++%E7%9A%84%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/articles/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/map&&unordered_map%E7%9A%84%E4%BD%BF%E7%94%A8/">
-        <h2 class="post-title">map&amp;&amp;unordered_map</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/STL/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                STL
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/6/30
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h2 id="map-unordered-mSTLap"><a href="#map-unordered-mSTLap" class="headerlink" title="map&amp;&amp;unordered_mSTLap"></a>map&amp;&amp;unordered_mSTLap</h2><blockquote>
-<p>恰巧看到大V老师使用unordered_map来实现了资源池，那么便想在分析池的概念前，先弄清这个STL的提供的结构</p>
-<p>将分析pair，map，unordered_map</p>
-<p>我们将解决课程的以下疑问</p>
-<ol>
-<li>unordered_map的实现方法和map的区别（主要是解释map）？</li>
-<li>为什么大v老师的使用下标【】的方法就可以构建新的对象？</li>
-<li>大v老师的键值使用了枚举，那么对于unordered_map键值类型限制和map的键值类型限制具体有哪些，枚举为什么可以作为其键值（最后的比较会解释）？</li>
-</ol>
-</blockquote>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/STL/" style="color: #03a9f4">STL</a>
-        </span>
-        
-    </div>
-    <a href="/articles/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/map&&unordered_map%E7%9A%84%E4%BD%BF%E7%94%A8/" class="go-post">阅读全文</a>
 </div>
 
 
