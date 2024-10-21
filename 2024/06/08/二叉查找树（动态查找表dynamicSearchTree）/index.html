@@ -1,41 +1,338 @@
-<!doctype html>
-<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>yang_blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="好人"><meta name="msapplication-TileImage" content="img/avatar.jpg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="好人"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="二叉查找树 先附上完整的代码"><meta property="og:type" content="blog"><meta property="og:title" content="yang_blog"><meta property="og:url" content="http://example.com/2024/06/08/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88%E5%8A%A8%E6%80%81%E6%9F%A5%E6%89%BE%E8%A1%A8dynamicSearchTree%EF%BC%89/"><meta property="og:site_name" content="yang_blog"><meta property="og:description" content="二叉查找树 先附上完整的代码"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/2024/06/08/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88%E5%8A%A8%E6%80%81%E6%9F%A5%E6%89%BE%E8%A1%A8dynamicSearchTree%EF%BC%89/list2.png"><meta property="og:image" content="http://example.com/2024/06/08/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88%E5%8A%A8%E6%80%81%E6%9F%A5%E6%89%BE%E8%A1%A8dynamicSearchTree%EF%BC%89/list1.png"><meta property="article:published_time" content="2024-06-07T16:00:00.000Z"><meta property="article:modified_time" content="2024-06-07T16:00:00.000Z"><meta property="article:author" content="yang"><meta property="article:tag" content="数据结构"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://example.com/2024/06/08/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88%E5%8A%A8%E6%80%81%E6%9F%A5%E6%89%BE%E8%A1%A8dynamicSearchTree%EF%BC%89/list2.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2024/06/08/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88%E5%8A%A8%E6%80%81%E6%9F%A5%E6%89%BE%E8%A1%A8dynamicSearchTree%EF%BC%89/"},"headline":"yang_blog","image":["http://example.com/2024/06/08/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88%E5%8A%A8%E6%80%81%E6%9F%A5%E6%89%BE%E8%A1%A8dynamicSearchTree%EF%BC%89/list2.png","http://example.com/2024/06/08/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88%E5%8A%A8%E6%80%81%E6%9F%A5%E6%89%BE%E8%A1%A8dynamicSearchTree%EF%BC%89/list1.png"],"datePublished":"2024-06-07T16:00:00.000Z","dateModified":"2024-06-07T16:00:00.000Z","author":{"@type":"Person","name":"yang"},"publisher":{"@type":"Organization","name":"yang_blog","logo":{"@type":"ImageObject","url":"http://example.com/2024/06/08/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88%E5%8A%A8%E6%80%81%E6%9F%A5%E6%89%BE%E8%A1%A8dynamicSearchTree%EF%BC%89/img/avatar.jpg"}},"description":"二叉查找树 先附上完整的代码"}</script><link rel="canonical" href="http://example.com/2024/06/08/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88%E5%8A%A8%E6%80%81%E6%9F%A5%E6%89%BE%E8%A1%A8dynamicSearchTree%EF%BC%89/"><link rel="icon" href="/img/avatar.jpg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdnjs.loli.net/ajax/libs/pace/1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
-  (function () {
-      function switchTab() {
-          if (!location.hash) {
-            return;
-          }
 
-          const id = '#' + CSS.escape(location.hash.substring(1));
-          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
-          if (!$tabMenu) {
-            return;
-          }
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title> | yang_blog</title>
+    <meta name="author" content="yang" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
 
-          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
-          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
-          Array.from($tabMenuContainer.querySelectorAll('a'))
-              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
-              .forEach($content => $content.classList.add('is-hidden'));
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
 
-          if ($tabMenu) {
-              $tabMenu.parentElement.classList.add('is-active');
-          }
-          const $activeTab = document.querySelector(id);
-          if ($activeTab) {
-              $activeTab.classList.remove('is-hidden');
-          }
-      }
-      switchTab();
-      window.addEventListener('hashchange', switchTab, false);
-  })();
-  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/avatar.jpg" alt="yang_blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Github" href="https://github.com/VoidmatrixHeathcliff/GameDevWebsite"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-06-07T16:00:00.000Z" title="2024/6/8 00:00:00">2024-06-08</time>发表</span><span class="level-item"><time dateTime="2024-06-07T16:00:00.000Z" title="2024/6/8 00:00:00">2024-06-08</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span><span class="level-item">16 分钟读完 (大约2472个字)</span></div></div><div class="content"><h1 id="二叉查找树"><a href="#二叉查找树" class="headerlink" title="二叉查找树"></a>二叉查找树</h1><ul>
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>YANG_BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;YANG_BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1></h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/8
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                数据结构
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="color: #ffa2c4">
+                    数据结构
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="二叉查找树"><a href="#二叉查找树" class="headerlink" title="二叉查找树"></a>二叉查找树</h1><ul>
 <li>先附上完整的代码</li>
 </ul>
 <span id="more"></span>
 
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>,<span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">SET</span></span><br><span class="line">&#123;</span><br><span class="line">	KEY key;																		</span><br><span class="line">	OTHER other;																	</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>,<span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">dynamicSearchTable</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> SET&lt;KEY, OTHER&gt;* <span class="title">find</span><span class="params">(<span class="type">const</span> KEY&amp; x)</span> </span>= <span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; x)</span> </span>= <span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">remove</span><span class="params">(<span class="type">const</span> KEY&amp; x)</span> </span>= <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">virtual</span> ~<span class="built_in">dynamicSearchTable</span>() &#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BinarySearchTree</span> :<span class="keyword">public</span> dynamicSearchTable&lt;KEY, OTHER&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">struct</span> <span class="title class_">BinaryNode</span></span><br><span class="line">	&#123;</span><br><span class="line">		SET&lt;KEY, OTHER&gt;data;</span><br><span class="line">		BinaryNode* left;</span><br><span class="line">		BinaryNode* right;</span><br><span class="line">		<span class="built_in">BinaryNode</span>(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; thedata, BinaryNode* It = <span class="literal">NULL</span>,</span><br><span class="line">			BinaryNode* rt = <span class="literal">NULL</span>):<span class="built_in">data</span>(thedata),<span class="built_in">right</span>(rt)&#123;&#125;</span><br><span class="line">	&#125;; </span><br><span class="line">    BinaryNode* root;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">BinarySearchTree</span>();</span><br><span class="line">	~<span class="built_in">BinarySearchTree</span>();</span><br><span class="line">	SET &lt;KEY, OTHER&gt;* <span class="built_in">find</span>(<span class="type">const</span> KEY&amp; x)<span class="type">const</span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; x)</span></span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">remove</span><span class="params">(<span class="type">const</span> KEY&amp; x)</span></span>;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; x, BinaryNode*&amp; t)</span></span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">remove</span><span class="params">(<span class="type">const</span> KEY&amp; x, BinaryNode*&amp; t)</span></span>;</span><br><span class="line">	SET &lt;KEY, OTHER&gt;* <span class="built_in">find</span>(<span class="type">const</span> KEY&amp; x,BinaryNode* t)<span class="type">const</span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">makeEmpty</span><span class="params">(BinaryNode* t)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line">SET &lt;KEY, OTHER&gt;* BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">find</span>(<span class="type">const</span> KEY&amp; x)<span class="type">const</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">find</span>(x, root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line">SET &lt;KEY, OTHER&gt;* BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">find</span>(<span class="type">const</span> KEY&amp; x, BinaryNode* t)<span class="type">const</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (t == <span class="literal">NULL</span> || (t-&gt;data.key == x))				</span><br><span class="line">		<span class="keyword">return</span> (SET&lt;KEY,OTHER&gt;*)t;										</span><br><span class="line">	<span class="keyword">if</span> (x &lt; t-&gt;data.key)								</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">find</span>(x.t-&gt;left);							</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> <span class="built_in">find</span>(x, right);							</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">insert</span>(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">insert</span>(x, root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">insert</span>(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; x, BinaryNode*&amp; t)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (t == <span class="literal">NULL</span>)</span><br><span class="line">		t = <span class="keyword">new</span> <span class="built_in">BinaryNode</span>(x, <span class="literal">NULL</span>, <span class="literal">NULL</span>);							</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (x.key &lt; t-&gt;data.key)									</span><br><span class="line">		<span class="built_in">insert</span>(x, t-&gt;left);					</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (t-&gt;data.key &lt; x.key)									</span><br><span class="line">		<span class="built_in">insert</span>(x, t-&gt;right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">remove</span>(<span class="type">const</span> KEY&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">remove</span>(x, root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">remove</span>(<span class="type">const</span> KEY&amp; x, BinaryNode*&amp; t)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (t == <span class="literal">NULL</span>)<span class="keyword">return</span>;											</span><br><span class="line">	<span class="keyword">if</span> (x &lt; t-&gt;data.key)<span class="built_in">remove</span>(x, t-&gt;left);							</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (t-&gt;data.key &lt; x)<span class="built_in">remove</span>(x, t-&gt;right);</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (t-&gt;left != <span class="literal">NULL</span> &amp;&amp; t-&gt;right != <span class="literal">NULL</span>)					</span><br><span class="line">	&#123;																</span><br><span class="line">		BinaryNode* tmp = t-&gt;right;									</span><br><span class="line">		<span class="keyword">while</span> (tmp-&gt;left != <span class="literal">NULL</span>)tmp = tmp-&gt;left;					</span><br><span class="line">		t-&gt;data = tmp-&gt;data;										</span><br><span class="line">		<span class="built_in">remove</span>(t-&gt;data.key, t-&gt;right);								</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		BinaryNode* oldNode = t;									</span><br><span class="line">		t = (t-&gt;left != <span class="literal">NULL</span>) ? t-&gt;left : t-&gt;right;					</span><br><span class="line">		<span class="keyword">delete</span> oldNode;												</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line">BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">BinarySearchTree</span>()</span><br><span class="line">&#123;</span><br><span class="line">	root = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">makeEmpty</span>(BinaryNode* t)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (t == <span class="literal">NULL</span>)<span class="keyword">return</span>;										</span><br><span class="line">	<span class="built_in">makeEmpty</span>(t-&gt;left);</span><br><span class="line">	<span class="built_in">makeEmpty</span>(t-&gt;right);</span><br><span class="line">	<span class="keyword">delete</span> t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line">BinarySearchTree&lt;KEY, OTHER&gt;::~<span class="built_in">BinarySearchTree</span>()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">makeEmpty</span>(root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="c++">template &lt;class KEY,class OTHER&gt;
+struct SET
+&#123;
+    KEY key;																		
+    OTHER other;																	
+&#125;;
 
+template&lt;class KEY,class OTHER&gt;
+class dynamicSearchTable
+&#123;
+public:
+    virtual SET&lt;KEY, OTHER&gt;* find(const KEY&amp; x) = 0;
+    virtual void insert(const SET&lt;KEY, OTHER&gt;&amp; x) = 0;
+    virtual void remove(const KEY&amp; x) = 0;
+    virtual ~dynamicSearchTable() &#123;&#125;;
+&#125;;
+
+template&lt;class KEY, class OTHER&gt;
+class BinarySearchTree :public dynamicSearchTable&lt;KEY, OTHER&gt;
+&#123;
+private:
+    struct BinaryNode
+    &#123;
+        SET&lt;KEY, OTHER&gt;data;
+        BinaryNode* left;
+        BinaryNode* right;
+        BinaryNode(const SET&lt;KEY, OTHER&gt;&amp; thedata, BinaryNode* It = NULL,
+            BinaryNode* rt = NULL):data(thedata),right(rt)&#123;&#125;
+    &#125;; 
+    BinaryNode* root;
+    
+public:
+    BinarySearchTree();
+    ~BinarySearchTree();
+    SET &lt;KEY, OTHER&gt;* find(const KEY&amp; x)const;
+    void insert(const SET&lt;KEY, OTHER&gt;&amp; x);
+    void remove(const KEY&amp; x);
+    
+private:
+    void insert(const SET&lt;KEY, OTHER&gt;&amp; x, BinaryNode*&amp; t);
+    void remove(const KEY&amp; x, BinaryNode*&amp; t);
+    SET &lt;KEY, OTHER&gt;* find(const KEY&amp; x,BinaryNode* t)const;
+    void makeEmpty(BinaryNode* t);
+&#125;;
+
+
+template&lt;class KEY, class OTHER&gt;
+SET &lt;KEY, OTHER&gt;* BinarySearchTree&lt;KEY, OTHER&gt;::find(const KEY&amp; x)const
+&#123;
+    return find(x, root);
+&#125;
+
+
+template&lt;class KEY, class OTHER&gt;
+SET &lt;KEY, OTHER&gt;* BinarySearchTree&lt;KEY, OTHER&gt;::find(const KEY&amp; x, BinaryNode* t)const
+&#123;
+    if (t == NULL || (t-&gt;data.key == x))				
+        return (SET&lt;KEY,OTHER&gt;*)t;										
+    if (x &lt; t-&gt;data.key)								
+        return find(x.t-&gt;left);							
+    else return find(x, right);							
+&#125;
+
+template&lt;class KEY, class OTHER&gt;
+void BinarySearchTree&lt;KEY, OTHER&gt;::insert(const SET&lt;KEY, OTHER&gt;&amp; x)
+&#123;
+    insert(x, root);
+&#125;
+
+
+template&lt;class KEY, class OTHER&gt;
+void BinarySearchTree&lt;KEY, OTHER&gt;::insert(const SET&lt;KEY, OTHER&gt;&amp; x, BinaryNode*&amp; t)
+&#123;
+    if (t == NULL)
+        t = new BinaryNode(x, NULL, NULL);							
+    else if (x.key &lt; t-&gt;data.key)									
+        insert(x, t-&gt;left);					
+    else if (t-&gt;data.key &lt; x.key)									
+        insert(x, t-&gt;right);
+&#125;
+
+template&lt;class KEY, class OTHER&gt;
+void BinarySearchTree&lt;KEY, OTHER&gt;::remove(const KEY&amp; x)
+&#123;
+    remove(x, root);
+&#125;
+
+template&lt;class KEY, class OTHER&gt;
+void BinarySearchTree&lt;KEY, OTHER&gt;::remove(const KEY&amp; x, BinaryNode*&amp; t)
+&#123;
+    if (t == NULL)return;											
+    if (x &lt; t-&gt;data.key)remove(x, t-&gt;left);							
+    else if (t-&gt;data.key &lt; x)remove(x, t-&gt;right);
+    else if (t-&gt;left != NULL &amp;&amp; t-&gt;right != NULL)					
+    &#123;																
+        BinaryNode* tmp = t-&gt;right;									
+        while (tmp-&gt;left != NULL)tmp = tmp-&gt;left;					
+        t-&gt;data = tmp-&gt;data;										
+        remove(t-&gt;data.key, t-&gt;right);								
+    &#125;
+    else
+    &#123;
+        BinaryNode* oldNode = t;									
+        t = (t-&gt;left != NULL) ? t-&gt;left : t-&gt;right;					
+        delete oldNode;												
+    &#125;
+&#125;
+
+template&lt;class KEY, class OTHER&gt;
+BinarySearchTree&lt;KEY, OTHER&gt;::BinarySearchTree()
+&#123;
+    root = NULL;
+&#125;
+
+template&lt;class KEY, class OTHER&gt;
+void BinarySearchTree&lt;KEY, OTHER&gt;::makeEmpty(BinaryNode* t)
+&#123;
+    if (t == NULL)return;										
+    makeEmpty(t-&gt;left);
+    makeEmpty(t-&gt;right);
+    delete t;
+&#125;
+
+template&lt;class KEY, class OTHER&gt;
+BinarySearchTree&lt;KEY, OTHER&gt;::~BinarySearchTree()
+&#123;
+    makeEmpty(root);
+&#125;
+
+int main()
+&#123;
+    return 0;
+&#125;
+</code></pre>
 <hr>
 <h2 id="前提组成"><a href="#前提组成" class="headerlink" title="前提组成"></a>前提组成</h2><ul>
 <li><pre><code class="c++">template &lt;class KEY,class OTHER&gt;
@@ -44,80 +341,187 @@ struct SET
     KEY key;																		//关键字信息
     OTHER other;																	//和其他信息
 &#125;;
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  这是基本的数据元素</span><br><span class="line"></span><br><span class="line">  分别包括**键值**key和**其他值**value（就像字典里面对应的查找关键和词语解释）</span><br><span class="line"></span><br><span class="line">- ~~~c++</span><br><span class="line">  template&lt;class KEY,class OTHER&gt;</span><br><span class="line">  class dynamicSearchTable</span><br><span class="line">  &#123;</span><br><span class="line">  public:</span><br><span class="line">  	virtual SET&lt;KEY, OTHER&gt;* find(const KEY&amp; x) = 0;						//查找目标元素，返回值为指针</span><br><span class="line">  	virtual void insert(const SET&lt;KEY, OTHER&gt;&amp; x) = 0;						//插入功能</span><br><span class="line">  	virtual void remove(const KEY&amp; x) = 0;									//显然是删除功能</span><br><span class="line">  	virtual ~dynamicSearchTable() &#123;&#125;;										//析构函数</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
-
-这就是二叉查找树的父类**动态查找表**，也可以看作一个模板而已，提供了基础的一个动态查找的基本功能模板
 </code></pre>
+<p>这是基本的数据元素</p>
+<p>分别包括<strong>键值</strong>key和<strong>其他值</strong>value（就像字典里面对应的查找关键和词语解释）</p>
+</li>
+<li><pre><code class="c++">template&lt;class KEY,class OTHER&gt;
+class dynamicSearchTable
+&#123;
+public:
+    virtual SET&lt;KEY, OTHER&gt;* find(const KEY&amp; x) = 0;						//查找目标元素，返回值为指针
+    virtual void insert(const SET&lt;KEY, OTHER&gt;&amp; x) = 0;						//插入功能
+    virtual void remove(const KEY&amp; x) = 0;									//显然是删除功能
+    virtual ~dynamicSearchTable() &#123;&#125;;										//析构函数
+&#125;;
+</code></pre>
+<p>这就是二叉查找树的父类<strong>动态查找表</strong>，也可以看作一个模板而已，提供了基础的一个动态查找的基本功能模板</p>
 </li>
 </ul>
 <hr>
 <h2 id="动态二叉树"><a href="#动态二叉树" class="headerlink" title="动态二叉树"></a>动态二叉树</h2><ul>
 <li>动态二叉树的主体类函数</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BinarySearchTree</span> :<span class="keyword">public</span> dynamicSearchTable&lt;KEY, OTHER&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">struct</span> <span class="title class_">BinaryNode</span></span><br><span class="line">	&#123;</span><br><span class="line">		SET&lt;KEY, OTHER&gt;data;</span><br><span class="line">		BinaryNode* left;</span><br><span class="line">		BinaryNode* right;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">BinaryNode</span>(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; thedata, BinaryNode* It = <span class="literal">NULL</span>,</span><br><span class="line">			BinaryNode* rt = <span class="literal">NULL</span>):<span class="built_in">data</span>(thedata),<span class="built_in">right</span>(rt)&#123;&#125;</span><br><span class="line">	&#125;; BinaryNode* root;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">BinarySearchTree</span>();										<span class="comment">//构造函数</span></span><br><span class="line">	~<span class="built_in">BinarySearchTree</span>();									<span class="comment">//析构函数</span></span><br><span class="line">	SET &lt;KEY, OTHER&gt;* <span class="built_in">find</span>(<span class="type">const</span> KEY&amp; x)<span class="type">const</span>;				<span class="comment">//查找函数（公有，面向使用者）</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; x)</span></span>;					<span class="comment">//插入函数（公有，面向使用者）</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">remove</span><span class="params">(<span class="type">const</span> KEY&amp; x)</span></span>;								<span class="comment">//删除函数（公有，面向使用者）</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; x, BinaryNode*&amp; t)</span></span>;		<span class="comment">//查找函数（私有，面向公有调用函数）</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">remove</span><span class="params">(<span class="type">const</span> KEY&amp; x, BinaryNode*&amp; t)</span></span>;					<span class="comment">//插入函数（公有，面向公有调用函数）</span></span><br><span class="line">	SET &lt;KEY, OTHER&gt;* <span class="built_in">find</span>(<span class="type">const</span> KEY&amp; x,BinaryNode* t)<span class="type">const</span>;	<span class="comment">//删除函数（公有，面向公有调用函数）</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">makeEmpty</span><span class="params">(BinaryNode* t)</span></span>;								<span class="comment">//清空函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre><code class="C++">template&lt;class KEY, class OTHER&gt;
+class BinarySearchTree :public dynamicSearchTable&lt;KEY, OTHER&gt;
+&#123;
+private:
+    struct BinaryNode
+    &#123;
+        SET&lt;KEY, OTHER&gt;data;
+        BinaryNode* left;
+        BinaryNode* right;
 
+        BinaryNode(const SET&lt;KEY, OTHER&gt;&amp; thedata, BinaryNode* It = NULL,
+            BinaryNode* rt = NULL):data(thedata),right(rt)&#123;&#125;
+    &#125;; BinaryNode* root;
+
+public:
+    BinarySearchTree();										//构造函数
+    ~BinarySearchTree();									//析构函数
+    SET &lt;KEY, OTHER&gt;* find(const KEY&amp; x)const;				//查找函数（公有，面向使用者）
+    void insert(const SET&lt;KEY, OTHER&gt;&amp; x);					//插入函数（公有，面向使用者）
+    void remove(const KEY&amp; x);								//删除函数（公有，面向使用者）
+private:
+    void insert(const SET&lt;KEY, OTHER&gt;&amp; x, BinaryNode*&amp; t);		//查找函数（私有，面向公有调用函数）
+    void remove(const KEY&amp; x, BinaryNode*&amp; t);					//插入函数（公有，面向公有调用函数）
+    SET &lt;KEY, OTHER&gt;* find(const KEY&amp; x,BinaryNode* t)const;	//删除函数（公有，面向公有调用函数）
+    void makeEmpty(BinaryNode* t);								//清空函数
+&#125;;
+</code></pre>
 <p><strong>树的节点分析</strong>：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">BinaryNode</span></span><br><span class="line">	&#123;</span><br><span class="line">		SET&lt;KEY, OTHER&gt;data;								<span class="comment">//本体的数据</span></span><br><span class="line">		BinaryNode* left;									<span class="comment">//左子节点的指针</span></span><br><span class="line">		BinaryNode* right;									<span class="comment">//右子节点的指针</span></span><br><span class="line"></span><br><span class="line">		<span class="built_in">BinaryNode</span>(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; thedata, BinaryNode* It = <span class="literal">NULL</span>,	<span class="comment">//节点的构造函数，可以直接设定三个成员</span></span><br><span class="line">			BinaryNode* rt = <span class="literal">NULL</span>):<span class="built_in">data</span>(thedata),<span class="built_in">right</span>(rt)&#123;&#125;</span><br><span class="line">	&#125;; BinaryNode* root;</span><br></pre></td></tr></table></figure>
+<pre><code class="c++">struct BinaryNode
+    &#123;
+        SET&lt;KEY, OTHER&gt;data;								//本体的数据
+        BinaryNode* left;									//左子节点的指针
+        BinaryNode* right;									//右子节点的指针
 
+        BinaryNode(const SET&lt;KEY, OTHER&gt;&amp; thedata, BinaryNode* It = NULL,	//节点的构造函数，可以直接设定三个成员
+            BinaryNode* rt = NULL):data(thedata),right(rt)&#123;&#125;
+    &#125;; BinaryNode* root;
+</code></pre>
 <p><strong>注意</strong>：后面经常会用到公有函数调用私有函数，虽然名称一样，但一个面向使用者，私有的面向共有的函数调用内部</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">remove</span><span class="params">(<span class="type">const</span> KEY&amp; x)</span>								<span class="comment">//删除函数（公有，面向使用者）</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">remove</span>(x,root);										<span class="comment">//这里调用的就是私有函数</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">remove</span><span class="params">(<span class="type">const</span> KEY&amp; x, BinaryNode*&amp; t)</span></span>;				<span class="comment">//这就是私有函数的接口和实现</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
+<pre><code class="c++">void remove(const KEY&amp; x)								//删除函数（公有，面向使用者）
+&#123;
+    remove(x,root);										//这里调用的就是私有函数
+&#125;
+void remove(const KEY&amp; x, BinaryNode*&amp; t);				//这就是私有函数的接口和实现
+</code></pre>
 <h2 id="接下来分析函数的实现"><a href="#接下来分析函数的实现" class="headerlink" title="接下来分析函数的实现"></a>接下来分析函数的实现</h2><ul>
 <li><strong>构造函数</strong></li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line">BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">BinarySearchTree</span>()</span><br><span class="line">&#123;</span><br><span class="line">	root = <span class="literal">NULL</span>;										<span class="comment">//简单初始化了一下根节点</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
+<pre><code class="C++">template&lt;class KEY, class OTHER&gt;
+BinarySearchTree&lt;KEY, OTHER&gt;::BinarySearchTree()
+&#123;
+    root = NULL;										//简单初始化了一下根节点
+&#125;
+</code></pre>
 <ul>
 <li><strong>makempty</strong></li>
 </ul>
 <p>主要还是递归循环删除，采用了前序遍历的思想</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">makeEmpty</span>(BinaryNode* t)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (t == <span class="literal">NULL</span>)<span class="keyword">return</span>;									<span class="comment">//递归终止的条件（删到了空节点）</span></span><br><span class="line">	<span class="built_in">makeEmpty</span>(t-&gt;left);										<span class="comment">//正常步骤先删左节点，往下递归</span></span><br><span class="line">	<span class="built_in">makeEmpty</span>(t-&gt;right);									<span class="comment">//再删右节点，往下递归</span></span><br><span class="line">	<span class="keyword">delete</span> t;												<span class="comment">//删除自己	</span></span><br><span class="line">&#125;<span class="comment">//最后就删除了所给节点和节点的所有子节点</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="c++">template&lt;class KEY, class OTHER&gt;
+void BinarySearchTree&lt;KEY, OTHER&gt;::makeEmpty(BinaryNode* t)
+&#123;
+    if (t == NULL)return;									//递归终止的条件（删到了空节点）
+    makeEmpty(t-&gt;left);										//正常步骤先删左节点，往下递归
+    makeEmpty(t-&gt;right);									//再删右节点，往下递归
+    delete t;												//删除自己	
+&#125;//最后就删除了所给节点和节点的所有子节点
+</code></pre>
 <p><strong>拓展</strong>：其实最近刷题还看到了一种实现方法就是入队和出队在这里</p>
 <p>优点：就是摆脱了递归的对于空间的大量调用，利用循环和队列实现（更多是在链表使用的方法）</p>
 <p>其实这是层序遍历的使用方法，只是用这个实现了层序遍历的删除方式</p>
 <blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;**自己拓展的，不是范例的**</span><br><span class="line">&gt;Queue&lt;BinaryNode*&gt;  queue;									<span class="comment">//存放节点指针的队列</span></span><br><span class="line"></span><br><span class="line">&gt;<span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line">&gt;<span class="type">void</span> BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">makeEmpty</span>(BinaryNode* t)</span><br><span class="line">&gt;&#123;</span><br><span class="line">queue.<span class="built_in">enqueue</span>(t);										<span class="comment">//先把根节点放入队列</span></span><br><span class="line">   <span class="keyword">while</span>(t.<span class="built_in">isempty</span>())										<span class="comment">//终止条件：检查队列是否为空，不空则继续进行</span></span><br><span class="line">   &#123;</span><br><span class="line">       BinaryNode* t=queue.<span class="built_in">dequeue</span>();						<span class="comment">//出队队列的第一个节点</span></span><br><span class="line">       <span class="keyword">if</span>(t-&gt;left!=<span class="literal">nullptr</span>)queue.<span class="built_in">enqueue</span>(t-&gt;left);			<span class="comment">//左子节点有就放进队列，没则不处理</span></span><br><span class="line">       <span class="keyword">if</span>(t-&gt;right!=<span class="literal">nullptr</span>)queue.<span class="built_in">enqueue</span>(t-&gt;right);		<span class="comment">//同理</span></span><br><span class="line">       <span class="keyword">delete</span> t;											<span class="comment">//然后删除自己</span></span><br><span class="line">   &#125;</span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="C++">**自己拓展的，不是范例的**
+Queue&lt;BinaryNode*&gt;  queue;									//存放节点指针的队列
+
+template&lt;class KEY, class OTHER&gt;
+void BinarySearchTree&lt;KEY, OTHER&gt;::makeEmpty(BinaryNode* t)
+&#123;
+queue.enqueue(t);										//先把根节点放入队列
+   while(t.isempty())										//终止条件：检查队列是否为空，不空则继续进行
+   &#123;
+       BinaryNode* t=queue.dequeue();						//出队队列的第一个节点
+       if(t-&gt;left!=nullptr)queue.enqueue(t-&gt;left);			//左子节点有就放进队列，没则不处理
+       if(t-&gt;right!=nullptr)queue.enqueue(t-&gt;right);		//同理
+       delete t;											//然后删除自己
+   &#125;
+&#125;
+</code></pre>
 </blockquote>
 <ul>
 <li><strong>析构函数</strong></li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line">BinarySearchTree&lt;KEY, OTHER&gt;::~<span class="built_in">BinarySearchTree</span>()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">makeEmpty</span>(root);											<span class="comment">//就从root开始删除，很简单，不解释了</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
+<pre><code class="C++">template&lt;class KEY, class OTHER&gt;
+BinarySearchTree&lt;KEY, OTHER&gt;::~BinarySearchTree()
+&#123;
+    makeEmpty(root);											//就从root开始删除，很简单，不解释了
+&#125;
+</code></pre>
 <ul>
 <li><strong>插入函数（insert）</strong></li>
 </ul>
 <p>从这插入函数观察二叉树的<strong>构成特点</strong>：左子节点小于父节点，右子节点大于父节点（节点不会重复）</p>
 <p>这个特点就导致插入的时候有一个<strong>特性</strong>：以这个特点往下寻找插入点必然是<strong>叶节点</strong>，从而使插入特别方便。</p>
 <p>函数还是递归实现的函数，逐次往下寻找（二叉树的结构导致如果树高了必然会导致搜索耗费大量的时间，之后会有扁平的处理方法）</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">insert</span>(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">insert</span>(x, root);												<span class="comment">//表示从根节点往下寻找插入点</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">insert</span>(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; x, BinaryNode*&amp; t)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (t == <span class="literal">NULL</span>)</span><br><span class="line">		t = <span class="keyword">new</span> <span class="built_in">BinaryNode</span>(x, <span class="literal">NULL</span>, <span class="literal">NULL</span>);							<span class="comment">//若根节点不存在，则直接存进去</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (x.key &lt; t-&gt;data.key)									<span class="comment">//若小于当前节点则向左递归</span></span><br><span class="line">		<span class="built_in">insert</span>(x, t-&gt;left);					</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (t-&gt;data.key &lt; x.key)									<span class="comment">//大于则向右递归</span></span><br><span class="line">		<span class="built_in">insert</span>(x, t-&gt;right);										</span><br><span class="line">																	<span class="comment">//等于的情况直接退出不干，二叉树的插入必须是不同</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="C++">template&lt;class KEY, class OTHER&gt;
+void BinarySearchTree&lt;KEY, OTHER&gt;::insert(const SET&lt;KEY, OTHER&gt;&amp; x)
+&#123;
+    insert(x, root);												//表示从根节点往下寻找插入点
+&#125;
 
-
-
+template&lt;class KEY, class OTHER&gt;
+void BinarySearchTree&lt;KEY, OTHER&gt;::insert(const SET&lt;KEY, OTHER&gt;&amp; x, BinaryNode*&amp; t)
+&#123;
+    if (t == NULL)
+        t = new BinaryNode(x, NULL, NULL);							//若根节点不存在，则直接存进去
+    else if (x.key &lt; t-&gt;data.key)									//若小于当前节点则向左递归
+        insert(x, t-&gt;left);					
+    else if (t-&gt;data.key &lt; x.key)									//大于则向右递归
+        insert(x, t-&gt;right);										
+                                                                    //等于的情况直接退出不干，二叉树的插入必须是不同
+&#125;
+</code></pre>
 <ul>
 <li><strong>查找函数（find）</strong></li>
 </ul>
 <p>查找函数就是基于二叉树的结构特点建立的，<strong>左小右大</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line">SET &lt;KEY, OTHER&gt;* BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">find</span>(<span class="type">const</span> KEY&amp; x)<span class="type">const</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">find</span>(x, root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line">SET &lt;KEY, OTHER&gt;* BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">find</span>(<span class="type">const</span> KEY&amp; x, BinaryNode* t)<span class="type">const</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (t == <span class="literal">NULL</span> || (t-&gt;data.key == x))				<span class="comment">//如果是不存在或者就是当前的节点</span></span><br><span class="line">		<span class="keyword">return</span> (SET&lt;KEY,OTHER&gt;*)t;						<span class="comment">//找到就返回这个指针,没有的话就是返回空指针</span></span><br><span class="line">	<span class="keyword">if</span> (x &lt; t-&gt;data.key)								<span class="comment">//如果小于则向左找</span></span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">find</span>(x.t-&gt;left);							</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> <span class="built_in">find</span>(x, right);							<span class="comment">//大于则向右找</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="C++">template&lt;class KEY, class OTHER&gt;
+SET &lt;KEY, OTHER&gt;* BinarySearchTree&lt;KEY, OTHER&gt;::find(const KEY&amp; x)const
+&#123;
+    return find(x, root);
+&#125;
 
+template&lt;class KEY, class OTHER&gt;
+SET &lt;KEY, OTHER&gt;* BinarySearchTree&lt;KEY, OTHER&gt;::find(const KEY&amp; x, BinaryNode* t)const
+&#123;
+    if (t == NULL || (t-&gt;data.key == x))				//如果是不存在或者就是当前的节点
+        return (SET&lt;KEY,OTHER&gt;*)t;						//找到就返回这个指针,没有的话就是返回空指针
+    if (x &lt; t-&gt;data.key)								//如果小于则向左找
+        return find(x.t-&gt;left);							
+    else return find(x, right);							//大于则向右找
+&#125;
+</code></pre>
 <blockquote>
 <p><strong>注意</strong>：有人可能会注意到，t不是BinarNode吗，怎么能强制转换为SET类的指针啊</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> (SET&lt;KEY,OTHER&gt;*)t;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="C++">return (SET&lt;KEY,OTHER&gt;*)t;
+</code></pre>
 <p>这里需要解释一下结构体和类的一个特点：</p>
 <p>对于类和结构的存贮使从第一个数据成员开始的。</p>
 <p>举个例子：对于BinarNode的存储空间第一个就是存放的SET，因为在定义里面是写在第一个的。</p>
 <p>从而对于指向BinaryNode存储空间的指针某种意义上也是指向了SET的开头，进而可以进行强制转换</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//树节点的结构体</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">BinaryNode</span></span><br><span class="line">	&#123;</span><br><span class="line">		SET&lt;KEY, OTHER&gt;data;</span><br><span class="line">		BinaryNode* left;</span><br><span class="line">		BinaryNode* right;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">BinaryNode</span>(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; thedata, BinaryNode* It = <span class="literal">NULL</span>,</span><br><span class="line">			BinaryNode* rt = <span class="literal">NULL</span>):<span class="built_in">data</span>(thedata),<span class="built_in">right</span>(rt)&#123;&#125;</span><br><span class="line">	&#125;; BinaryNode* root;</span><br></pre></td></tr></table></figure>
+<pre><code class="C++">//树节点的结构体
+struct BinaryNode
+    &#123;
+        SET&lt;KEY, OTHER&gt;data;
+        BinaryNode* left;
+        BinaryNode* right;
 
+        BinaryNode(const SET&lt;KEY, OTHER&gt;&amp; thedata, BinaryNode* It = NULL,
+            BinaryNode* rt = NULL):data(thedata),right(rt)&#123;&#125;
+    &#125;; BinaryNode* root;
+</code></pre>
 </blockquote>
 <img src="list2.png" style="zoom:75%;" />
 
@@ -137,12 +541,55 @@ struct SET
 <p>首先，替代问题，为了保证稳定性必须要替换一个最接近的节点互换位置，顶替</p>
 <p>其次由于结构最接近无非 最近但小于（左节点的最右节点）和最近但大于 （右节点的最左字节点）</p>
 <p>这个寻找方法便捷的地方在于必然是叶子节点替换，也易于删除</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这里的实现主要是最右子节点最左节点（大于且最靠近的树）</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">remove</span>(<span class="type">const</span> KEY&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">remove</span>(x, root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">remove</span>(<span class="type">const</span> KEY&amp; x, BinaryNode*&amp; t)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//先找到要删除的节点</span></span><br><span class="line">	<span class="keyword">if</span> (t == <span class="literal">NULL</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">//第一种情况空节点返回</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (x &lt; t-&gt;data.key)<span class="built_in">remove</span>(x, t-&gt;left);</span><br><span class="line">    <span class="comment">//第二种情况，要删除小于当前节点，往左递归</span></span><br><span class="line">    </span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (t-&gt;data.key &lt; x)<span class="built_in">remove</span>(x, t-&gt;right);</span><br><span class="line">    <span class="comment">//第三种情况要找的大于当前节点，往右边递归</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (t-&gt;left != <span class="literal">NULL</span> &amp;&amp; t-&gt;right != <span class="literal">NULL</span>)					</span><br><span class="line">	&#123;																</span><br><span class="line">		BinaryNode* tmp = t-&gt;right;									</span><br><span class="line">		<span class="keyword">while</span> (tmp-&gt;left != <span class="literal">NULL</span>)tmp = tmp-&gt;left;</span><br><span class="line">        <span class="comment">//循环找到右子节点的最左节点</span></span><br><span class="line">        </span><br><span class="line">		t-&gt;data = tmp-&gt;data;</span><br><span class="line">        <span class="comment">//替换俩个节点顺序</span></span><br><span class="line">		<span class="built_in">remove</span>(t-&gt;data.key, t-&gt;right);</span><br><span class="line">        <span class="comment">//删除替换后的叶子节点，结束</span></span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">//第四种，找到了当前节点就是要删除的节点，但是左右都有子节点</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		BinaryNode* oldNode = t;																					t = (t-&gt;left != <span class="literal">NULL</span>) ? t-&gt;left : t-&gt;right;</span><br><span class="line">        <span class="comment">//如果有一个子节点，t就是直接替换为子节点，然后删除原来的节点，即使没有子节点，t变为空间点也合乎逻辑</span></span><br><span class="line">		<span class="keyword">delete</span> oldNode;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">//第五种，找到了要么一个子节点，要么没有</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//有没有发现，我选择右子树寻找替代，那么替代的那个点也是右子树要处理</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code class="C++">//这里的实现主要是最右子节点最左节点（大于且最靠近的树）
+template&lt;class KEY, class OTHER&gt;
+void BinarySearchTree&lt;KEY, OTHER&gt;::remove(const KEY&amp; x)
+&#123;
+    remove(x, root);
+&#125;
 
+template&lt;class KEY, class OTHER&gt;
+void BinarySearchTree&lt;KEY, OTHER&gt;::remove(const KEY&amp; x, BinaryNode*&amp; t)
+&#123;
+    //先找到要删除的节点
+    if (t == NULL)return;
+    //第一种情况空节点返回
+
+    if (x &lt; t-&gt;data.key)remove(x, t-&gt;left);
+    //第二种情况，要删除小于当前节点，往左递归
+    
+    else if (t-&gt;data.key &lt; x)remove(x, t-&gt;right);
+    //第三种情况要找的大于当前节点，往右边递归
+
+    else if (t-&gt;left != NULL &amp;&amp; t-&gt;right != NULL)					
+    &#123;																
+        BinaryNode* tmp = t-&gt;right;									
+        while (tmp-&gt;left != NULL)tmp = tmp-&gt;left;
+        //循环找到右子节点的最左节点
+        
+        t-&gt;data = tmp-&gt;data;
+        //替换俩个节点顺序
+        remove(t-&gt;data.key, t-&gt;right);
+        //删除替换后的叶子节点，结束
+    &#125;
+    //第四种，找到了当前节点就是要删除的节点，但是左右都有子节点
+    
+    
+    else
+    &#123;
+        BinaryNode* oldNode = t;																					t = (t-&gt;left != NULL) ? t-&gt;left : t-&gt;right;
+        //如果有一个子节点，t就是直接替换为子节点，然后删除原来的节点，即使没有子节点，t变为空间点也合乎逻辑
+        delete oldNode;
+    &#125;
+    //第五种，找到了要么一个子节点，要么没有
+
+    //有没有发现，我选择右子树寻找替代，那么替代的那个点也是右子树要处理
+&#125;
+</code></pre>
 <blockquote>
 <p><strong>有一点需要注意：</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="type">void</span> BinarySearchTree&lt;KEY, OTHER&gt;::<span class="built_in">remove</span>(<span class="type">const</span> KEY&amp; x, BinaryNode*&amp; t)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="c++">void BinarySearchTree&lt;KEY, OTHER&gt;::remove(const KEY&amp; x, BinaryNode*&amp; t)
+</code></pre>
 <p>我们发现节点的参数传递都是引用传递，那是为了方便节点直接替换</p>
 <p>例如remove，正是因为引用传递，在层层递归中确保每次传下来的<strong>t</strong>都是确确实实来自于父节点里面直接的左右节点的指针</p>
 <p>这样就维持了上下关系，确保修改是有效的</p>
@@ -152,47 +599,51 @@ struct SET
 <p>（有时间在这里补一个二叉树查找性能的分析）</p>
 <div style="text-align:center">
 </div>
-</div><div class="article-licensing box"><div class="licensing-title"><p><a href="http://example.com/2024/06/08/二叉查找树（动态查找表dynamicSearchTree）/">http://example.com/2024/06/08/二叉查找树（动态查找表dynamicSearchTree）/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>yang</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2024-06-08</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2024-06-08</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2024/06/09/AVL/"><i class="level-item fas fa-chevron-left"></i><span class="level-item"> </span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/articles/%E6%B8%B8%E6%88%8F%E5%BF%83%E5%BE%97/%E7%AC%BC%E4%B8%AD%E7%AA%A5%E6%A2%A6%E5%BF%83%E5%BE%97/"><span class="level-item">笼中窥梦</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div class="content" id="waline-thread"></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/waline/2.6.3/waline.css"><script src="https://cdnjs.loli.net/ajax/libs/waline/2.6.3/waline.js"></script><script>Waline.init({
-            el: '#waline-thread',
-            serverURL: "https://community-blog-comment.vercel.app",
-            path: window.location.pathname,
-            lang: "zh-CN",
-            locale: {"placeholder":"在此处添加评论..."},
-            emoji: ["//unpkg.com/@waline/emojis@1.2.0/qq"],
-            dark: "auto",
-            meta: ["nick","mail","link"],
-            requiredMeta: [],
-            login: "enable",
-            
-            pageSize: 10,
-            
-            
-            texRenderer: false,
-            search: false,
-            pageview: false,
-            comment: false,
-            copyright: true,
-        });</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/avatar.jpg" alt="yang"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">yang</p><p class="is-size-6 is-block">成长</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Universe</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">18</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">10</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">11</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/yang12342/GameDevWebsite" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/yang12342/GameDevWebsite"><i class="fab fa-github"></i></a></div></div></div><!--!--><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/09/"><span class="level-start"><span class="level-item">九月 2024</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/07/"><span class="level-start"><span class="level-item">七月 2024</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/06/"><span class="level-start"><span class="level-item">六月 2024</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/05/"><span class="level-start"><span class="level-item">五月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/STL/"><span class="tag">STL</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/c/"><span class="tag">c++</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/c-%E8%AF%AD%E6%B3%95/"><span class="tag">c++语法</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/cpp/"><span class="tag">cpp</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/csv/"><span class="tag">csv</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/json/"><span class="tag">json</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%A1%94%E9%98%B2%E8%AF%BE%E7%A8%8B/"><span class="tag">塔防课程</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="tag">数据结构</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B8%B8%E6%88%8F%E5%BF%83%E5%BE%97/"><span class="tag">游戏心得</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/"><span class="tag">游戏设计</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="tag">设计模式</span><span class="tag">1</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/STL/"><span class="level-start"><span class="level-item">STL</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/c-%E8%AF%AD%E6%B3%95/"><span class="level-start"><span class="level-item">c++语法</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/cpp%E8%AF%AD%E6%B3%95/"><span class="level-start"><span class="level-item">cpp语法</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/csv/"><span class="level-start"><span class="level-item">csv</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/json/"><span class="level-start"><span class="level-item">json</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="level-start"><span class="level-item">数据结构</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%A4%8D%E7%89%A9%E6%98%8E%E6%98%9F%E5%A4%A7%E4%B9%B1%E6%96%97/"><span class="level-start"><span class="level-item">植物明星大乱斗</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%B8%B8%E6%88%8F%E5%BF%83%E5%BE%97/"><span class="level-start"><span class="level-item">游戏心得</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="level-start"><span class="level-item">设计模式</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/"><span class="level-start"><span class="level-item">设计经验</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://www.voidmatrix.work/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Voidmatrix</span></span><span class="level-right"><span class="level-item tag">www.voidmatrix.work</span></span></a></li><li><a class="level is-mobile" href="https://zexnocs.github.io/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">蝙蝠佬</span></span><span class="level-right"><span class="level-item tag">zexnocs.github.io</span></span></a></li><li><a class="level is-mobile" href="https://www.margoo.icu/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">margoo</span></span><span class="level-right"><span class="level-item tag">www.margoo.icu</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-22T16:00:00.000Z">2024-09-23</time></p><p class="title"><a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E5%8A%A8%E7%94%BB%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86/">处理不同形式角色动画资产</a></p><p class="categories"><a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-22T16:00:00.000Z">2024-09-23</time></p><p class="title"><a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/">资源管理器的资源管理设置</a></p><p class="categories"><a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-22T16:00:00.000Z">2024-09-23</time></p><p class="title"><a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E5%B1%82%E8%AE%BE%E8%AE%A1/">位运算管理物理碰撞层级&amp;四叉树管理二维碰撞箱子</a></p><p class="categories"><a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-22T16:00:00.000Z">2024-09-23</time></p><p class="title"><a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E7%AE%80%E5%8D%95%E8%AE%BE%E8%AE%A1/">碰撞管理器的简单设计</a></p><p class="categories"><a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-22T16:00:00.000Z">2024-09-23</time></p><p class="title"><a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA%E7%9A%84%E8%AE%BE%E8%AE%A1/">有限状态机的设计</a></p><p class="categories"><a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/avatar.jpg" alt="yang_blog" height="28"></a><p class="is-size-7"><span>&copy; 2024 yang</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2024</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
-            article: {
-                highlight: {
-                    clipboard: true,
-                    fold: 'unfolded'
-                }
-            }
-        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
-            if (typeof $.fn.lightGallery === 'function') {
-                $('.article').lightGallery({ selector: '.gallery-item' });
-            }
-            if (typeof $.fn.justifiedGallery === 'function') {
-                if ($('.justified-gallery > p > .gallery-item').length) {
-                    $('.justified-gallery > p > .gallery-item').unwrap();
-                }
-                $('.justified-gallery').justifiedGallery();
-            }
-        });</script><!--!--><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/KaTeX/0.15.1/katex.min.css"><script src="https://cdnjs.loli.net/ajax/libs/KaTeX/0.15.1/katex.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/KaTeX/0.15.1/contrib/auto-render.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/KaTeX/0.15.1/contrib/mhchem.min.js" defer></script><script>window.addEventListener("load", function() {
-            document.querySelectorAll('[role="article"] > .content').forEach(function(element) {
-                renderMathInElement(element);
-            });
-        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
-            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
-        });</script></body></html>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 yang_blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;yang
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

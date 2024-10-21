@@ -1,65 +1,487 @@
-<!doctype html>
-<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>yang_blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="好人"><meta name="msapplication-TileImage" content="img/avatar.jpg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="好人"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="AVL树解析（基于查找二叉树（dynamicSearchTree））平衡二叉树：在查找二叉树的基础上要求每个节点左右字节点的高度差不能超过一。 于是对于节点多了一个数据成员高度来实现这一功能。"><meta property="og:type" content="blog"><meta property="og:title" content="yang_blog"><meta property="og:url" content="http://example.com/2024/06/09/AVL/"><meta property="og:site_name" content="yang_blog"><meta property="og:description" content="AVL树解析（基于查找二叉树（dynamicSearchTree））平衡二叉树：在查找二叉树的基础上要求每个节点左右字节点的高度差不能超过一。 于是对于节点多了一个数据成员高度来实现这一功能。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/img/og_image.png"><meta property="article:published_time" content="2024-06-08T16:00:00.000Z"><meta property="article:modified_time" content="2024-06-08T16:00:00.000Z"><meta property="article:author" content="yang"><meta property="article:tag" content="数据结构"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://example.com/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2024/06/09/AVL/"},"headline":"yang_blog","image":["http://example.com/img/og_image.png"],"datePublished":"2024-06-08T16:00:00.000Z","dateModified":"2024-06-08T16:00:00.000Z","author":{"@type":"Person","name":"yang"},"publisher":{"@type":"Organization","name":"yang_blog","logo":{"@type":"ImageObject","url":"http://example.com/2024/06/09/AVL/img/avatar.jpg"}},"description":"AVL树解析（基于查找二叉树（dynamicSearchTree））平衡二叉树：在查找二叉树的基础上要求每个节点左右字节点的高度差不能超过一。 于是对于节点多了一个数据成员高度来实现这一功能。"}</script><link rel="canonical" href="http://example.com/2024/06/09/AVL/"><link rel="icon" href="/img/avatar.jpg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdnjs.loli.net/ajax/libs/pace/1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
-  (function () {
-      function switchTab() {
-          if (!location.hash) {
-            return;
-          }
 
-          const id = '#' + CSS.escape(location.hash.substring(1));
-          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
-          if (!$tabMenu) {
-            return;
-          }
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title> | yang_blog</title>
+    <meta name="author" content="yang" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
 
-          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
-          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
-          Array.from($tabMenuContainer.querySelectorAll('a'))
-              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
-              .forEach($content => $content.classList.add('is-hidden'));
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
 
-          if ($tabMenu) {
-              $tabMenu.parentElement.classList.add('is-active');
-          }
-          const $activeTab = document.querySelector(id);
-          if ($activeTab) {
-              $activeTab.classList.remove('is-hidden');
-          }
-      }
-      switchTab();
-      window.addEventListener('hashchange', switchTab, false);
-  })();
-  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/avatar.jpg" alt="yang_blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Github" href="https://github.com/VoidmatrixHeathcliff/GameDevWebsite"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-06-08T16:00:00.000Z" title="2024/6/9 00:00:00">2024-06-09</time>发表</span><span class="level-item"><time dateTime="2024-06-08T16:00:00.000Z" title="2024/6/9 00:00:00">2024-06-09</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span><span class="level-item">33 分钟读完 (大约4968个字)</span></div></div><div class="content"><h1 id="AVL树解析（基于查找二叉树（dynamicSearchTree））"><a href="#AVL树解析（基于查找二叉树（dynamicSearchTree））" class="headerlink" title="AVL树解析（基于查找二叉树（dynamicSearchTree））"></a>AVL树解析（基于查找二叉树（dynamicSearchTree））</h1><h2 id="平衡二叉树："><a href="#平衡二叉树：" class="headerlink" title="平衡二叉树："></a>平衡二叉树：</h2><p>在查找二叉树的基础上要求每个节点左右字节点的高度差不能超过一。</p>
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>YANG_BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;YANG_BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1></h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/9
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                数据结构
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="color: #00bcd4">
+                    数据结构
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="AVL树解析（基于查找二叉树（dynamicSearchTree））"><a href="#AVL树解析（基于查找二叉树（dynamicSearchTree））" class="headerlink" title="AVL树解析（基于查找二叉树（dynamicSearchTree））"></a>AVL树解析（基于查找二叉树（dynamicSearchTree））</h1><h2 id="平衡二叉树："><a href="#平衡二叉树：" class="headerlink" title="平衡二叉树："></a>平衡二叉树：</h2><p>在查找二叉树的基础上要求每个节点左右字节点的高度差不能超过一。</p>
 <p>于是对于节点多了一个数据成员高度来实现这一功能。</p>
 <span id="more"></span>
 
 <ul>
 <li>先附上源代码</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;dynamicSearchTable.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">SET</span></span><br><span class="line">&#123;</span><br><span class="line">	KEY key;																		<span class="comment">//关键字信息</span></span><br><span class="line">	OTHER other;																	<span class="comment">//和其他信息</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>,<span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AvlTree</span> :<span class="keyword">public</span> dynamicSearchTable&lt;KEY, OTHER&gt;</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">struct</span> <span class="title class_">AvlNode</span></span><br><span class="line">	&#123;</span><br><span class="line">		SET&lt;KEY, OTHER&gt;data;</span><br><span class="line">		AvlNode* left;</span><br><span class="line">		AvlNode* right;</span><br><span class="line">		<span class="type">int</span> height;																	</span><br><span class="line"></span><br><span class="line">		<span class="built_in">AvlNode</span>(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; element, AvlNode* lt, AvlNode* rt, <span class="type">int</span> h = <span class="number">1</span>):<span class="built_in">data</span>(element),<span class="built_in">left</span>(lt),<span class="built_in">right</span>(rt),<span class="built_in">height</span>(h)&#123;&#125;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	AvNodee* root;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">AvlTree</span>() &#123; root = <span class="literal">NULL</span>;&#125;</span><br><span class="line">	~<span class="built_in">AvlTree</span>() &#123; <span class="built_in">makeEmpty</span>(root);&#125;</span><br><span class="line">	<span class="function">SET&lt;KEY, OTHER&gt;* <span class="title">find</span><span class="params">(<span class="type">const</span> KEY&amp; x)</span><span class="type">const</span></span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; x)</span></span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">remove</span><span class="params">(<span class="type">const</span> KEY&amp; x)</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; x, AvlNode*&amp; t)</span></span>;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">remove</span><span class="params">(<span class="type">const</span> KEY&amp; x, AvlNode*&amp; t)</span></span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">makeEmpty</span><span class="params">(AvlNode* t)</span></span>;</span><br><span class="line">	<span class="function"><span class="type">int</span> <span class="title">height</span><span class="params">(AvlNode* t)</span><span class="type">const</span> </span>&#123; <span class="keyword">return</span> t == <span class="literal">NULL</span> ? <span class="number">0</span> : t-&gt;height;&#125;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">LL</span><span class="params">(AvlNode*&amp; t)</span></span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">LR</span><span class="params">(AvlNode*&amp; t)</span></span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">RL</span><span class="params">(AvlNode*&amp; t)</span></span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">RR</span><span class="params">(AvlNode*&amp; t)</span></span>;</span><br><span class="line">	<span class="function"><span class="type">int</span> <span class="title">max</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123; <span class="keyword">return</span> (a &gt; b) ? a : b;&#125;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">adjust</span><span class="params">(AvlNode*&amp; t, <span class="type">int</span> subTree)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line">SET&lt;KEY, OTHER&gt;* AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">find</span>(<span class="type">const</span> KEY&amp; x)<span class="type">const</span></span><br><span class="line">&#123;</span><br><span class="line">	AvlNode* t = root;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (t != <span class="literal">NULL</span> &amp;&amp; t-&gt;data.key != x)						</span><br><span class="line">	&#123;																		</span><br><span class="line">		<span class="keyword">if</span> (t-&gt;data.key &gt; x)t = t-&gt;left;						</span><br><span class="line">		<span class="keyword">else</span> t = t-&gt;right;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (t == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="built_in">return</span> (SET&lt;KEY, OTHER&gt;*)t;							</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">LL</span>(AvlNode*&amp; t)					</span><br><span class="line">&#123;</span><br><span class="line">	AvlNode* t1 = t-&gt;left;									</span><br><span class="line">	t-&gt;left = t1-&gt;right;									</span><br><span class="line">	t1-&gt;right = t;											</span><br><span class="line">	t-&gt;height = <span class="built_in">max</span>(<span class="built_in">height</span>(t-&gt;left), <span class="built_in">height</span>(t-&gt;right)) + <span class="number">1</span>;	</span><br><span class="line">	t1-&gt;height = <span class="built_in">max</span>(<span class="built_in">height</span>(t-&gt;left), <span class="built_in">height</span>(t)) + <span class="number">1</span>;</span><br><span class="line">	t = t1;													</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">RR</span>(AvlNode*&amp; t)					</span><br><span class="line">&#123;</span><br><span class="line">	AvlNode* t1 = t-&gt;right;</span><br><span class="line">	t-&gt;right = t1-&gt;left;</span><br><span class="line">	t1-&gt;left = t;</span><br><span class="line">	t-&gt;height = <span class="built_in">max</span>(<span class="built_in">height</span>(t-&gt;left), <span class="built_in">height</span>(t-&gt;right)) + <span class="number">1</span>;</span><br><span class="line">	t1-&gt;height = <span class="built_in">max</span>(<span class="built_in">height</span>(t-&gt;right), <span class="built_in">height</span>(t)) + <span class="number">1</span>;</span><br><span class="line">	t = t1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">LR</span>(AvlNode*&amp; t)				</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">RR</span>(t-&gt;left);								</span><br><span class="line">	<span class="built_in">LL</span>(t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">RL</span>(AvlNode*&amp; t)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">LL</span>(t-&gt;right);</span><br><span class="line">	<span class="built_in">RR</span>(t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">insert</span>(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">insert</span>(x, root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> AvlTree&lt;KEY,OTHER&gt;::<span class="built_in">insert</span>(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp;x, AvlNode*&amp; t)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (t == <span class="literal">NULL</span>)											</span><br><span class="line">		t = <span class="keyword">new</span> <span class="built_in">AvlNode</span>(x, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (x.key &lt; t-&gt;data.key)							</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">insert</span>(x, t-&gt;left);									</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;left) - <span class="built_in">height</span>(t-&gt;right) == <span class="number">2</span>)		</span><br><span class="line">			<span class="keyword">if</span> (x.key &lt; t-&gt;left-&gt;data.key)<span class="built_in">LL</span>(t);			</span><br><span class="line">			<span class="keyword">else</span> <span class="built_in">LR</span>(t);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (t-&gt;data.key &lt; x.key)							</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">insert</span>(x, t-&gt;right);</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;right) - <span class="built_in">height</span>(t-&gt;left) == <span class="number">2</span>)</span><br><span class="line">			<span class="keyword">if</span> (t-&gt;right-&gt;data.key &lt; x.key)<span class="built_in">RR</span>(t);</span><br><span class="line">			<span class="keyword">else</span> <span class="built_in">LR</span>(t);</span><br><span class="line">	&#125;														</span><br><span class="line">	t-&gt;height = <span class="built_in">max</span>(<span class="built_in">height</span>(t-&gt;left), <span class="built_in">height</span>(t-&gt;right)) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>,<span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">remove</span>(<span class="type">const</span> KEY&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">remove</span>(x, root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">bool</span> AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">remove</span>(<span class="type">const</span> KEY&amp; x, AvlNode* &amp; t)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (t == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="literal">true</span>;							</span><br><span class="line">	<span class="keyword">if</span> (x == t-&gt;data.key)								</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (t-&gt;left == <span class="literal">NULL</span> || t-&gt;right == <span class="literal">NULL</span>)		</span><br><span class="line">		&#123;</span><br><span class="line">			AvlNode* oldNode = t;						</span><br><span class="line">			t = (t-&gt;left != <span class="literal">NULL</span>) ? t-&gt;left : t-&gt;right;	</span><br><span class="line">			<span class="keyword">delete</span> oldNode;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;								</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			AvlNode* tmp = t-&gt;right;					</span><br><span class="line">			<span class="keyword">while</span> (tmp-&gt;left != <span class="literal">NULL</span>)tmp = tmp-&gt;left;	</span><br><span class="line">			t-&gt;data = tmp-&gt;data;						</span><br><span class="line">			<span class="keyword">if</span> (<span class="built_in">remove</span>(tmp-&gt;data.key, t-&gt;right))<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">adjust</span>(t, <span class="number">1</span>);						</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (x &lt; t-&gt;data.key)								</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">remove</span>(x, x-&gt;left))<span class="keyword">return</span> <span class="literal">true</span>;				</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">adjust</span>(t, <span class="number">0</span>);							</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">remove</span>(x, t-&gt;right))<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">adjust</span>(t, <span class="number">1</span>);							</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">bool</span> AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">adjust</span>(AvlNode*&amp; t, <span class="type">int</span> subTree)		</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (subTree)													</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;left) - <span class="built_in">height</span>(t-&gt;right) == <span class="number">1</span>)<span class="keyword">return</span> <span class="literal">true</span>;	</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;right) == <span class="built_in">height</span>(t-&gt;left))					</span><br><span class="line">		&#123;</span><br><span class="line">			--t-&gt;height; <span class="keyword">return</span> <span class="literal">false</span>;								</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;left-&gt;right) &gt; <span class="built_in">height</span>(t-&gt;left-&gt;left))			</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">LR</span>(t);																				</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;											</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">LL</span>(t)														</span><br><span class="line">			<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;right) == <span class="built_in">height</span>(t-&gt;left))<span class="keyword">return</span> <span class="literal">false</span>;	</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">true</span>;										</span><br><span class="line">	&#125;																</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;right) - <span class="built_in">height</span>(t-&gt;left) == <span class="number">1</span>)<span class="keyword">return</span> <span class="literal">true</span>;	</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;right) == <span class="built_in">height</span>(t-&gt;left))</span><br><span class="line">		&#123; </span><br><span class="line">			--t-&gt;height; <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;right-&gt;left) &gt; <span class="built_in">height</span>(t-&gt;right-&gt;right))</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">RL</span>(t);</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">RR</span>(t)</span><br><span class="line">			<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;right) == <span class="built_in">height</span>(t-&gt;left))<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">makeEmpty</span>(AvlNode* t)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (t == <span class="literal">NULL</span>)<span class="keyword">return</span>;										</span><br><span class="line">	<span class="built_in">makeEmpty</span>(t-&gt;left);</span><br><span class="line">	<span class="built_in">makeEmpty</span>(t-&gt;right);</span><br><span class="line">	<span class="keyword">delete</span> t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code class="C++">#include &quot;dynamicSearchTable.h&quot;
 
+template &lt;class KEY, class OTHER&gt;
+struct SET
+&#123;
+    KEY key;																		//关键字信息
+    OTHER other;																	//和其他信息
+&#125;;
+
+template &lt;class KEY,class OTHER&gt;
+class AvlTree :public dynamicSearchTable&lt;KEY, OTHER&gt;
+&#123;
+    struct AvlNode
+    &#123;
+        SET&lt;KEY, OTHER&gt;data;
+        AvlNode* left;
+        AvlNode* right;
+        int height;																	
+
+        AvlNode(const SET&lt;KEY, OTHER&gt;&amp; element, AvlNode* lt, AvlNode* rt, int h = 1):data(element),left(lt),right(rt),height(h)&#123;&#125;
+    &#125;;
+
+    AvNodee* root;
+
+public:
+    AvlTree() &#123; root = NULL;&#125;
+    ~AvlTree() &#123; makeEmpty(root);&#125;
+    SET&lt;KEY, OTHER&gt;* find(const KEY&amp; x)const;
+    void insert(const SET&lt;KEY, OTHER&gt;&amp; x);
+    void remove(const KEY&amp; x);
+private:
+    void insert(const SET&lt;KEY, OTHER&gt;&amp; x, AvlNode*&amp; t);
+    bool remove(const KEY&amp; x, AvlNode*&amp; t);
+    void makeEmpty(AvlNode* t);
+    int height(AvlNode* t)const &#123; return t == NULL ? 0 : t-&gt;height;&#125;
+    void LL(AvlNode*&amp; t);
+    void LR(AvlNode*&amp; t);
+    void RL(AvlNode*&amp; t);
+    void RR(AvlNode*&amp; t);
+    int max(int a, int b) &#123; return (a &gt; b) ? a : b;&#125;
+    bool adjust(AvlNode*&amp; t, int subTree);
+&#125;;
+
+
+template &lt;class KEY, class OTHER&gt;
+SET&lt;KEY, OTHER&gt;* AvlTree&lt;KEY, OTHER&gt;::find(const KEY&amp; x)const
+&#123;
+    AvlNode* t = root;
+
+    while (t != NULL &amp;&amp; t-&gt;data.key != x)						
+    &#123;																		
+        if (t-&gt;data.key &gt; x)t = t-&gt;left;						
+        else t = t-&gt;right;
+    &#125;
+    if (t == NULL)return NULL;
+    else return (SET&lt;KEY, OTHER&gt;*)t;							
+&#125;
+
+template &lt;class KEY, class OTHER&gt;
+void AvlTree&lt;KEY, OTHER&gt;::LL(AvlNode*&amp; t)					
+&#123;
+    AvlNode* t1 = t-&gt;left;									
+    t-&gt;left = t1-&gt;right;									
+    t1-&gt;right = t;											
+    t-&gt;height = max(height(t-&gt;left), height(t-&gt;right)) + 1;	
+    t1-&gt;height = max(height(t-&gt;left), height(t)) + 1;
+    t = t1;													
+&#125;
+
+template &lt;class KEY, class OTHER&gt;
+void AvlTree&lt;KEY, OTHER&gt;::RR(AvlNode*&amp; t)					
+&#123;
+    AvlNode* t1 = t-&gt;right;
+    t-&gt;right = t1-&gt;left;
+    t1-&gt;left = t;
+    t-&gt;height = max(height(t-&gt;left), height(t-&gt;right)) + 1;
+    t1-&gt;height = max(height(t-&gt;right), height(t)) + 1;
+    t = t1;
+&#125;
+
+template &lt;class KEY, class OTHER&gt;
+void AvlTree&lt;KEY, OTHER&gt;::LR(AvlNode*&amp; t)				
+&#123;
+    RR(t-&gt;left);								
+    LL(t);
+&#125;
+
+template &lt;class KEY, class OTHER&gt;
+void AvlTree&lt;KEY, OTHER&gt;::RL(AvlNode*&amp; t)
+&#123;
+    LL(t-&gt;right);
+    RR(t);
+&#125;
+
+template &lt;class KEY, class OTHER&gt;
+void AvlTree&lt;KEY, OTHER&gt;::insert(const SET&lt;KEY, OTHER&gt;&amp; x)
+&#123;
+    insert(x, root);
+&#125;
+
+template &lt;class KEY, class OTHER&gt;
+void AvlTree&lt;KEY,OTHER&gt;::insert(const SET&lt;KEY, OTHER&gt;&amp;x, AvlNode*&amp; t)
+&#123;
+    if (t == NULL)											
+        t = new AvlNode(x, NULL, NULL);
+    else if (x.key &lt; t-&gt;data.key)							
+    &#123;
+        insert(x, t-&gt;left);									
+        if (height(t-&gt;left) - height(t-&gt;right) == 2)		
+            if (x.key &lt; t-&gt;left-&gt;data.key)LL(t);			
+            else LR(t);
+    &#125;
+    else if (t-&gt;data.key &lt; x.key)							
+    &#123;
+        insert(x, t-&gt;right);
+        if (height(t-&gt;right) - height(t-&gt;left) == 2)
+            if (t-&gt;right-&gt;data.key &lt; x.key)RR(t);
+            else LR(t);
+    &#125;														
+    t-&gt;height = max(height(t-&gt;left), height(t-&gt;right)) + 1;
+&#125;
+
+template&lt;class KEY,class OTHER&gt;
+void AvlTree&lt;KEY, OTHER&gt;::remove(const KEY&amp; x)
+&#123;
+    remove(x, root);
+&#125;
+
+template&lt;class KEY, class OTHER&gt;
+bool AvlTree&lt;KEY, OTHER&gt;::remove(const KEY&amp; x, AvlNode* &amp; t)
+&#123;
+    if (t == NULL)return true;							
+    if (x == t-&gt;data.key)								
+    &#123;
+        if (t-&gt;left == NULL || t-&gt;right == NULL)		
+        &#123;
+            AvlNode* oldNode = t;						
+            t = (t-&gt;left != NULL) ? t-&gt;left : t-&gt;right;	
+            delete oldNode;
+            return false;								
+        &#125;
+        else
+        &#123;
+            AvlNode* tmp = t-&gt;right;					
+            while (tmp-&gt;left != NULL)tmp = tmp-&gt;left;	
+            t-&gt;data = tmp-&gt;data;						
+            if (remove(tmp-&gt;data.key, t-&gt;right))return true;
+            return adjust(t, 1);						
+        &#125;
+    &#125;
+
+    if (x &lt; t-&gt;data.key)								
+    &#123;
+        if (remove(x, x-&gt;left))return true;				
+        return adjust(t, 0);							
+    &#125;
+    else
+    &#123;
+        if (remove(x, t-&gt;right))return true;
+        return adjust(t, 1);							
+    &#125;
+&#125;
+
+template&lt;class KEY, class OTHER&gt;
+bool AvlTree&lt;KEY, OTHER&gt;::adjust(AvlNode*&amp; t, int subTree)		
+&#123;
+    if (subTree)													
+    &#123;
+        if (height(t-&gt;left) - height(t-&gt;right) == 1)return true;	
+        if (height(t-&gt;right) == height(t-&gt;left))					
+        &#123;
+            --t-&gt;height; return false;								
+        &#125;
+        if (height(t-&gt;left-&gt;right) &gt; height(t-&gt;left-&gt;left))			
+        &#123;
+            LR(t);																				
+            return false;											
+        &#125;
+        LL(t)														
+            if (height(t-&gt;right) == height(t-&gt;left))return false;	
+            else return true;										
+    &#125;																
+    else
+    &#123;
+        if (height(t-&gt;right) - height(t-&gt;left) == 1)return true;	
+        if (height(t-&gt;right) == height(t-&gt;left))
+        &#123; 
+            --t-&gt;height; return false;
+        &#125;
+        if (height(t-&gt;right-&gt;left) &gt; height(t-&gt;right-&gt;right))
+        &#123;
+            RL(t);
+            return false;
+        &#125;
+        RR(t)
+            if (height(t-&gt;right) == height(t-&gt;left))return false;
+            else return true;
+    &#125;
+&#125;
+
+template&lt;class KEY, class OTHER&gt;
+void AvlTree&lt;KEY, OTHER&gt;::makeEmpty(AvlNode* t)
+&#123;
+    if (t == NULL)return;										
+    makeEmpty(t-&gt;left);
+    makeEmpty(t-&gt;right);
+    delete t;
+&#125;
+</code></pre>
 <hr>
 <h2 id="基本组成成员"><a href="#基本组成成员" class="headerlink" title="基本组成成员"></a>基本组成成员</h2><ul>
 <li>AvlNode（AVL的树节点）</li>
 </ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">AvlNode</span></span><br><span class="line">	&#123;</span><br><span class="line">		SET&lt;KEY, OTHER&gt;data;</span><br><span class="line">		AvlNode* left;</span><br><span class="line">		AvlNode* right;</span><br><span class="line">		<span class="type">int</span> height;																	<span class="comment">//节点的高度</span></span><br><span class="line"></span><br><span class="line">		<span class="built_in">AvlNode</span>(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; element, AvlNode* lt, AvlNode* rt, </span><br><span class="line">                <span class="type">int</span> h=<span class="number">1</span>):<span class="built_in">data</span>(element),<span class="built_in">left</span>(lt),<span class="built_in">right</span>(rt),<span class="built_in">height</span>(h)&#123;&#125;</span><br><span class="line">	&#125;;</span><br></pre></td></tr></table></figure>
+<pre><code class="CPP">struct AvlNode
+    &#123;
+        SET&lt;KEY, OTHER&gt;data;
+        AvlNode* left;
+        AvlNode* right;
+        int height;																	//节点的高度
 
+        AvlNode(const SET&lt;KEY, OTHER&gt;&amp; element, AvlNode* lt, AvlNode* rt, 
+                int h=1):data(element),left(lt),right(rt),height(h)&#123;&#125;
+    &#125;;
+</code></pre>
 <p>多了一个高度，构造函数默认为1（指只有自己）</p>
 <ul>
 <li>根节点</li>
 </ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AvNodee* root;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="CPP">AvNodee* root;
+</code></pre>
 <hr>
-<h2 id="AVL类的基本数据成员和函数"><a href="#AVL类的基本数据成员和函数" class="headerlink" title="AVL类的基本数据成员和函数"></a>AVL类的基本数据成员和函数</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>,<span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AvlTree</span> :<span class="keyword">public</span> dynamicSearchTable&lt;KEY, OTHER&gt;</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">struct</span> <span class="title class_">AvlNode</span></span><br><span class="line">	&#123;</span><br><span class="line">		SET&lt;KEY, OTHER&gt;data;</span><br><span class="line">		AvlNode* left;</span><br><span class="line">		AvlNode* right;</span><br><span class="line">		<span class="type">int</span> height;																	</span><br><span class="line">		<span class="built_in">AvlNode</span>(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; element, AvlNode* lt, AvlNode* rt, <span class="type">int</span> h = <span class="number">1</span>):<span class="built_in">data</span>(element),<span class="built_in">left</span>(lt),<span class="built_in">right</span>(rt),<span class="built_in">height</span>(h)&#123;&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	AvNodee* root;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">AvlTree</span>() &#123; root = <span class="literal">NULL</span>;&#125;</span><br><span class="line">	~<span class="built_in">AvlTree</span>() &#123; <span class="built_in">makeEmpty</span>(root);&#125;</span><br><span class="line">	<span class="function">SET&lt;KEY, OTHER&gt;* <span class="title">find</span><span class="params">(<span class="type">const</span> KEY&amp; x)</span><span class="type">const</span></span>;							<span class="comment">//查找函数</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; x)</span></span>;								<span class="comment">//插入函数（公有）</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">remove</span><span class="params">(<span class="type">const</span> KEY&amp; x)</span></span>;											<span class="comment">//删除函数（公有）</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; x, AvlNode*&amp; t)</span></span>;					<span class="comment">//插入函数（私有）</span></span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">remove</span><span class="params">(<span class="type">const</span> KEY&amp; x, AvlNode*&amp; t)</span></span>;								<span class="comment">//删除函数（私有）</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">makeEmpty</span><span class="params">(AvlNode* t)</span></span>;											<span class="comment">//清空</span></span><br><span class="line">	<span class="function"><span class="type">int</span> <span class="title">height</span><span class="params">(AvlNode* t)</span><span class="type">const</span> </span>&#123; <span class="keyword">return</span> t == <span class="literal">NULL</span> ? <span class="number">0</span> : t-&gt;height;&#125;	<span class="comment">//计算当前节点的高度</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">LL</span><span class="params">(AvlNode*&amp; t)</span></span>;												<span class="comment">//单旋转LL</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">LR</span><span class="params">(AvlNode*&amp; t)</span></span>;												<span class="comment">//双旋转LR</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">RL</span><span class="params">(AvlNode*&amp; t)</span></span>;												<span class="comment">//双旋转RL</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">RR</span><span class="params">(AvlNode*&amp; t)</span></span>;												<span class="comment">//单旋转RR</span></span><br><span class="line">	<span class="function"><span class="type">int</span> <span class="title">max</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123; <span class="keyword">return</span> (a &gt; b) ? a : b;&#125;					<span class="comment">//比较函数</span></span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">adjust</span><span class="params">(AvlNode*&amp; t, <span class="type">int</span> subTree)</span></span>;								<span class="comment">//调整节点的结构使其平衡的函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="AVL类的基本数据成员和函数"><a href="#AVL类的基本数据成员和函数" class="headerlink" title="AVL类的基本数据成员和函数"></a>AVL类的基本数据成员和函数</h2><pre><code class="CPP">template &lt;class KEY,class OTHER&gt;
+class AvlTree :public dynamicSearchTable&lt;KEY, OTHER&gt;
+&#123;
+    struct AvlNode
+    &#123;
+        SET&lt;KEY, OTHER&gt;data;
+        AvlNode* left;
+        AvlNode* right;
+        int height;																	
+        AvlNode(const SET&lt;KEY, OTHER&gt;&amp; element, AvlNode* lt, AvlNode* rt, int h = 1):data(element),left(lt),right(rt),height(h)&#123;&#125;
+    &#125;;
+    AvNodee* root;
 
+public:
+    AvlTree() &#123; root = NULL;&#125;
+    ~AvlTree() &#123; makeEmpty(root);&#125;
+    SET&lt;KEY, OTHER&gt;* find(const KEY&amp; x)const;							//查找函数
+    void insert(const SET&lt;KEY, OTHER&gt;&amp; x);								//插入函数（公有）
+    void remove(const KEY&amp; x);											//删除函数（公有）
+private:
+    void insert(const SET&lt;KEY, OTHER&gt;&amp; x, AvlNode*&amp; t);					//插入函数（私有）
+    bool remove(const KEY&amp; x, AvlNode*&amp; t);								//删除函数（私有）
+    void makeEmpty(AvlNode* t);											//清空
+    int height(AvlNode* t)const &#123; return t == NULL ? 0 : t-&gt;height;&#125;	//计算当前节点的高度
+    void LL(AvlNode*&amp; t);												//单旋转LL
+    void LR(AvlNode*&amp; t);												//双旋转LR
+    void RL(AvlNode*&amp; t);												//双旋转RL
+    void RR(AvlNode*&amp; t);												//单旋转RR
+    int max(int a, int b) &#123; return (a &gt; b) ? a : b;&#125;					//比较函数
+    bool adjust(AvlNode*&amp; t, int subTree);								//调整节点的结构使其平衡的函数
+&#125;;
+</code></pre>
 <p>其实<strong>private</strong>类的函数都是公有类函数的工具函数</p>
 <hr>
 <h2 id="函数的实现分析"><a href="#函数的实现分析" class="headerlink" title="函数的实现分析"></a>函数的实现分析</h2><ul>
 <li>查找函数（find）</li>
 </ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line">SET&lt;KEY, OTHER&gt;* AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">find</span>(<span class="type">const</span> KEY&amp; x)<span class="type">const</span></span><br><span class="line">&#123;</span><br><span class="line">	AvlNode* t = root;</span><br><span class="line">	<span class="keyword">while</span> (t != <span class="literal">NULL</span> &amp;&amp; t-&gt;data.key != x)						<span class="comment">//循环停止的条件，就是当前节点为空或者就是要找的</span></span><br><span class="line">	&#123;															<span class="comment">//小于就换成左节点，反之换成右节点，			</span></span><br><span class="line">		<span class="keyword">if</span> (t-&gt;data.key &gt; x)t = t-&gt;left;						</span><br><span class="line">		<span class="keyword">else</span> t = t-&gt;right;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (t == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="literal">NULL</span>;									<span class="comment">//空就返回</span></span><br><span class="line">	<span class="keyword">else</span> <span class="built_in">return</span> (SET&lt;KEY, OTHER&gt;*)t;							<span class="comment">//这里还是强制转换</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="CPP">template &lt;class KEY, class OTHER&gt;
+SET&lt;KEY, OTHER&gt;* AvlTree&lt;KEY, OTHER&gt;::find(const KEY&amp; x)const
+&#123;
+    AvlNode* t = root;
+    while (t != NULL &amp;&amp; t-&gt;data.key != x)						//循环停止的条件，就是当前节点为空或者就是要找的
+    &#123;															//小于就换成左节点，反之换成右节点，			
+        if (t-&gt;data.key &gt; x)t = t-&gt;left;						
+        else t = t-&gt;right;
+    &#125;
+    if (t == NULL)return NULL;									//空就返回
+    else return (SET&lt;KEY, OTHER&gt;*)t;							//这里还是强制转换
+&#125;
+</code></pre>
 <p>还是基于二叉查找树的特性，只是没有使用<strong>递归</strong>函数，这种方式被称为<strong>迭代</strong>实现</p>
 <hr>
 <ul>
@@ -89,13 +511,31 @@
 <p>那么假设是满二叉树插入，我们会发现并不影响平衡度都从（0到1或者0到-1）</p>
 <p>（其实这就是插入点后的检索过程，虽然高度发生了变化，但是一直向上检索发现平衡度没有打破规则，那么就会检索到根节点结束）</p>
 <p>现在附上LL代码图</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">LL</span>(AvlNode*&amp; t)			<span class="comment">//注意这里传的是原来的指针，估计是父节点的指针，不然改了没意义				A</span></span><br><span class="line">&#123;</span><br><span class="line">	AvlNode* t1 = t-&gt;left;									<span class="comment">//失衡的A，先标记B点为t1（A的左子节点）</span></span><br><span class="line">	t-&gt;left = t1-&gt;right;									<span class="comment">//B的右子树，变成A的左子树</span></span><br><span class="line">	t1-&gt;right = t;											<span class="comment">//B的右子节点变成A</span></span><br><span class="line">	t-&gt;height = <span class="built_in">max</span>(<span class="built_in">height</span>(t-&gt;left), <span class="built_in">height</span>(t-&gt;right)) + <span class="number">1</span>;	<span class="comment">//此时更新各自的高度（+1是为了包括本身）</span></span><br><span class="line">	t1-&gt;height = <span class="built_in">max</span>(<span class="built_in">height</span>(t-&gt;left), <span class="built_in">height</span>(t)) + <span class="number">1</span>;</span><br><span class="line">	t = t1;													<span class="comment">//将t彻底变为B点（B成为t的指向点）</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="CPP">template &lt;class KEY, class OTHER&gt;
+void AvlTree&lt;KEY, OTHER&gt;::LL(AvlNode*&amp; t)			//注意这里传的是原来的指针，估计是父节点的指针，不然改了没意义				A
+&#123;
+    AvlNode* t1 = t-&gt;left;									//失衡的A，先标记B点为t1（A的左子节点）
+    t-&gt;left = t1-&gt;right;									//B的右子树，变成A的左子树
+    t1-&gt;right = t;											//B的右子节点变成A
+    t-&gt;height = max(height(t-&gt;left), height(t-&gt;right)) + 1;	//此时更新各自的高度（+1是为了包括本身）
+    t1-&gt;height = max(height(t-&gt;left), height(t)) + 1;
+    t = t1;													//将t彻底变为B点（B成为t的指向点）
+&#125;
+</code></pre>
 <p><strong>有心情的话</strong> 可以在这个补一个过程图，看我以后记不记的住吧</p>
 <p>*1.*我们发现指针还是引用传递，主要是我要旋转A点，那么就需要修改A的父节点对应的指针从。原理和二叉查找树的原理相同</p>
 <h3 id="RR也是同理只是向左旋转"><a href="#RR也是同理只是向左旋转" class="headerlink" title="RR也是同理只是向左旋转"></a>RR也是同理只是向左旋转</h3><p>附上RR的代码</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">RR</span>(AvlNode*&amp; t)					<span class="comment">//这个和上面是一个道理，就是向左转，就像镜像一样</span></span><br><span class="line">&#123;</span><br><span class="line">	AvlNode* t1 = t-&gt;right;</span><br><span class="line">	t-&gt;right = t1-&gt;left;</span><br><span class="line">	t1-&gt;left = t;</span><br><span class="line">	t-&gt;height = <span class="built_in">max</span>(<span class="built_in">height</span>(t-&gt;left), <span class="built_in">height</span>(t-&gt;right)) + <span class="number">1</span>;</span><br><span class="line">	t1-&gt;height = <span class="built_in">max</span>(<span class="built_in">height</span>(t-&gt;right), <span class="built_in">height</span>(t)) + <span class="number">1</span>;</span><br><span class="line">	t = t1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="CPP">template &lt;class KEY, class OTHER&gt;
+void AvlTree&lt;KEY, OTHER&gt;::RR(AvlNode*&amp; t)					//这个和上面是一个道理，就是向左转，就像镜像一样
+&#123;
+    AvlNode* t1 = t-&gt;right;
+    t-&gt;right = t1-&gt;left;
+    t1-&gt;left = t;
+    t-&gt;height = max(height(t-&gt;left), height(t-&gt;right)) + 1;
+    t1-&gt;height = max(height(t-&gt;right), height(t)) + 1;
+    t = t1;
+&#125;
+</code></pre>
 <hr>
 <h4 id="现在来分析LR的情况"><a href="#现在来分析LR的情况" class="headerlink" title="现在来分析LR的情况"></a>现在来分析LR的情况</h4><p>为什么要单独讨论这种情况？<br>因为我们发现仅仅如果使用LL右旋发现只是不过对这个树镜像对称过去了而已，A点仍然是失衡点，只不过是现在是右子树高了</p>
 <p>此处有图</p>
@@ -105,22 +545,72 @@
 <p>过程如下图显示</p>
 <p>其实逻辑也很好理解就是让根节点的右边多一个高度来平衡多的那个节点</p>
 <p>代码如下</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">LR</span>(AvlNode*&amp; t)				</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">RR</span>(t-&gt;left);								<span class="comment">//先对B进行左旋</span></span><br><span class="line">	<span class="built_in">LL</span>(t);										<span class="comment">//再对A点进行右旋</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="RL也完全是同理，就是对称了一下"><a href="#RL也完全是同理，就是对称了一下" class="headerlink" title="RL也完全是同理，就是对称了一下"></a>RL也完全是同理，就是对称了一下</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">RL</span>(AvlNode*&amp; t)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">LL</span>(t-&gt;right);</span><br><span class="line">	<span class="built_in">RR</span>(t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="CPP">template &lt;class KEY, class OTHER&gt;
+void AvlTree&lt;KEY, OTHER&gt;::LR(AvlNode*&amp; t)				
+&#123;
+    RR(t-&gt;left);								//先对B进行左旋
+    LL(t);										//再对A点进行右旋
+&#125;
+</code></pre>
+<h4 id="RL也完全是同理，就是对称了一下"><a href="#RL也完全是同理，就是对称了一下" class="headerlink" title="RL也完全是同理，就是对称了一下"></a>RL也完全是同理，就是对称了一下</h4><pre><code class="CPP">template &lt;class KEY, class OTHER&gt;
+void AvlTree&lt;KEY, OTHER&gt;::RL(AvlNode*&amp; t)
+&#123;
+    LL(t-&gt;right);
+    RR(t);
+&#125;
+</code></pre>
 <hr>
 <h3 id="以上我们分析了四种旋转情况接下来就来分析插入函数"><a href="#以上我们分析了四种旋转情况接下来就来分析插入函数" class="headerlink" title="以上我们分析了四种旋转情况接下来就来分析插入函数"></a>以上我们分析了四种旋转情况接下来就来分析插入函数</h3><p>前面我们提到了一个关键词<strong>回溯</strong></p>
 <p>对于代码里面的回溯就是在修改后往回检查，最好想的就是树了，我修改了叶节点，我需要对查找路径上的每一个点进行检查，那么我们在代码中如何往回实现这个功能呢？</p>
 <p>答案就是利用</p>
 <p><strong>递归</strong></p>
 <p>假如我们要进行修改，并检查，可以用如下伪代码实现</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">插入函数</span><br><span class="line">&#123;</span><br><span class="line">检查当前节点是不是插入点，是就插入</span><br><span class="line">不是就根据于当前节点的大小调用“函数（左节点）/函数（右节点）”</span><br><span class="line"></span><br><span class="line">//因为是递归调用，执行到这一样表示递归所有的修改已完成开始回溯了</span><br><span class="line">检查当前节点的平衡度来看是否需要调整，若失衡分类讨论</span><br><span class="line"></span><br><span class="line">重新计算高度</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>插入函数
+&#123;
+检查当前节点是不是插入点，是就插入
+不是就根据于当前节点的大小调用“函数（左节点）/函数（右节点）”
 
+//因为是递归调用，执行到这一样表示递归所有的修改已完成开始回溯了
+检查当前节点的平衡度来看是否需要调整，若失衡分类讨论
+
+重新计算高度
+&#125;
+</code></pre>
 <p>附上代码</p>
 <p>其实我们发现这个回溯必须全部走完，因为要更改高度（尤其是满二叉树那种虽然不影响平衡度，但是路径上所有节点高度都需要+1）</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">insert</span>(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">insert</span>(x, root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> AvlTree&lt;KEY,OTHER&gt;::<span class="built_in">insert</span>(<span class="type">const</span> SET&lt;KEY, OTHER&gt;&amp;x, AvlNode*&amp; t)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (t == <span class="literal">NULL</span>)											<span class="comment">//情况1：如果根节点为空就直接放置</span></span><br><span class="line">		t = <span class="keyword">new</span> <span class="built_in">AvlNode</span>(x, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">    </span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (x.key &lt; t-&gt;data.key)							<span class="comment">//情况2：如果比当前节点小，往左子树插入</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">insert</span>(x, t-&gt;left);									<span class="comment">//向下递归</span></span><br><span class="line">        </span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;left) - <span class="built_in">height</span>(t-&gt;right) == <span class="number">2</span>)		<span class="comment">//执行到这一步表示左子树全部节点都平衡了，检查自己了</span></span><br><span class="line">			<span class="keyword">if</span> (x.key &lt; t-&gt;left-&gt;data.key)<span class="built_in">LL</span>(t);			<span class="comment">//当前节点失衡了，只要判断插入节点是在左子节点的左右</span></span><br><span class="line">        													<span class="comment">//就可以判断是哪种情况</span></span><br><span class="line">			<span class="keyword">else</span> <span class="built_in">LR</span>(t);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (t-&gt;data.key &lt; x.key)							<span class="comment">//这里的逻辑是一样的，参照上面就行了</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">insert</span>(x, t-&gt;right);</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;right) - <span class="built_in">height</span>(t-&gt;left) == <span class="number">2</span>)</span><br><span class="line">			<span class="keyword">if</span> (t-&gt;right-&gt;data.key &lt; x.key)<span class="built_in">RR</span>(t);</span><br><span class="line">			<span class="keyword">else</span> <span class="built_in">LR</span>(t);</span><br><span class="line">	&#125;														</span><br><span class="line"></span><br><span class="line">	t-&gt;height = <span class="built_in">max</span>(<span class="built_in">height</span>(t-&gt;left), <span class="built_in">height</span>(t-&gt;right)) + <span class="number">1</span>;	<span class="comment">//在最后插入好，会从底往上重新计算树的高度</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="CPP">template &lt;class KEY, class OTHER&gt;
+void AvlTree&lt;KEY, OTHER&gt;::insert(const SET&lt;KEY, OTHER&gt;&amp; x)
+&#123;
+    insert(x, root);
+&#125;
 
+template &lt;class KEY, class OTHER&gt;
+void AvlTree&lt;KEY,OTHER&gt;::insert(const SET&lt;KEY, OTHER&gt;&amp;x, AvlNode*&amp; t)
+&#123;
+    if (t == NULL)											//情况1：如果根节点为空就直接放置
+        t = new AvlNode(x, NULL, NULL);
+    
+    else if (x.key &lt; t-&gt;data.key)							//情况2：如果比当前节点小，往左子树插入
+    &#123;
+        insert(x, t-&gt;left);									//向下递归
+        
+        if (height(t-&gt;left) - height(t-&gt;right) == 2)		//执行到这一步表示左子树全部节点都平衡了，检查自己了
+            if (x.key &lt; t-&gt;left-&gt;data.key)LL(t);			//当前节点失衡了，只要判断插入节点是在左子节点的左右
+                                                            //就可以判断是哪种情况
+            else LR(t);
+    &#125;
+
+    else if (t-&gt;data.key &lt; x.key)							//这里的逻辑是一样的，参照上面就行了
+    &#123;
+        insert(x, t-&gt;right);
+        if (height(t-&gt;right) - height(t-&gt;left) == 2)
+            if (t-&gt;right-&gt;data.key &lt; x.key)RR(t);
+            else LR(t);
+    &#125;														
+
+    t-&gt;height = max(height(t-&gt;left), height(t-&gt;right)) + 1;	//在最后插入好，会从底往上重新计算树的高度
+&#125;
+</code></pre>
 <hr>
 <ul>
 <li>删除函数（remove）</li>
@@ -131,8 +621,8 @@
 <p>这也表明了虽然删除是递归，但是返回值是一个bool表示当前节点高度是否发生变化从而决定上面的节点是否需要检查</p>
 <h4 id="删除过程"><a href="#删除过程" class="headerlink" title="删除过程"></a>删除过程</h4><p>这一个和二叉查找树没什么区别其实，依旧是分为三种情况（无儿子，一个儿子，俩个儿子）</p>
 <p>前俩个可以用一个表达式来代替</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t=（t-&gt;left!=<span class="literal">NULL</span>）:t-&gt;left?t-right;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="CPP">t=（t-&gt;left!=NULL）:t-&gt;left?t-right;
+</code></pre>
 <p>相对后面的情况显示是迭代找到可替换的叶子节点，然后删除叶子节点啦。</p>
 <h4 id="检查过程"><a href="#检查过程" class="headerlink" title="检查过程"></a>检查过程</h4><p>删除的时候没有插入那么幸运，删除时的调整很有可能导致整棵树高度下降，从而影响路上的所有父节点。</p>
 <p>停止条件：只有当某个节点读的高度在删除后不变才无需向上检查调整了</p>
@@ -153,8 +643,52 @@
 <ul>
 <li><strong>删除函数</strong></li>
 </ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>,<span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">void</span> AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">remove</span>(<span class="type">const</span> KEY&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">remove</span>(x, root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">bool</span> AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">remove</span>(<span class="type">const</span> KEY&amp; x, AvlNode* &amp; t)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (t == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="literal">true</span>;							<span class="comment">//空树不存在，不用检查父节点</span></span><br><span class="line">	<span class="keyword">if</span> (x == t-&gt;data.key)								<span class="comment">//情况1：如果是当前节点</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (t-&gt;left == <span class="literal">NULL</span> || t-&gt;right == <span class="literal">NULL</span>)		<span class="comment">//删除情况1，2：如果只是有一个子节点或者没有节点</span></span><br><span class="line">		&#123;</span><br><span class="line">			AvlNode* oldNode = t;						</span><br><span class="line">			t = (t-&gt;left != <span class="literal">NULL</span>) ? t-&gt;left : t-&gt;right;	</span><br><span class="line">			<span class="keyword">delete</span> oldNode;								<span class="comment">//因为对只有一个节点或者无叶节点的删除必然导致高度变换，肯定是</span></span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;								<span class="comment">//要检查的</span></span><br><span class="line">		&#125;</span><br><span class="line">        </span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			AvlNode* tmp = t-&gt;right;					<span class="comment">//删除情况三：有俩个子节点</span></span><br><span class="line">			<span class="keyword">while</span> (tmp-&gt;left != <span class="literal">NULL</span>)tmp = tmp-&gt;left;	<span class="comment">//迭代找到右子树的最左子节点</span></span><br><span class="line">			t-&gt;data = tmp-&gt;data;						<span class="comment">//数据替换</span></span><br><span class="line">			<span class="keyword">if</span> (<span class="built_in">remove</span>(tmp-&gt;data.key, t-&gt;right))		<span class="comment">//然后就是删除的目标换成最新的叶节点，从当前的节点右节点开始</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;							<span class="comment">//如果这个删除最后返回的是true，表明右子节点的高度未变化</span></span><br><span class="line">            </span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">adjust</span>(t, <span class="number">1</span>);						<span class="comment">//1表示删除在右子树上，t表示当前节点失衡，需要调整</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (x &lt; t-&gt;data.key)								<span class="comment">//情况2：小于则是向左找</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">remove</span>(x, x-&gt;left))<span class="keyword">return</span> <span class="literal">true</span>;				<span class="comment">//向左递归</span></span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">adjust</span>(t, <span class="number">0</span>);							<span class="comment">//如果需要检查，则调用adjust，0表示删除的是左子树</span></span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">	<span class="keyword">else</span>												<span class="comment">//情况三：大于则是向右找</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">remove</span>(x, t-&gt;right))<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">adjust</span>(t, <span class="number">1</span>);							</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="CPP">
+template&lt;class KEY,class OTHER&gt;
+void AvlTree&lt;KEY, OTHER&gt;::remove(const KEY&amp; x)
+&#123;
+    remove(x, root);
+&#125;
 
+template&lt;class KEY, class OTHER&gt;
+bool AvlTree&lt;KEY, OTHER&gt;::remove(const KEY&amp; x, AvlNode* &amp; t)
+&#123;
+    if (t == NULL)return true;							//空树不存在，不用检查父节点
+    if (x == t-&gt;data.key)								//情况1：如果是当前节点
+    &#123;
+        if (t-&gt;left == NULL || t-&gt;right == NULL)		//删除情况1，2：如果只是有一个子节点或者没有节点
+        &#123;
+            AvlNode* oldNode = t;						
+            t = (t-&gt;left != NULL) ? t-&gt;left : t-&gt;right;	
+            delete oldNode;								//因为对只有一个节点或者无叶节点的删除必然导致高度变换，肯定是
+            return false;								//要检查的
+        &#125;
+        
+        else
+        &#123;
+            AvlNode* tmp = t-&gt;right;					//删除情况三：有俩个子节点
+            while (tmp-&gt;left != NULL)tmp = tmp-&gt;left;	//迭代找到右子树的最左子节点
+            t-&gt;data = tmp-&gt;data;						//数据替换
+            if (remove(tmp-&gt;data.key, t-&gt;right))		//然后就是删除的目标换成最新的叶节点，从当前的节点右节点开始
+                return true;							//如果这个删除最后返回的是true，表明右子节点的高度未变化
+            
+            return adjust(t, 1);						//1表示删除在右子树上，t表示当前节点失衡，需要调整
+        &#125;
+    &#125;
+
+    if (x &lt; t-&gt;data.key)								//情况2：小于则是向左找
+    &#123;
+        if (remove(x, x-&gt;left))return true;				//向左递归
+        return adjust(t, 0);							//如果需要检查，则调用adjust，0表示删除的是左子树
+    &#125;
+    
+    else												//情况三：大于则是向右找
+    &#123;
+        if (remove(x, t-&gt;right))return true;
+        return adjust(t, 1);							
+    &#125;
+&#125;
+</code></pre>
 <p>这段逻辑其实挺绕人的，remove函数的返回值主要三种：</p>
 <p><em>1：</em>删除的是只有一个字节点或者无子节点（直接返回true，必然改变高度）</p>
 <p><em>2：</em>向下递归调用remove，如果调用返回的是true，则自己不用调整，也返回true</p>
@@ -166,51 +700,96 @@
 <p>0则是我们讨论的那五种情况</p>
 <p>1则是完全对称的五种情况</p>
 <p>调用adjust不一定高度有变化，但是平衡度一点是发生变化了</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">KEY</span>, <span class="keyword">class</span> <span class="title class_">OTHER</span>&gt;</span><br><span class="line"><span class="type">bool</span> AvlTree&lt;KEY, OTHER&gt;::<span class="built_in">adjust</span>(AvlNode*&amp; t, <span class="type">int</span> subTree)		</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (subTree)													<span class="comment">//如果删除的是右子树，逻辑和下面的只是镜面对称</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;left) - <span class="built_in">height</span>(t-&gt;right) == <span class="number">1</span>)<span class="keyword">return</span> <span class="literal">true</span>;	</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;right) == <span class="built_in">height</span>(t-&gt;left))					</span><br><span class="line">		&#123;</span><br><span class="line">			--t-&gt;height; <span class="keyword">return</span> <span class="literal">false</span>;								</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;left-&gt;right) &gt; <span class="built_in">height</span>(t-&gt;left-&gt;left))			</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">LR</span>(t);													</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;											</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">LL</span>(t)														</span><br><span class="line">			<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;right) == <span class="built_in">height</span>(t-&gt;left))<span class="keyword">return</span> <span class="literal">false</span>;	</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">true</span>;									</span><br><span class="line">	&#125;																</span><br><span class="line">	<span class="keyword">else</span>															<span class="comment">//如果删除的是左子树</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;right) - <span class="built_in">height</span>(t-&gt;left) == <span class="number">1</span>)<span class="keyword">return</span> <span class="literal">true</span>;	</span><br><span class="line">        <span class="comment">//对应（a）删除的左子树，如果是当前平衡度为-1，表示之前的平衡度就是0（如果是-1的话根本不会调用adjust好吧），因为删除是左子树，只有左子树降低高度的可能，（表示根据前面由平衡度判断高度结论判定）当前节点不需要调整+高度也没有发生变化</span></span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;right) == <span class="built_in">height</span>(t-&gt;left))</span><br><span class="line">		&#123; </span><br><span class="line">			--t-&gt;height; <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">        <span class="comment">//对应情况（b），根据结论一定是从1到0，高度一定发生变化了，但是平衡度依旧正常，返回false</span></span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;right-&gt;left) &gt; <span class="built_in">height</span>(t-&gt;right-&gt;right))</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">RL</span>(t);</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">        <span class="comment">//对应情况（d），右子节点的左子树的节点的高度大于右子树进行RL</span></span><br><span class="line">		</span><br><span class="line">        <span class="built_in">RR</span>(t)</span><br><span class="line">			<span class="keyword">if</span> (<span class="built_in">height</span>(t-&gt;right) == <span class="built_in">height</span>(t-&gt;left))				</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">//对于（c）和（e）只需要RR（左旋即可），对于这两种情况使用RR后的区别就是（c）调整后平衡度为0，节点高度发生变化return false，对于（e）使用RR，节点应该变为1，但是高度没有发生变化，return true</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<pre><code class="CPP">template&lt;class KEY, class OTHER&gt;
+bool AvlTree&lt;KEY, OTHER&gt;::adjust(AvlNode*&amp; t, int subTree)		
+&#123;
+    if (subTree)													//如果删除的是右子树，逻辑和下面的只是镜面对称
+    &#123;
+        if (height(t-&gt;left) - height(t-&gt;right) == 1)return true;	
+        if (height(t-&gt;right) == height(t-&gt;left))					
+        &#123;
+            --t-&gt;height; return false;								
+        &#125;
+        if (height(t-&gt;left-&gt;right) &gt; height(t-&gt;left-&gt;left))			
+        &#123;
+            LR(t);													
+            return false;											
+        &#125;
+        LL(t)														
+            if (height(t-&gt;right) == height(t-&gt;left))return false;	
+            else return true;									
+    &#125;																
+    else															//如果删除的是左子树
+    &#123;
+        if (height(t-&gt;right) - height(t-&gt;left) == 1)return true;	
+        //对应（a）删除的左子树，如果是当前平衡度为-1，表示之前的平衡度就是0（如果是-1的话根本不会调用adjust好吧），因为删除是左子树，只有左子树降低高度的可能，（表示根据前面由平衡度判断高度结论判定）当前节点不需要调整+高度也没有发生变化
+        if (height(t-&gt;right) == height(t-&gt;left))
+        &#123; 
+            --t-&gt;height; return false;
+        &#125;
+        //对应情况（b），根据结论一定是从1到0，高度一定发生变化了，但是平衡度依旧正常，返回false
+        if (height(t-&gt;right-&gt;left) &gt; height(t-&gt;right-&gt;right))
+        &#123;
+            RL(t);
+            return false;
+        &#125;
+        //对应情况（d），右子节点的左子树的节点的高度大于右子树进行RL
+        
+        RR(t)
+            if (height(t-&gt;right) == height(t-&gt;left))				
+                return false;
+            else return true;
+        //对于（c）和（e）只需要RR（左旋即可），对于这两种情况使用RR后的区别就是（c）调整后平衡度为0，节点高度发生变化return false，对于（e）使用RR，节点应该变为1，但是高度没有发生变化，return true
+    &#125;
+&#125;
+</code></pre>
 <hr>
 <p>到此难的地方已经处理好了其他的构造析构都是完全继承完全二叉树，所以不再赘述了</p>
-<h3 id="有时间再补补性能分析吧"><a href="#有时间再补补性能分析吧" class="headerlink" title="有时间再补补性能分析吧"></a>有时间再补补性能分析吧</h3></div><div class="article-licensing box"><div class="licensing-title"><p><a href="http://example.com/2024/06/09/AVL/">http://example.com/2024/06/09/AVL/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>yang</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2024-06-09</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2024-06-09</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2024/06/14/%E8%AE%A1%E6%97%B6%E5%99%A8%E7%9A%84%E5%88%86%E6%9E%90/"><i class="level-item fas fa-chevron-left"></i><span class="level-item"> </span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/06/08/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88%E5%8A%A8%E6%80%81%E6%9F%A5%E6%89%BE%E8%A1%A8dynamicSearchTree%EF%BC%89/"><span class="level-item"> </span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div class="content" id="waline-thread"></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/waline/2.6.3/waline.css"><script src="https://cdnjs.loli.net/ajax/libs/waline/2.6.3/waline.js"></script><script>Waline.init({
-            el: '#waline-thread',
-            serverURL: "https://community-blog-comment.vercel.app",
-            path: window.location.pathname,
-            lang: "zh-CN",
-            locale: {"placeholder":"在此处添加评论..."},
-            emoji: ["//unpkg.com/@waline/emojis@1.2.0/qq"],
-            dark: "auto",
-            meta: ["nick","mail","link"],
-            requiredMeta: [],
-            login: "enable",
-            
-            pageSize: 10,
-            
-            
-            texRenderer: false,
-            search: false,
-            pageview: false,
-            comment: false,
-            copyright: true,
-        });</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/avatar.jpg" alt="yang"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">yang</p><p class="is-size-6 is-block">成长</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Universe</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">18</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">10</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">11</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/yang12342/GameDevWebsite" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/yang12342/GameDevWebsite"><i class="fab fa-github"></i></a></div></div></div><!--!--><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/09/"><span class="level-start"><span class="level-item">九月 2024</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/07/"><span class="level-start"><span class="level-item">七月 2024</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/06/"><span class="level-start"><span class="level-item">六月 2024</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/05/"><span class="level-start"><span class="level-item">五月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/STL/"><span class="tag">STL</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/c/"><span class="tag">c++</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/c-%E8%AF%AD%E6%B3%95/"><span class="tag">c++语法</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/cpp/"><span class="tag">cpp</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/csv/"><span class="tag">csv</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/json/"><span class="tag">json</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%A1%94%E9%98%B2%E8%AF%BE%E7%A8%8B/"><span class="tag">塔防课程</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="tag">数据结构</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B8%B8%E6%88%8F%E5%BF%83%E5%BE%97/"><span class="tag">游戏心得</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/"><span class="tag">游戏设计</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="tag">设计模式</span><span class="tag">1</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/STL/"><span class="level-start"><span class="level-item">STL</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/c-%E8%AF%AD%E6%B3%95/"><span class="level-start"><span class="level-item">c++语法</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/cpp%E8%AF%AD%E6%B3%95/"><span class="level-start"><span class="level-item">cpp语法</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/csv/"><span class="level-start"><span class="level-item">csv</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/json/"><span class="level-start"><span class="level-item">json</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="level-start"><span class="level-item">数据结构</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%A4%8D%E7%89%A9%E6%98%8E%E6%98%9F%E5%A4%A7%E4%B9%B1%E6%96%97/"><span class="level-start"><span class="level-item">植物明星大乱斗</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%B8%B8%E6%88%8F%E5%BF%83%E5%BE%97/"><span class="level-start"><span class="level-item">游戏心得</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="level-start"><span class="level-item">设计模式</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/"><span class="level-start"><span class="level-item">设计经验</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://www.voidmatrix.work/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Voidmatrix</span></span><span class="level-right"><span class="level-item tag">www.voidmatrix.work</span></span></a></li><li><a class="level is-mobile" href="https://zexnocs.github.io/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">蝙蝠佬</span></span><span class="level-right"><span class="level-item tag">zexnocs.github.io</span></span></a></li><li><a class="level is-mobile" href="https://www.margoo.icu/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">margoo</span></span><span class="level-right"><span class="level-item tag">www.margoo.icu</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-22T16:00:00.000Z">2024-09-23</time></p><p class="title"><a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E5%8A%A8%E7%94%BB%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86/">处理不同形式角色动画资产</a></p><p class="categories"><a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-22T16:00:00.000Z">2024-09-23</time></p><p class="title"><a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/">资源管理器的资源管理设置</a></p><p class="categories"><a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-22T16:00:00.000Z">2024-09-23</time></p><p class="title"><a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E5%B1%82%E8%AE%BE%E8%AE%A1/">位运算管理物理碰撞层级&amp;四叉树管理二维碰撞箱子</a></p><p class="categories"><a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-22T16:00:00.000Z">2024-09-23</time></p><p class="title"><a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E7%AE%80%E5%8D%95%E8%AE%BE%E8%AE%A1/">碰撞管理器的简单设计</a></p><p class="categories"><a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-22T16:00:00.000Z">2024-09-23</time></p><p class="title"><a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA%E7%9A%84%E8%AE%BE%E8%AE%A1/">有限状态机的设计</a></p><p class="categories"><a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/avatar.jpg" alt="yang_blog" height="28"></a><p class="is-size-7"><span>&copy; 2024 yang</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2024</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
-            article: {
-                highlight: {
-                    clipboard: true,
-                    fold: 'unfolded'
-                }
-            }
-        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
-            if (typeof $.fn.lightGallery === 'function') {
-                $('.article').lightGallery({ selector: '.gallery-item' });
-            }
-            if (typeof $.fn.justifiedGallery === 'function') {
-                if ($('.justified-gallery > p > .gallery-item').length) {
-                    $('.justified-gallery > p > .gallery-item').unwrap();
-                }
-                $('.justified-gallery').justifiedGallery();
-            }
-        });</script><!--!--><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/KaTeX/0.15.1/katex.min.css"><script src="https://cdnjs.loli.net/ajax/libs/KaTeX/0.15.1/katex.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/KaTeX/0.15.1/contrib/auto-render.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/KaTeX/0.15.1/contrib/mhchem.min.js" defer></script><script>window.addEventListener("load", function() {
-            document.querySelectorAll('[role="article"] > .content').forEach(function(element) {
-                renderMathInElement(element);
-            });
-        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
-            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
-        });</script></body></html>
+<h3 id="有时间再补补性能分析吧"><a href="#有时间再补补性能分析吧" class="headerlink" title="有时间再补补性能分析吧"></a>有时间再补补性能分析吧</h3>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 yang_blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;yang
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

@@ -1,58 +1,701 @@
-<!doctype html>
-<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>yang_blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="好人"><meta name="msapplication-TileImage" content="img/avatar.jpg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="好人"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta property="og:type" content="blog"><meta property="og:title" content="yang_blog"><meta property="og:url" content="http://example.com/"><meta property="og:site_name" content="yang_blog"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/img/og_image.png"><meta property="article:author" content="yang"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://example.com/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com"},"headline":"yang_blog","image":["http://example.com/img/og_image.png"],"author":{"@type":"Person","name":"yang"},"publisher":{"@type":"Organization","name":"yang_blog","logo":{"@type":"ImageObject","url":"http://example.com/img/avatar.jpg"}},"description":""}</script><link rel="icon" href="/img/avatar.jpg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdnjs.loli.net/ajax/libs/pace/1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
-  (function () {
-      function switchTab() {
-          if (!location.hash) {
-            return;
-          }
 
-          const id = '#' + CSS.escape(location.hash.substring(1));
-          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
-          if (!$tabMenu) {
-            return;
-          }
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>yang_blog</title>
+    <meta name="author" content="yang" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
 
-          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
-          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
-          Array.from($tabMenuContainer.querySelectorAll('a'))
-              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
-              .forEach($content => $content.classList.add('is-hidden'));
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
 
-          if ($tabMenu) {
-              $tabMenu.parentElement.classList.add('is-active');
-          }
-          const $activeTab = document.querySelector(id);
-          if ($activeTab) {
-              $activeTab.classList.remove('is-hidden');
-          }
-      }
-      switchTab();
-      window.addEventListener('hashchange', switchTab, false);
-  })();
-  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/avatar.jpg" alt="yang_blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item is-active" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Github" href="https://github.com/VoidmatrixHeathcliff/GameDevWebsite"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-09-22T16:00:00.000Z" title="2024/9/23 00:00:00">2024-09-23</time>发表</span><span class="level-item"><time dateTime="2024-09-22T16:00:00.000Z" title="2024/9/23 00:00:00">2024-09-23</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></span><span class="level-item">7 分钟读完 (大约1018个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E5%8A%A8%E7%94%BB%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86/">处理不同形式角色动画资产</a></p><div class="content"><h2 id="处理不同形式角色动画资产的Animation管理器"><a href="#处理不同形式角色动画资产的Animation管理器" class="headerlink" title="处理不同形式角色动画资产的Animation管理器"></a>处理不同形式角色动画资产的Animation管理器</h2><p>对于一些美术资产我们常常会遇到俩种形式</p>
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+<script src="/js/lib/home.js"></script>
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>YANG_BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;YANG_BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div id="home-head">
+    <div
+        id="home-background"
+        ref="homeBackground"
+        data-images="/images/background.jpg"
+    ></div>
+    <div id="home-info" @click="homeClick">
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="info">
+            <div class="wrap">
+                <h1>yang_blog</h1>
+                <h3></h3>
+                <h5></h5>
+            </div>
+        </span>
+    </div>
+</div>
+<div
+    id="home-posts-wrap"
+    ref="homePostsWrap"
+    true
+>
+    <div id="home-posts">
+        
+
+<div class="post">
+    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E5%8A%A8%E7%94%BB%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86/">
+        <h2 class="post-title">处理不同形式角色动画资产</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                设计经验
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/9/23
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="处理不同形式角色动画资产的Animation管理器"><a href="#处理不同形式角色动画资产的Animation管理器" class="headerlink" title="处理不同形式角色动画资产的Animation管理器"></a>处理不同形式角色动画资产的Animation管理器</h2><p>对于一些美术资产我们常常会遇到俩种形式</p>
 <img src="./dead.png" alt="一张动画包含连续的多个帧" />
 
-<img src="./1.png" alt="一帧一张动画" /></div><a class="article-more button is-small is-size-7" href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E5%8A%A8%E7%94%BB%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86/#more">阅读更多</a></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-09-22T16:00:00.000Z" title="2024/9/23 00:00:00">2024-09-23</time>发表</span><span class="level-item"><time dateTime="2024-09-22T16:00:00.000Z" title="2024/9/23 00:00:00">2024-09-23</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></span><span class="level-item">13 分钟读完 (大约1981个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/">资源管理器的资源管理设置</a></p><div class="content"><h2 id="资源管理器的资源管理设置"><a href="#资源管理器的资源管理设置" class="headerlink" title="资源管理器的资源管理设置"></a>资源管理器的资源管理设置</h2><p>关于对于资源文件的加载，在之前的项目都是通过硬编码的方式手写出所有路径加载对应的图片和音频资源。</p>
-<p>相对于之前，我们使用<strong>stl</strong>的<unordered_map>来存储对应的资源</p></div><a class="article-more button is-small is-size-7" href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/#more">阅读更多</a></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-09-22T16:00:00.000Z" title="2024/9/23 00:00:00">2024-09-23</time>发表</span><span class="level-item"><time dateTime="2024-09-22T16:00:00.000Z" title="2024/9/23 00:00:00">2024-09-23</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></span><span class="level-item">20 分钟读完 (大约2951个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E5%B1%82%E8%AE%BE%E8%AE%A1/">位运算管理物理碰撞层级&amp;四叉树管理二维碰撞箱子</a></p><div class="content"><h2 id="1-位运算管理物理碰撞层级"><a href="#1-位运算管理物理碰撞层级" class="headerlink" title="1.位运算管理物理碰撞层级"></a>1.位运算管理物理碰撞层级</h2><h4 id="1-确定每个层的位掩码"><a href="#1-确定每个层的位掩码" class="headerlink" title="1.确定每个层的位掩码"></a>1.确定每个层的位掩码</h4><p>当我们使用枚举类来实现碰撞层级时，是因为我们只有一对一的碰撞，当我们遇到一对多的碰撞。就需要新的解决方案。于是我们选择使位运算，将每个层级映射为位掩码。</p></div><a class="article-more button is-small is-size-7" href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E5%B1%82%E8%AE%BE%E8%AE%A1/#more">阅读更多</a></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-09-22T16:00:00.000Z" title="2024/9/23 00:00:00">2024-09-23</time>发表</span><span class="level-item"><time dateTime="2024-09-22T16:00:00.000Z" title="2024/9/23 00:00:00">2024-09-23</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></span><span class="level-item">5 分钟读完 (大约823个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E7%AE%80%E5%8D%95%E8%AE%BE%E8%AE%A1/">碰撞管理器的简单设计</a></p><div class="content"><h3 id="碰撞管理器的简单设计"><a href="#碰撞管理器的简单设计" class="headerlink" title="碰撞管理器的简单设计"></a>碰撞管理器的简单设计</h3><p>面对物理世界的所有碰撞我们都整合在一起管理所有物体的碰撞箱，方便我们统一的进行处理。</p>
+<img src="./1.png" alt="一帧一张动画" />
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/cpp/" style="color: #00a596">cpp</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #03a9f4">游戏设计</a>
+        </span>
+        
+    </div>
+    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E5%8A%A8%E7%94%BB%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/">
+        <h2 class="post-title">资源管理器的资源管理设置</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                设计经验
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/9/23
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="资源管理器的资源管理设置"><a href="#资源管理器的资源管理设置" class="headerlink" title="资源管理器的资源管理设置"></a>资源管理器的资源管理设置</h2><p>关于对于资源文件的加载，在之前的项目都是通过硬编码的方式手写出所有路径加载对应的图片和音频资源。</p>
+<p>相对于之前，我们使用<strong>stl</strong>的<unordered_map>来存储对应的资源</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/cpp/" style="color: #ffa2c4">cpp</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #ff7d73">游戏设计</a>
+        </span>
+        
+    </div>
+    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/const%E7%9A%84%E9%83%A8%E5%88%86%E4%BD%BF%E7%94%A8/">
+        <h2 class="post-title">const的常用场景</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/cpp%E8%AF%AD%E6%B3%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                cpp语法
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/9/23
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p>之前我们记得有这样方式传参</p>
+<pre><code class="CPP">Vector2（2，3）;
+</code></pre>
+<p>类名加括号内构造函数参数，就可以创建临时对象作为形参传递。</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/cpp/" style="color: #ffa2c4">cpp</a>
+        </span>
+        
+    </div>
+    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/const%E7%9A%84%E9%83%A8%E5%88%86%E4%BD%BF%E7%94%A8/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E5%B1%82%E8%AE%BE%E8%AE%A1/">
+        <h2 class="post-title">位运算管理物理碰撞层级&amp;四叉树管理二维碰撞箱子</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                设计经验
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/9/23
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="1-位运算管理物理碰撞层级"><a href="#1-位运算管理物理碰撞层级" class="headerlink" title="1.位运算管理物理碰撞层级"></a>1.位运算管理物理碰撞层级</h2><h4 id="1-确定每个层的位掩码"><a href="#1-确定每个层的位掩码" class="headerlink" title="1.确定每个层的位掩码"></a>1.确定每个层的位掩码</h4><p>当我们使用枚举类来实现碰撞层级时，是因为我们只有一对一的碰撞，当我们遇到一对多的碰撞。就需要新的解决方案。于是我们选择使位运算，将每个层级映射为位掩码。</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/cpp/" style="color: #00bcd4">cpp</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #03a9f4">游戏设计</a>
+        </span>
+        
+    </div>
+    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E5%B1%82%E8%AE%BE%E8%AE%A1/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E7%AE%80%E5%8D%95%E8%AE%BE%E8%AE%A1/">
+        <h2 class="post-title">碰撞管理器的简单设计</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                设计经验
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/9/23
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h3 id="碰撞管理器的简单设计"><a href="#碰撞管理器的简单设计" class="headerlink" title="碰撞管理器的简单设计"></a>碰撞管理器的简单设计</h3><p>面对物理世界的所有碰撞我们都整合在一起管理所有物体的碰撞箱，方便我们统一的进行处理。</p>
 <img src="./image-20240923203406205.png" alt="image-20240923203406205" style="zoom:67%;" />
 
-<p>就是为了方便这些的统一管理所有碰撞箱子的碰撞发生。</p></div><a class="article-more button is-small is-size-7" href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E7%AE%80%E5%8D%95%E8%AE%BE%E8%AE%A1/#more">阅读更多</a></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-09-22T16:00:00.000Z" title="2024/9/23 00:00:00">2024-09-23</time>发表</span><span class="level-item"><time dateTime="2024-09-22T16:00:00.000Z" title="2024/9/23 00:00:00">2024-09-23</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></span><span class="level-item">9 分钟读完 (大约1292个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA%E7%9A%84%E8%AE%BE%E8%AE%A1/">有限状态机的设计</a></p><div class="content"><h2 id="有限状态机的设计"><a href="#有限状态机的设计" class="headerlink" title="有限状态机的设计"></a>有限状态机的设计</h2><img src="./image-20240923211456603.png" alt="image-20240923211456603" style="zoom:50%;" />
+<p>就是为了方便这些的统一管理所有碰撞箱子的碰撞发生。</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/cpp/" style="color: #ff7d73">cpp</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #03a9f4">游戏设计</a>
+        </span>
+        
+    </div>
+    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E7%AE%80%E5%8D%95%E8%AE%BE%E8%AE%A1/" class="go-post">阅读全文</a>
+</div>
 
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">StateMachine state_machine;</span><br></pre></td></tr></table></figure>
+<div class="post">
+    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA%E7%9A%84%E8%AE%BE%E8%AE%A1/">
+        <h2 class="post-title">有限状态机的设计</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                设计经验
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/9/23
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="有限状态机的设计"><a href="#有限状态机的设计" class="headerlink" title="有限状态机的设计"></a>有限状态机的设计</h2><img src="./image-20240923211456603.png" alt="image-20240923211456603" style="zoom:50%;" />
 
-<p>每一个继承character的对象都有状态机的成员变量。</p></div><a class="article-more button is-small is-size-7" href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA%E7%9A%84%E8%AE%BE%E8%AE%A1/#more">阅读更多</a></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-09-22T16:00:00.000Z" title="2024/9/23 00:00:00">2024-09-23</time>发表</span><span class="level-item"><time dateTime="2024-09-22T16:00:00.000Z" title="2024/9/23 00:00:00">2024-09-23</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/cpp%E8%AF%AD%E6%B3%95/">cpp语法</a></span><span class="level-item">6 分钟读完 (大约933个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/const%E7%9A%84%E9%83%A8%E5%88%86%E4%BD%BF%E7%94%A8/">const的常用场景</a></p><div class="content"><p>之前我们记得有这样方式传参</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vector2（<span class="number">2</span>，<span class="number">3</span>）;</span><br></pre></td></tr></table></figure>
+<pre><code class="CPP">protected:
+StateMachine state_machine;
+</code></pre>
+<p>每一个继承character的对象都有状态机的成员变量。</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/cpp/" style="color: #ffa2c4">cpp</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #00a596">游戏设计</a>
+        </span>
+        
+    </div>
+    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA%E7%9A%84%E8%AE%BE%E8%AE%A1/" class="go-post">阅读全文</a>
+</div>
 
-<p>类名加括号内构造函数参数，就可以创建临时对象作为形参传递。</p></div><a class="article-more button is-small is-size-7" href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/const%E7%9A%84%E9%83%A8%E5%88%86%E4%BD%BF%E7%94%A8/#more">阅读更多</a></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-07-22T16:00:00.000Z" title="2024/7/23 00:00:00">2024-07-23</time>发表</span><span class="level-item"><time dateTime="2024-07-22T16:00:00.000Z" title="2024/7/23 00:00:00">2024-07-23</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/csv/">csv</a></span><span class="level-item">4 分钟读完 (大约645个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/articles/%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/csv/">csv文件解析</a></p><div class="content"><h2 id="CSV简单的读取"><a href="#CSV简单的读取" class="headerlink" title="CSV简单的读取"></a>CSV简单的读取</h2><p>CSV代表Comma Separated Values。CSV文件是一种纯<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6&spm=1001.2101.3001.7020">文本文件</a>，用于存储表格和电子表格信息。内容通常是由文本、数字或日期组成的表格。使用将数据存储在表中的程序可以轻松导入和导出CSV文件。</p></div><a class="article-more button is-small is-size-7" href="/articles/%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/csv/#more">阅读更多</a></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-07-22T16:00:00.000Z" title="2024/7/23 00:00:00">2024-07-23</time>发表</span><span class="level-item"><time dateTime="2024-07-22T16:00:00.000Z" title="2024/7/23 00:00:00">2024-07-23</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/json/">json</a></span><span class="level-item">11 分钟读完 (大约1709个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/articles/%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/cjson/">cjson库解析json文件</a></p><div class="content"><h2 id="利用cJSON库来解析json文件"><a href="#利用cJSON库来解析json文件" class="headerlink" title="利用cJSON库来解析json文件"></a>利用cJSON库来解析json文件</h2><blockquote>
+<div class="post">
+    <a href="/articles/%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/csv/">
+        <h2 class="post-title">csv文件解析</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/csv/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                csv
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/7/23
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="CSV简单的读取"><a href="#CSV简单的读取" class="headerlink" title="CSV简单的读取"></a>CSV简单的读取</h2><p>CSV代表Comma Separated Values。CSV文件是一种纯<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6&spm=1001.2101.3001.7020">文本文件</a>，用于存储表格和电子表格信息。内容通常是由文本、数字或日期组成的表格。使用将数据存储在表中的程序可以轻松导入和导出CSV文件。</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/csv/" style="color: #00a596">csv</a>
+        </span>
+        
+    </div>
+    <a href="/articles/%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/csv/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/articles/%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/cjson/">
+        <h2 class="post-title">cjson库解析json文件</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/json/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                json
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/7/23
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="利用cJSON库来解析json文件"><a href="#利用cJSON库来解析json文件" class="headerlink" title="利用cJSON库来解析json文件"></a>利用cJSON库来解析json文件</h2><blockquote>
 <p>cJSON是一个使用C语言编写的JSON数据解析器，具有超轻便，可移植，单文件的特点，使用MIT开源协议。</p>
 <p>#include &lt;cJSON.h&gt;使用前需要引用这个库</p>
 <p>同时将csjon.c放到工程目录</p>
-</blockquote></div><a class="article-more button is-small is-size-7" href="/articles/%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/cjson/#more">阅读更多</a></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-07-12T16:00:00.000Z" title="2024/7/13 00:00:00">2024-07-13</time>发表</span><span class="level-item"><time dateTime="2024-07-12T16:00:00.000Z" title="2024/7/13 00:00:00">2024-07-13</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/c-%E8%AF%AD%E6%B3%95/">c++语法</a></span><span class="level-item">23 分钟读完 (大约3436个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/articles/c++%E8%AF%AD%E6%B3%95/c++%E7%9A%84%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA/">c++输入输出</a></p><div class="content"><h1 id="c-输入输出"><a href="#c-输入输出" class="headerlink" title="c++输入输出"></a>c++输入输出</h1><blockquote>
+</blockquote>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/json/" style="color: #03a9f4">json</a>
+        </span>
+        
+    </div>
+    <a href="/articles/%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/cjson/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/articles/c++%E8%AF%AD%E6%B3%95/c++%E7%9A%84%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA/">
+        <h2 class="post-title">c++输入输出</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/c-%E8%AF%AD%E6%B3%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                c++语法
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/7/13
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="c-输入输出"><a href="#c-输入输出" class="headerlink" title="c++输入输出"></a>c++输入输出</h1><blockquote>
 <p>学校对于这一节并没有教，当时看也只是模仿了上面的案例，不是很懂。现在在VoidMatrix的塔防教程中看到了这方面知识点相关，就想相对了解一下</p>
 </blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::fstream <span class="title">file</span><span class="params">(path)</span></span>;			</span><br><span class="line"><span class="keyword">if</span> (!file.<span class="built_in">good</span>())<span class="keyword">return</span>  <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">std::stringstream str_stream;			</span><br><span class="line">str_stream &lt;&lt; file.<span class="built_in">rdbuf</span>();			</span><br><span class="line">file.<span class="built_in">close</span>();						</span><br><span class="line"></span><br><span class="line">cJSON* json_root = <span class="built_in">cJSON_Parse</span>(str_stream.<span class="built_in">str</span>().<span class="built_in">c_str</span>());</span><br></pre></td></tr></table></figure>
+<pre><code class="CPP">std::fstream file(path);			
+if (!file.good())return  false;
 
-<p>主要弄明白这一段代码的意思。</p></div><a class="article-more button is-small is-size-7" href="/articles/c++%E8%AF%AD%E6%B3%95/c++%E7%9A%84%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA/#more">阅读更多</a></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-06-29T16:00:00.000Z" title="2024/6/30 00:00:00">2024-06-30</time>发表</span><span class="level-item"><time dateTime="2024-06-29T16:00:00.000Z" title="2024/6/30 00:00:00">2024-06-30</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/STL/">STL</a></span><span class="level-item">22 分钟读完 (大约3246个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/articles/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/map&amp;&amp;unordered_map%E7%9A%84%E4%BD%BF%E7%94%A8/">map&amp;&amp;unordered_map</a></p><div class="content"><h2 id="map-unordered-mSTLap"><a href="#map-unordered-mSTLap" class="headerlink" title="map&amp;&amp;unordered_mSTLap"></a>map&amp;&amp;unordered_mSTLap</h2><blockquote>
+std::stringstream str_stream;			
+str_stream &lt;&lt; file.rdbuf();			
+file.close();						
+
+cJSON* json_root = cJSON_Parse(str_stream.str().c_str());
+</code></pre>
+<p>主要弄明白这一段代码的意思。</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/c-%E8%AF%AD%E6%B3%95/" style="color: #ffa2c4">c++语法</a>
+        </span>
+        
+    </div>
+    <a href="/articles/c++%E8%AF%AD%E6%B3%95/c++%E7%9A%84%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/articles/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/map&&unordered_map%E7%9A%84%E4%BD%BF%E7%94%A8/">
+        <h2 class="post-title">map&amp;&amp;unordered_map</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/STL/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                STL
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/30
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="map-unordered-mSTLap"><a href="#map-unordered-mSTLap" class="headerlink" title="map&amp;&amp;unordered_mSTLap"></a>map&amp;&amp;unordered_mSTLap</h2><blockquote>
 <p>恰巧看到大V老师使用unordered_map来实现了资源池，那么便想在分析池的概念前，先弄清这个STL的提供的结构</p>
 <p>将分析pair，map，unordered_map</p>
 <p>我们将解决课程的以下疑问</p>
@@ -61,27 +704,103 @@
 <li>为什么大v老师的使用下标【】的方法就可以构建新的对象？</li>
 <li>大v老师的键值使用了枚举，那么对于unordered_map键值类型限制和map的键值类型限制具体有哪些，枚举为什么可以作为其键值（最后的比较会解释）？</li>
 </ol>
-</blockquote></div><a class="article-more button is-small is-size-7" href="/articles/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/map&amp;&amp;unordered_map%E7%9A%84%E4%BD%BF%E7%94%A8/#more">阅读更多</a></article></div><nav class="pagination" role="navigation" aria-label="pagination"><div class="pagination-previous is-invisible is-hidden-mobile"><a href="/page/0/">上一页</a></div><div class="pagination-next"><a href="/page/2/">下一页</a></div><ul class="pagination-list is-hidden-mobile"><li><a class="pagination-link is-current" href="/">1</a></li><li><a class="pagination-link" href="/page/2/">2</a></li></ul></nav></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/avatar.jpg" alt="yang"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">yang</p><p class="is-size-6 is-block">成长</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Universe</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">18</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">10</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">11</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/yang12342/GameDevWebsite" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/yang12342/GameDevWebsite"><i class="fab fa-github"></i></a></div></div></div><!--!--><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/09/"><span class="level-start"><span class="level-item">九月 2024</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/07/"><span class="level-start"><span class="level-item">七月 2024</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/06/"><span class="level-start"><span class="level-item">六月 2024</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/05/"><span class="level-start"><span class="level-item">五月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/STL/"><span class="tag">STL</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/c/"><span class="tag">c++</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/c-%E8%AF%AD%E6%B3%95/"><span class="tag">c++语法</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/cpp/"><span class="tag">cpp</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/csv/"><span class="tag">csv</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/json/"><span class="tag">json</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%A1%94%E9%98%B2%E8%AF%BE%E7%A8%8B/"><span class="tag">塔防课程</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="tag">数据结构</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B8%B8%E6%88%8F%E5%BF%83%E5%BE%97/"><span class="tag">游戏心得</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/"><span class="tag">游戏设计</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="tag">设计模式</span><span class="tag">1</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/STL/"><span class="level-start"><span class="level-item">STL</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/c-%E8%AF%AD%E6%B3%95/"><span class="level-start"><span class="level-item">c++语法</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/cpp%E8%AF%AD%E6%B3%95/"><span class="level-start"><span class="level-item">cpp语法</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/csv/"><span class="level-start"><span class="level-item">csv</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/json/"><span class="level-start"><span class="level-item">json</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="level-start"><span class="level-item">数据结构</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%A4%8D%E7%89%A9%E6%98%8E%E6%98%9F%E5%A4%A7%E4%B9%B1%E6%96%97/"><span class="level-start"><span class="level-item">植物明星大乱斗</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%B8%B8%E6%88%8F%E5%BF%83%E5%BE%97/"><span class="level-start"><span class="level-item">游戏心得</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="level-start"><span class="level-item">设计模式</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/"><span class="level-start"><span class="level-item">设计经验</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://www.voidmatrix.work/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Voidmatrix</span></span><span class="level-right"><span class="level-item tag">www.voidmatrix.work</span></span></a></li><li><a class="level is-mobile" href="https://zexnocs.github.io/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">蝙蝠佬</span></span><span class="level-right"><span class="level-item tag">zexnocs.github.io</span></span></a></li><li><a class="level is-mobile" href="https://www.margoo.icu/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">margoo</span></span><span class="level-right"><span class="level-item tag">www.margoo.icu</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-22T16:00:00.000Z">2024-09-23</time></p><p class="title"><a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E5%8A%A8%E7%94%BB%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86/">处理不同形式角色动画资产</a></p><p class="categories"><a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-22T16:00:00.000Z">2024-09-23</time></p><p class="title"><a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/">资源管理器的资源管理设置</a></p><p class="categories"><a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-22T16:00:00.000Z">2024-09-23</time></p><p class="title"><a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E5%B1%82%E8%AE%BE%E8%AE%A1/">位运算管理物理碰撞层级&amp;四叉树管理二维碰撞箱子</a></p><p class="categories"><a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-22T16:00:00.000Z">2024-09-23</time></p><p class="title"><a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E7%AE%80%E5%8D%95%E8%AE%BE%E8%AE%A1/">碰撞管理器的简单设计</a></p><p class="categories"><a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-22T16:00:00.000Z">2024-09-23</time></p><p class="title"><a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA%E7%9A%84%E8%AE%BE%E8%AE%A1/">有限状态机的设计</a></p><p class="categories"><a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">设计经验</a></p></div></article></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/avatar.jpg" alt="yang_blog" height="28"></a><p class="is-size-7"><span>&copy; 2024 yang</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2024</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
-            article: {
-                highlight: {
-                    clipboard: true,
-                    fold: 'unfolded'
-                }
-            }
-        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
-            if (typeof $.fn.lightGallery === 'function') {
-                $('.article').lightGallery({ selector: '.gallery-item' });
-            }
-            if (typeof $.fn.justifiedGallery === 'function') {
-                if ($('.justified-gallery > p > .gallery-item').length) {
-                    $('.justified-gallery > p > .gallery-item').unwrap();
-                }
-                $('.justified-gallery').justifiedGallery();
-            }
-        });</script><!--!--><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/KaTeX/0.15.1/katex.min.css"><script src="https://cdnjs.loli.net/ajax/libs/KaTeX/0.15.1/katex.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/KaTeX/0.15.1/contrib/auto-render.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/KaTeX/0.15.1/contrib/mhchem.min.js" defer></script><script>window.addEventListener("load", function() {
-            document.querySelectorAll('[role="article"] > .content').forEach(function(element) {
-                renderMathInElement(element);
-            });
-        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
-            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
-        });</script></body></html>
+</blockquote>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/STL/" style="color: #03a9f4">STL</a>
+        </span>
+        
+    </div>
+    <a href="/articles/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/map&&unordered_map%E7%9A%84%E4%BD%BF%E7%94%A8/" class="go-post">阅读全文</a>
+</div>
+
+
+        <div class="page-current">
+    
+    <span class="current">1</span>
+    
+    <a class="page-num" href="/page/2">
+        2
+    </a>
+    
+    
+    
+    
+    <a class="page-num" href="/page/2/">
+        <i class="fa-solid fa-caret-right fa-fw"></i>
+    </a>
+    
+</div>
+
+    </div>
+    
+    <div id="home-card">
+        <div id="card-style">
+    <div id="card-div">
+        <div class="avatar">
+            <img src="/images/avatar.jpg" alt="avatar" />
+        </div>
+        <div class="name">yang</div>
+        <div class="description">
+            <p>Description<br>…</p>
+
+        </div>
+        
+        
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://argvchs.github.io">Argvchs</a>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+
+    </div>
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 yang_blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;yang
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+</body>
+</html>
