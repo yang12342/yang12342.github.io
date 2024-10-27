@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>标准库的filesystem | yang_blog</title>
+    <meta name="author" content="yang" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>YANG_BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;YANG_BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>标准库的filesystem</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/10/28
+        </span>
+        
+        <span class="category">
+            <a href="/categories/STD/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                STD
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/STD/" style="color: #ffa2c4">
+                    STD
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h2 id="filesystem"><a href="#filesystem" class="headerlink" title="filesystem"></a>filesystem</h2><p><code>filesystem</code> 库是 C++17 中引入的一个重要特性，它提供了一系列用于文件系统操作的功能。这个库包含在 <code>&lt;filesystem&gt;</code> 头文件中，并且定义在 <code>std::filesystem</code> <a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?q=%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4&zhida_source=entity&is_preview=1">命名空间</a>内。</p>
+<h3 id="常用的类（前三个较为常用）"><a href="#常用的类（前三个较为常用）" class="headerlink" title="常用的类（前三个较为常用）"></a>常用的类（前三个较为常用）</h3><h4 id="1-std-filesystem-path"><a href="#1-std-filesystem-path" class="headerlink" title="1. std::filesystem::path"></a>1. <code>std::filesystem::path</code></h4><ul>
+<li><strong>描述</strong>：表示文件系统中的路径。</li>
+</ul>
+<p><strong>构造函数</strong>：<code>path(const char* p)</code> 或 <code>path(const std::string&amp; p)</code>：构造路径。</p>
+<ul>
+<li>**<code>operator/</code>**：<code>path operator/(const path&amp; rhs) const</code>：支持路径拼接。</li>
+<li>**<code>filename()</code>**：<code>path filename() const</code>：返回路径的最后一部分（包括后缀的文件名）。</li>
+<li>**<code>extension()</code>**：<code>path extension() const</code>：返回文件的扩展名（例如 <code>.txt</code>）。</li>
+<li>**<code>stem()</code>**：<code>path stem() const</code>：返回文件除去后缀的名字（例如 <code>.txt</code>）。</li>
+<li>**<code>parent_path()</code>**：<code>path parent_path() const</code>：返回去掉文件名后的路径部分。</li>
+<li>**<code>string()</code>**：<code>std::string string() const</code>：将路径转换为 <code>std::string</code> 类型。</li>
+<li>**<code>wstring</code>**（）:<code>std::wstring string() const</code>：将路径转换为 <code>std::wstring</code> 类型。</li>
+</ul>
+<h4 id="2-std-filesystem-directory-entry"><a href="#2-std-filesystem-directory-entry" class="headerlink" title="2. std::filesystem::directory_entry"></a>2. <code>std::filesystem::directory_entry</code></h4><ul>
+<li><p><strong>描述</strong>：表示目录中的单个条目（文件或目录）。</p>
+</li>
+<li><p>常用函数：</p>
+<ul>
+<li>**<code>path()</code>**：<code>path path() const</code>：返回该条目的完整路径。</li>
+<li>**<code>is_directory()</code>**：<code>bool is_directory() const</code>：检查该条目是否是目录。</li>
+<li>**<code>is_regular_file()</code>**：<code>bool is_regular_file() const</code>：检查该条目是否是常规文件。</li>
+<li>**<code>file_size()</code>**：<code>std::uintmax_t file_size() const</code>：获取文件的大小。</li>
+<li>**<code>last_write_time()</code>**：<code>std::filesystem::file_time_type last_write_time() const</code>：获取最后修改时间。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-std-filesystem-directory-iterator"><a href="#3-std-filesystem-directory-iterator" class="headerlink" title="3. std::filesystem::directory_iterator"></a>3. <code>std::filesystem::directory_iterator</code></h4><ul>
+<li><p><strong>描述</strong>：用于遍历指定目录中的条目。</p>
+</li>
+<li><p>常用函数：</p>
+<ul>
+<li>**<code>operator++()</code>**：<code>directory_iterator&amp; operator++()</code>：移动到下一个条目。</li>
+<li>**<code>operator\*()</code>**：<code>directory_entry operator*() const</code>：解引用，获取当前条目。</li>
+<li>**<code>operator!=()</code>**：<code>bool operator!=(const directory_iterator&amp; other) const</code>：比较两个迭代器，判断它们是否不相等。</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-std-filesystem-recursive-directory-iterator"><a href="#4-std-filesystem-recursive-directory-iterator" class="headerlink" title="4. std::filesystem::recursive_directory_iterator"></a>4. <code>std::filesystem::recursive_directory_iterator</code></h4><ul>
+<li><p><strong>描述</strong>：用于递归遍历指定目录及其子目录中的条目。</p>
+</li>
+<li><p>常用函数：</p>
+<ul>
+<li>**<code>operator++()</code>**：<code>recursive_directory_iterator&amp; operator++()</code>：移动到下一个条目（包括子目录）。</li>
+<li>**<code>operator\*()</code>**：<code>directory_entry operator*() const</code>：解引用，获取当前条目。</li>
+<li>**<code>operator!=()</code>**：<code>bool operator!=(const recursive_directory_iterator&amp; other) const</code>：比较两个迭代器，判断它们是否不相等。</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-std-filesystem-file-status"><a href="#5-std-filesystem-file-status" class="headerlink" title="5. std::filesystem::file_status"></a>5. <code>std::filesystem::file_status</code></h4><ul>
+<li><p><strong>描述</strong>：表示文件或目录的状态。</p>
+</li>
+<li><p>常用函数：</p>
+<ul>
+<li>**<code>type()</code>**：<code>file_type type() const</code>：获取文件的类型。</li>
+<li>**<code>permissions()</code>**：<code>perms permissions() const</code>：获取权限信息。</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-std-filesystem-space-info"><a href="#6-std-filesystem-space-info" class="headerlink" title="6. std::filesystem::space_info"></a>6. <code>std::filesystem::space_info</code></h4><ul>
+<li><p><strong>描述</strong>：表示磁盘空间的信息。</p>
+</li>
+<li><p>成员变量：</p>
+<ul>
+<li>**<code>capacity</code>**：<code>std::uintmax_t capacity</code>：磁盘的总容量。</li>
+<li>**<code>free</code>**：<code>std::uintmax_t free</code>：可用空间。</li>
+<li>**<code>available</code>**：<code>std::uintmax_t available</code>：当前用户可用的空间。</li>
+</ul>
+</li>
+</ul>
+<h4 id="7-std-filesystem-file-type"><a href="#7-std-filesystem-file-type" class="headerlink" title="7. std::filesystem::file_type"></a>7. <code>std::filesystem::file_type</code></h4><ul>
+<li><p><strong>描述</strong>：枚举类型，表示文件的类型。</p>
+</li>
+<li><p>常见值：</p>
+<ul>
+<li><code>file_type::regular</code>：常规文件。</li>
+<li><code>file_type::directory</code>：目录。</li>
+<li><code>file_type::symlink</code>：符号链接。</li>
+<li><code>file_type::unknown</code>：未知类型。</li>
+</ul>
+</li>
+</ul>
+<h4 id="8-std-filesystem-permissions"><a href="#8-std-filesystem-permissions" class="headerlink" title="8. std::filesystem::permissions"></a>8. <code>std::filesystem::permissions</code></h4><ul>
+<li><p><strong>描述</strong>：表示文件或目录的权限类型，可以组合使用。</p>
+</li>
+<li><p>常见权限值：</p>
+<ul>
+<li><code>perms::none</code>：无权限。</li>
+<li><code>perms::owner_read</code>：所有者读取权限。</li>
+<li><code>perms::owner_write</code>：所有者写入权限。</li>
+<li><code>perms::owner_exe</code>：所有者执行权限。</li>
+</ul>
+</li>
+</ul>
+<h3 id="常用库函数"><a href="#常用库函数" class="headerlink" title="常用库函数"></a>常用库函数</h3><p><strong><code>void copy(const path&amp; from, const path&amp; to)</code></strong> ：目录复制</p>
+<p><strong><code>path absolute(const path&amp; pval, const path&amp; base = current_path())</code></strong> ：获取相对于base的绝对路径</p>
+<p><strong><code>bool create_directory(const path&amp; pval)</code></strong> ：当目录不存在时创建目录</p>
+<p><strong><code>bool create_directories(const path&amp; pval)</code></strong> ：形如&#x2F;a&#x2F;b&#x2F;c这样的，如果都不存在，创建目录结构</p>
+<p><strong><code>bool exists(const path&amp; pval)</code></strong> ：用于判断path是否存在</p>
+<p><strong><code>uintmax_t file_size(const path&amp; pval)</code></strong> ：返回目录的大小</p>
+<p><strong><code>file_time_type last_write_time(const path&amp; pval)</code></strong> ：返回目录最后修改日期的file_time_type对象</p>
+<p><strong><code>bool remove(const path&amp; pval)</code></strong> ：删除目录</p>
+<p><strong><code>uintmax_t remove_all(const path&amp; pval)</code></strong> ：递归删除目录下所有文件，返回被成功删除的文件个数</p>
+<p><strong><code>void rename(const path&amp; from, const path&amp; to)</code></strong> ：移动文件或者重命名</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><pre><code class="CPP">    fs::path resourceDir = &quot;resources&quot;;
+
+    // 遍历目录
+    for (const auto&amp; entry : fs::directory_iterator(resourceDir)) &#123;
+        if (entry.is_regular_file()) 
+        &#123; // 确保是文件而不是子目录
+            IMAGE* image = new IMAGE();
+            loadimage(image, entry.path().wstring().c_str());
+            if (!check_image_valid(image))
+                throw entry.path().wstring().c_str();
+            image_pool[entry.path().stem().string()] = image;
+        &#125;
+        else
+        &#123;
+            fs::path filePath = entry.path();
+            if (filePath.filename() == &quot;player&quot;)
+            &#123;
+                
+                for (const auto&amp; m_entry : fs::directory_iterator(filePath))
+                &#123;
+                    IMAGE* image = new IMAGE();
+                    loadimage(image,m_entry.path().wstring().c_str());
+                    if (!check_image_valid(image))
+                        throw m_entry.path().wstring().c_str();
+                    image_pool[m_entry.path().stem().string()] = image;
+                &#125;
+            &#125;
+            else if (filePath.filename() == &quot;enemy&quot;)
+            &#123;
+                for (const auto&amp; m_entry : fs::directory_iterator(filePath))
+                &#123;
+                    Atlas* atlas = new Atlas();
+                    atlas-&gt;load(m_entry.path());
+                    for (int i = 0; i &lt; atlas-&gt;get_size(); i++)
+                    &#123;
+                        IMAGE* image = atlas-&gt;get_image(i);
+                        if (!check_image_valid(image))
+                            throw m_entry.path().wstring().c_str();
+                    &#125;
+                    
+                    atlas_pool[m_entry.path().filename().string()] = atlas;
+                &#125;
+            &#125;
+            
+        &#125;
+    &#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 yang_blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;yang
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

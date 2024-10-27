@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>奥日与萤火森林2 | yang_blog</title>
+    <title>STL的stack的使用 | yang_blog</title>
     <meta name="author" content="yang" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -161,22 +161,22 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>奥日与萤火森林2</h1>
+        <h1>STL的stack的使用</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/5/31
+            2024/7/13
         </span>
         
         <span class="category">
-            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BF%83%E5%BE%97/">
+            <a href="/categories/STL/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                游戏心得
+                STL
             </a>
         </span>
         
@@ -189,8 +189,8 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BF%83%E5%BE%97/" style="color: #00a596">
-                    游戏心得
+                <a href="/tags/STL/" style="color: #ff7d73">
+                    STL
                 </a>
             </span>
             
@@ -199,50 +199,87 @@
     </div>
     
     <div class="content" v-pre>
-        <h1 id="玩奥日有感（真随笔）"><a href="#玩奥日有感（真随笔）" class="headerlink" title="玩奥日有感（真随笔）"></a>玩奥日有感（真随笔）</h1><h2 id="剧情上"><a href="#剧情上" class="headerlink" title="剧情上"></a>剧情上</h2><ul>
-<li>剧情上，目前是主角是一位精灵，不小心与猫头鹰库到一处森林分离，在初期的探索中初步认识了这个地方，认识了莫基小生物和地方守护者夸洛克，解决了当地的水源问题，与朋友会和但又不幸主角的朋友库在静谧森林因为攻击而晕过去，于是为了朋友和森林又踏上了整个大陆的冒险寻找森林光的碎片。<br>这里分析一下主线推动和技能玩法的探索，显然在一些必备的要素技能都没有，你是探索不了主线的地图<br>解锁了地底下和森林的碎片<br>唤醒了底下的蜘蛛（被腐朽吞噬了心智）<br>夸洛克牺牲了自我换回碎片</li>
-</ul>
-<span id="more"></span>
+        <h1 id="stack-栈-的使用"><a href="#stack-栈-的使用" class="headerlink" title="stack(栈)的使用"></a>stack(栈)的使用</h1><p>1.stack是一种容器适配器，专门用在具有后进先出操作的上下文环境中，其删除只能从容器的一端进行元素的插入与提取操作。</p>
+<ol start="2">
+<li><p>stack是作为容器适配器被实现的，容器适配器即是对特定类封装作为其底层的容器，并提供一组特定的成员函数来访问其元素，将特定类作为其底层的，元素特定容器的尾部(即栈顶)被压入和弹出。</p>
+  <span id="more"></span>
+</li>
+<li><p>stack的底层容器可以是任何标准的容器类模板或者一些其他特定的容器类，这些容器类应该支持以下操作：<br>  empty：判空操作<br>      back：获取尾部元素操作<br>      push_back：尾部插入元素操作<br>      pop_back：尾部删除元素操作</p>
+</li>
+<li><p>标准容器vector、deque、list均符合这些需求，默认情况下，如果没有为stack指定特定的底层容器，默认情况下使用deque。</p>
+</li>
+</ol>
+<img src="./6ba6281ebe4f4b9c822fcad4eb62fc2b.png" alt="无" style="zoom:80%;" />
 
+<h2 id="stack的构造函数"><a href="#stack的构造函数" class="headerlink" title="stack的构造函数"></a>stack的构造函数</h2><pre><code class="CPP">#include &lt;iostream&gt;
+#include &lt;stack&gt;
+#include &lt;vector&gt;
+
+int main() &#123;
+    // 示例1：使用默认构造函数创建一个空的stack对象，成员为int。
+    std::stack&lt;int&gt; myStack;
+
+    // 示例2：使用拷贝构造函数创建一个与现有stack对象相同的新对象。
+    std::stack&lt;int&gt; otherStack;
+    otherStack.push(1);
+    otherStack.push(2);
+     //通过复制构造函数，来生成一个复制的新对象
+    std::stack&lt;int&gt; newStack(otherStack);
+
+    // 示例3：使用构造函数模板创建一个基于vector的stack对象。
+    std::stack&lt;int, std::vector&lt;int&gt;&gt; intStack;
+    intStack.push(10);
+    intStack.push(20);
+
+:endl;
+
+    return 0;
+&#125;
+
+//示例2中新创建的stack对象的元素：2 1 
+//示例3中基于vector的stack对象的元素：20 10 
+</code></pre>
+<p>关于最后一个<strong>基于vector</strong>构造的stack可能有一点疑惑</p>
+<blockquote>
+<p>GPT</p>
+<p>在STL中，stack模板类默认使用deque容器作为底层容器来实现栈的功能。但是，stack也支供了另外一个模板参数，允许我们自定义底层容器类型。所以，我们可以通过指定第二个模板参数来使用vector容器作为底层容器来实现stack。</p>
+<p>vector容器实现stack的方式是很直观的：stack的push操作就直接调用vector的push_back方法，将元素插入到vector的末尾；stack的pop操作就调用vector的pop_back方法，将vector的最后一个元素弹出；stack的top操作就返回vector的最后一个元素。</p>
+<p>由于vector底层采用动态数组来存储元素，因此vector容器实现stack的操作复杂度和vector的操作复杂度一样，即</p>
 <ul>
-<li><p>剧情就不得不提到npc了<br>莫基——路人角色，大大小小的任务都有承担，森林的原住民算是<br>库克——地图提供者<br>猴子——推动剧情，教会武器方面技能<br>商人——交易升级技能<br>夸洛克——沼泽的庇护神<br>工匠——建造地图的一些的传送点和解锁地图的通道，建造触发剧情</p>
-</li>
-<li><p>还有就是在设计上，制作者在获得技能前面的地图中总会遗留一些之后技能解锁的机关，延长玩家的游戏时间，有的可能会返回头探索，因为总有卡关的时候，在不看攻略的时候，这时候就是回头探索的时候</p>
-</li>
-<li><p>前期对玩法的探索拓展可以说循序渐进了，十分缓和友好，真的是十分流畅的过渡</p>
-</li>
-<li><p>细节方面上，对于地图map的里面功能的设置可以说非常全面了而且分类也很好，还有筛选器</p>
-</li>
+<li>push操作的复杂度为O(1)，因为如果vector的空间充足，push操作只需要将元素插入到vector的末尾</li>
+<li>pop操作的复杂度为O(1)，因为vector的pop_back操作的复杂度也为O(1)</li>
+<li>top操作的复杂度为O(1)，因为直接返回vector的最后一个元素，不需要遍历整个容器</li>
 </ul>
-<h2 id="玩法上"><a href="#玩法上" class="headerlink" title="玩法上"></a>玩法上</h2><p>在玩法上，在前期的森林的探索中一步一步扩展开了，从单纯的跳跃到各种技能帮助拓展玩法。<br>在角色系统我会介绍这些对玩法的贡献</p>
-<p>主要是——场景，场景关卡设置，物品和玩法剖析</p>
-<ul>
-<li><p>场景的关卡<br>前期的最大关卡就是<br>【1】找到散落的楔石打开石门<br>小的关卡<br>【2】<br>拖拽石头来阻挡机关和帮助跳跃<br>还有类似司机挡位的机关——触发一些机关，打开石门等等<br>【3】<br>还有全球玩家的小跑酷，也还算比较有趣，但也就一般般，扔掉也没关系，毕竟是单机游戏</p>
-</li>
-<li><p>场景物品<br>藤条——帮助跳跃<br>竖直木棒——陷阱悬停<br>水平木棒——这个真的是太amazin，可以按w转圈让后松开向上冲刺（从玩的方面来看，转速和角色的数值向上的速度有关，因为我竖直跳上去就会有转圈的行为，显然不是w是触发，向上的运动才是触发，w向上在棍子就会加速，松开就是结束转圈动画，此时决定转速的向上speed此时就是你的竖直速度）<br>灯笼，苔藓，藤条，蓝色的抓钩物———不作分析了<br>羽毛——<br>还有库和奥日的配合玩法——</p>
-</li>
+<p>因此，基于vector来实现stack具有方便、高效的特点，可以在不需要动态调整容器大小的情况下实现栈的基本功能。</p>
+</blockquote>
+<p>我们在前面也提到了<strong>标准容器vector、deque、list均符合这些需求，默认情况下，如果没有为stack指定特定的底层容器，默认情况下使用deque（应该是默认链接队列的方式，vector显然是数组，在性能上有点差异）。</strong></p>
+<p>所以stack只是基于这些更加基础的结构建立的栈，有时间可以去了解一下STL的这些</p>
+<hr>
+<h2 id="stack成员函数的使用"><a href="#stack成员函数的使用" class="headerlink" title="stack成员函数的使用"></a>stack成员函数的使用</h2><ul>
+<li>empty（）</li>
+<li>size（）</li>
+<li>top（）</li>
+<li>push（）</li>
+<li>pop（）</li>
 </ul>
-<p>补充：其实场景物品最让我惊讶的是角色动作的多样性，竖直木棍站在最顶端的单手倒立的动作，单手倒立起跳，还有竖直藤条木棍水平冲刺上去还会转几圈，真的是十分连贯</p>
-<ul>
-<li><p>玩法<br>其实有的已经融合在以上或者以下的分析里面<br>主要探索，打斗<br>剧情的玩法——<br>对话<br>打斗boss等<br>boss追击，我逃跑，这样完全发挥了跑图里面机制的乐趣</p>
-</li>
-<li><p>场景<br>第一个地图就是单纯的地图，但偶尔有几个门，进去新的场景</p>
-</li>
-</ul>
-<h2 id="从角色系统上分析"><a href="#从角色系统上分析" class="headerlink" title="从角色系统上分析"></a>从角色系统上分析</h2><p>主要分为四个部分</p>
-<ul>
-<li><p>蓝条和血条（在地图中寻找能量和生命碎片获得一步一步扩展，部分和技能有关，例如交换最大生命值和最大蓝条）</p>
-</li>
-<li><p>武器+主动技能系统<br>从光剑到弓箭到重锤，技能则有光之箭和回血等<br>评价：武器不仅仅帮助我们更加轻松应对敌人，而且帮助我们能有效触发机关和障碍物，帮助探索地图。<br>光剑——可以打碎一些木板障碍物<br>例如弓箭——可以触发高处的机关，且技能还能扩大弓箭的特性，例如分裂和加攻速<br>重锤——可以打碎石板<br>光之箭——打碎一些易碎物，且伤害极高（光之箭的动作真的是让我记忆尤深，悬停瞄准，穿插在各种动作中，十分流畅帅气）<br>其他目前武器目前没有看到对地图探索的作用，有再补充</p>
-</li>
-<li><p>不可见的被动技能<br>例如二连跳<br>抓取——这真的amazing，流畅的难以置信，从飞行物到敌人全部都能抓取，靠近就能抓取，而且是时停性质的，可以将目标反向射出，而自己朝选的方向射出，虽然没有伤害但是极大的提高了游戏的可玩性，帮助了地图探索的乐趣还提高了打斗的技巧性，帮助玩家们在打斗中获得成就感。<br>抓钩——准确的就是能飞到一些蓝色苔藓和的灯笼处，相当于蜘蛛侠吐丝吧，还行，但是印象不是特别深</p>
-</li>
-<li><p>课拆卸购买升级的被动技能<br>首先部分被动技能实在地图中寻找灵树或者在技能商人购买升级<br>技能框则是探索地图一步一步的去扩展<br>讲几个印象比较深的技能:<br>攀爬——好吧，我已经把他默认为不可见的被动技能了，探索地图没了他不行<br>三连跳——好吧也是默认了，不仅帅而且探索地图确实方便<br>其他就是什么主动吸收光之碎片，减伤啥的，有印象深的再说吧</p>
-</li>
-</ul>
-<p>（4）</p>
-<div style="text-align:center">
-</div>
+<h3 id="empty"><a href="#empty" class="headerlink" title="empty()"></a>empty()</h3><h4 id="（1）empty-检测stack是否为空"><a href="#（1）empty-检测stack是否为空" class="headerlink" title="（1）empty() 检测stack是否为空"></a>（1）empty() 检测stack是否为空</h4><p>  <strong>empty()是stack类的一个成员函数，用于检查当前的stack是否为空。当stack中没有任何元素时，empty()函数返回true；当stack中至少有一个元素时，empty()函数返回false。</strong></p>
+<pre><code class="CPP">if(stack.empty());
+</code></pre>
+<h3 id="size"><a href="#size" class="headerlink" title="size()"></a>size()</h3><h4 id="2）size-返回stack中元素的个数"><a href="#2）size-返回stack中元素的个数" class="headerlink" title="(2）size() 返回stack中元素的个数"></a>(2）size() 返回stack中元素的个数</h4><p>  <strong>size()是stack类的一个成员函数，用于获取当前stack中的元素数量。size()函数返回一个整数，表示stack中的元素数目。</strong></p>
+<pre><code class="CPP">cout&lt;&lt;stack.size();
+</code></pre>
+<h3 id="top"><a href="#top" class="headerlink" title="top()"></a>top()</h3><h4 id="3）top-返回栈顶元素的引用"><a href="#3）top-返回栈顶元素的引用" class="headerlink" title="(3）top() 返回栈顶元素的引用"></a>(3）top() 返回栈顶元素的引用</h4><p>  <strong>top()是stack类的一个成员函数，用于获取stack顶部（即最后压入的）的元素的值，而不会将该元素从stack中移除。</strong></p>
+<pre><code class="CPP">stack&lt;int&gt; stack;
+stack.push(1);
+int a=stack.top();
+</code></pre>
+<h3 id="push"><a href="#push" class="headerlink" title="push()"></a>push()</h3><h4 id="（4）push-将元素val压入stack中"><a href="#（4）push-将元素val压入stack中" class="headerlink" title="（4）push() 将元素val压入stack中"></a>（4）push() 将元素val压入stack中</h4><p>  <strong>push()是stack类的一个成员函数，用于将一个元素压入（即添加）到stack的顶部。</strong></p>
+<pre><code class="CPP">stack.push(1);
+</code></pre>
+<h3 id="pop"><a href="#pop" class="headerlink" title="pop()"></a>pop()</h3><h4 id="（5）pop-将stack中尾部的元素弹出"><a href="#（5）pop-将stack中尾部的元素弹出" class="headerlink" title="（5）pop() 将stack中尾部的元素弹出"></a>（5）pop() 将stack中尾部的元素弹出</h4><p>  <strong>pop()是stack类的一个成员函数，用于移除stack顶部（即最后压入的）的元素，但并不返回该元素的值。</strong></p>
+<pre><code class="CPP">stack.pop();
+</code></pre>
+
     </div>
     
     
