@@ -189,7 +189,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/cpp/" style="color: #ff7d73">
+                <a href="/tags/cpp/" style="color: #00a596">
                     cpp
                 </a>
             </span>
@@ -206,7 +206,7 @@
     </div>
     
     <div class="content" v-pre>
-        <h2 id="1-位运算管理物理碰撞层级"><a href="#1-位运算管理物理碰撞层级" class="headerlink" title="1.位运算管理物理碰撞层级"></a>1.位运算管理物理碰撞层级</h2><h4 id="1-确定每个层的位掩码"><a href="#1-确定每个层的位掩码" class="headerlink" title="1.确定每个层的位掩码"></a>1.确定每个层的位掩码</h4><p>当我们使用枚举类来实现碰撞层级时，是因为我们只有一对一的碰撞，当我们遇到一对多的碰撞。就需要新的解决方案。于是我们选择使位运算，将每个层级映射为位掩码。</p>
+        <h1 id="空洞武士笔记3"><a href="#空洞武士笔记3" class="headerlink" title="空洞武士笔记3"></a>空洞武士笔记3</h1><h2 id="1-位运算管理物理碰撞层级"><a href="#1-位运算管理物理碰撞层级" class="headerlink" title="1.位运算管理物理碰撞层级"></a>1.位运算管理物理碰撞层级</h2><h4 id="1-确定每个层的位掩码"><a href="#1-确定每个层的位掩码" class="headerlink" title="1.确定每个层的位掩码"></a>1.确定每个层的位掩码</h4><p>当我们使用枚举类来实现碰撞层级时，是因为我们只有一对一的碰撞，当我们遇到一对多的碰撞。就需要新的解决方案。于是我们选择使位运算，将每个层级映射为位掩码。</p>
 <span id="more"></span>
 
 <p>以int为例，正常有32个bit位，即代表32个可用层级。每个物理层（collision layer）可以分配一个唯一的位标识（bit）。例如：</p>

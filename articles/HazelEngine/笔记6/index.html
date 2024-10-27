@@ -1,0 +1,722 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>Window Abstraction and GLFW | yang_blog</title>
+    <meta name="author" content="yang" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>YANG_BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;YANG_BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Window Abstraction and GLFW</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/10/28
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                游戏引擎
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #03a9f4">
+                    游戏引擎
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="HazelEngine笔记6"><a href="#HazelEngine笔记6" class="headerlink" title="HazelEngine笔记6"></a>HazelEngine笔记6</h1><h1 id="Window-Abstraction-and-GLFW"><a href="#Window-Abstraction-and-GLFW" class="headerlink" title="Window Abstraction and GLFW"></a>Window Abstraction and GLFW</h1><p>首先还是先了解一下glfw和glad这俩个东西。</p>
+<span id="more"></span>
+
+<h3 id="GLFW"><a href="#GLFW" class="headerlink" title="GLFW"></a>GLFW</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>GLFW（Graphics Library Framework）是一个用于创建窗口、处理输入和管理 OpenGL 上下文的开源库。它提供了一个简单而灵活的接口，用于开发图形应用程序，特别是在游戏和图形引擎开发中。</p>
+<h4 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h4><ol>
+<li><strong>窗口管理</strong>：GLFW 可以创建和管理窗口，包括设置窗口大小、标题、图标等属性。</li>
+<li><strong>OpenGL 上下文管理</strong>：GLFW 允许创建 OpenGL 上下文，并提供必要的功能以与 OpenGL 进行交互。</li>
+<li><strong>输入处理</strong>：<ul>
+<li>支持键盘、鼠标和游戏控制器输入。</li>
+<li>提供输入事件的回调机制，便于处理用户输入。</li>
+</ul>
+</li>
+<li><strong>多平台支持</strong>：GLFW 支持 Windows、Linux 和 macOS，方便开发跨平台应用。</li>
+<li><strong>视频模式和显示模式管理</strong>：允许设置全屏模式、窗口模式和窗口位置等。</li>
+</ol>
+<p>这也就是我们为什么依赖GLFW库去创建窗口，拉取操作，执行事件回调的原因了。</p>
+<h3 id="GLAD"><a href="#GLAD" class="headerlink" title="GLAD"></a>GLAD</h3><p>GLAD（OpenGL Loader Generator）是一个 OpenGL 函数加载器，主要用于处理 OpenGL 的函数指针。由于 OpenGL 的函数在不同的平台和实现之间可能有所不同，GLAD 提供了一种机制，简化了加载和使用这些函数。</p>
+<h4 id="主要功能-1"><a href="#主要功能-1" class="headerlink" title="主要功能"></a>主要功能</h4><ol>
+<li><strong>函数加载</strong>：GLAD 自动生成加载所需的 OpenGL 函数指针，以便在运行时正确调用 OpenGL 函数。</li>
+<li><strong>多版本支持</strong>：支持多种 OpenGL 版本，开发者可以选择需要的 OpenGL 版本和扩展。</li>
+<li><strong>简化 API</strong>：通过简化 OpenGL 的函数调用，开发者可以专注于 OpenGL 编程，而不必担心底层的函数指针管理。</li>
+</ol>
+<p>其实就是对底层openGL的逻辑进行了封装，将调用平台的函数指针都加载然后封装成方便的函数供外者调用。</p>
+<hr>
+<p>然后大体讲述一下配置GLFW项目的过程和踩的坑吧。</p>
+<p>首先是在git上拉取最新的glfw库到Hazel的vendor库中，然后修改premake5.lua文件</p>
+<img src="./image-20241027172509922.png" alt="image-20241027172509922" style="zoom:80%;" />
+
+<p>这个**”include”Hazel&#x2F;vendor&#x2F;GLFW””**是将GLFW的项目中的premake5.lua复制到此处,然后生成项目,这很关键.</p>
+<p>上面就是创建一个目录(IncludeDir.GLFW就是对应的路径).</p>
+<p>然后再Hazel项目链接GLFW生成的静态库</p>
+<img src="./image-20241027172957698.png" alt="image-20241027172957698" style="zoom:80%;" />
+
+<p>由于是项目生成,我们直接引号”项目名”就可以直接链接到对应的GLFW的静态库了.</p>
+<h3 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h3><p>由于视频制作是几年前了,由于是从github上面拉取的子仓库,一直在更新,可是视频中的glfw的premake所包含的文件却没有及时更新.导致程序运行失败(函数没链接上其实直接复制函数到wiki百科上搜能搜到对应文件加上就好了,但当时奈何能力有限)</p>
+<p>我直接附上最新的配置,感谢csdn的一位路人的博客指点.</p>
+<pre><code class="CPP">project &quot;GLFW&quot;
+    kind &quot;StaticLib&quot;
+    language &quot;C&quot;
+ 
+    targetdir (&quot;bin/&quot; .. outputdir .. &quot;/%&#123;prj.name&#125;&quot;)
+    objdir (&quot;bin-int/&quot; .. outputdir .. &quot;/%&#123;prj.name&#125;&quot;)
+ 
+    files
+    &#123;
+        &quot;include/GLFW/glfw3.h&quot;,
+        &quot;include/GLFW/glfw3native.h&quot;,
+        &quot;src/glfw_config.h&quot;,       --？？should it to be delete?
+        &quot;src/internal.h&quot;,       --
+        &quot;src/platform.h&quot;,       --
+        &quot;src/mappings.h&quot;,       --
+        &quot;src/context.c&quot;,
+        &quot;src/init.c&quot;,
+        &quot;src/input.c&quot;,
+        &quot;src/monitor.c&quot;,
+        &quot;src/platform.c&quot;,       --
+        &quot;src/vulkan.c&quot;,
+        &quot;src/window.c&quot;,
+        &quot;src/egl_context.c&quot;,        --
+        &quot;src/osmesa_context.c&quot;,     --
+        &quot;src/null_platform.h&quot;,      --
+        &quot;src/null_joystick.h&quot;,      --
+        &quot;src/null_init.c&quot;,      --
+    
+        &quot;src/null_monitor.c&quot;,       --
+        &quot;src/null_window.c&quot;,        --
+        &quot;src/null_joystick.c&quot;,      --
+    &#125;
+ 
+    filter &quot;system:windows&quot;
+        buildoptions &#123; &quot;-std=c11&quot;, &quot;-lgdi32&quot; &#125;
+        systemversion &quot;latest&quot;
+        staticruntime &quot;On&quot;
+ 
+        files
+        &#123;
+            &quot;src/win32_init.c&quot;,
+            &quot;src/win32_module.c&quot;,   --
+            &quot;src/win32_joystick.c&quot;,
+            &quot;src/win32_monitor.c&quot;,
+            &quot;src/win32_time.h&quot;,     --
+            &quot;src/win32_time.c&quot;,
+            &quot;src/win32_thread.h&quot;,   --解决Vulkan.obj相关问题
+            &quot;src/win32_thread.c&quot;,
+            &quot;src/win32_window.c&quot;,
+            &quot;src/wgl_context.c&quot;,
+            &quot;src/egl_context.c&quot;,
+            &quot;src/osmesa_context.c&quot;
+        &#125;
+ 
+        defines 
+        &#123; 
+            &quot;_GLFW_WIN32&quot;,
+            &quot;_CRT_SECURE_NO_WARNINGS&quot;
+        &#125;
+    filter &#123; &quot;system:windows&quot;, &quot;configurations:Release&quot; &#125;
+        buildoptions &quot;/MT&quot;
+</code></pre>
+<p>然后直接在Hazel项目内调用GLFW的include的头文件就好了(头文件目录也早就包含在项目目录里了)</p>
+<img src="./image-20241027173857571.png" alt="image-20241027173857571" style="zoom:80%;" />
+
+<hr>
+<p>然后解决配置问题我们就要开始创建抽象的窗口类,之所以创建抽象的窗口类,是因为针对不同的平台我们有不同的窗口实现方法,虽然教程针对是windows窗口,后面有实现,但是抽象层依然是需要搭建的,以剥离各个平台的差异性.</p>
+<p>来看看window.h抽象类有哪些</p>
+<pre><code class="CPP">struct WindowProps
+&#123;
+    std::string Title;
+    unsigned int Width;
+    unsigned int Height;
+
+    WindowProps(const std::string&amp; title = &quot; Hazel Engine&quot;,
+        unsigned int width = 1280,
+        unsigned int height = 720)
+        :Title(title), Width(width), Height(height)
+    &#123;
+    &#125;
+&#125;;
+</code></pre>
+<p>我们首先创建一个结构体来存放窗口的属性,例如窗口标题,窗口的大小等等.</p>
+<p>然后我们开始编写抽象类window</p>
+<pre><code class="CPP">class HAZEL_API Window
+&#123;
+public:
+    using EventCallbackFn = std::function&lt;void(Event&amp;)&gt;;
+
+    virtual ~Window() &#123;&#125;
+
+    virtual void OnUpdate() = 0;
+
+    virtual unsigned int GetWidth() const = 0;
+    virtual unsigned int GetHeight() const = 0;
+
+
+    //Window attributes
+    //窗口执行的回调函数设置，具体的逻辑会在windowswindow解释。
+    virtual void SetEventCallback(const EventCallbackFn&amp; callback) = 0;
+    virtual void SetVSync(bool enabled) = 0;
+    virtual bool IsVSync()const = 0;
+
+    //创建窗口函数，默认的窗口参数就是上面的
+    static Window* Create(const WindowProps&amp; props = WindowProps());
+&#125;;
+</code></pre>
+<p><strong>SetVSync</strong>这个函数用于设置窗口的垂直同步状态.</p>
+<p><strong>IsVSync</strong>用于检查垂直同步是否开始.</p>
+<p>垂直同步主要是防止发生屏幕撕裂的问题,后面再说吧.</p>
+<hr>
+<p>我们来看看Windowswindow怎么设计的吧.</p>
+<pre><code class="CPP">//先看看头文件
+namespace Hazel
+&#123;
+    class WindowsWindow : public Window
+    &#123;
+    public:
+        WindowsWindow(const WindowProps&amp; props);
+        virtual ~WindowsWindow();
+
+        void OnUpdate() override;
+
+        inline unsigned int GetWidth()const override &#123; return m_Data.Width; &#125;
+        inline unsigned int GetHeight()const override &#123; return m_Data.Height; &#125;
+
+        //windows attributes
+        inline void SetEventCallback(const EventCallbackFn&amp; callback) override &#123; m_Data.EventCallback = callback; &#125;
+        void SetVSync(bool enabled)override ;
+        bool IsVSync()const override ;
+
+    private:
+        virtual void Init(const WindowProps&amp; props);
+        virtual void Shutdown();
+    private:
+        GLFWwindow* m_Window;
+
+        struct WindowData
+        &#123;
+            std::string Title;
+            unsigned int Width, Height;
+            bool VSync;
+
+            EventCallbackFn EventCallback;
+        &#125;;
+        WindowData m_Data;
+
+    &#125;;
+&#125;
+</code></pre>
+<p>我们可以看到一个windowswindow有一个窗口指针(其实是句柄封装的应该是)<strong>m_Window</strong>,其次就是窗口对应的基本属性<strong>m_Data</strong>.</p>
+<p>在解释cpp实现文件之前,我们先解释<strong>SetEventCallback</strong>,前面事件系统略有提过,但是借此我们讨论清楚事件的传递过程.</p>
+<img src="./image-20241027191753486.png" alt="image-20241027191753486" style="zoom:67%;" />
+
+<p>回头再看事件系统的planning那一集终于看懂了,这个事件的传播系统.接下来我以窗口关闭操作为例,描述这个事件系统的传递逻辑.</p>
+<p>首先,我们在windowswindow.cpp文件中</p>
+<img src="./image-20241027191949422.png" alt="image-20241027191949422" style="zoom:80%;" />
+
+<p>因为glfw监听玩家的操作,但是需要执行函数,于是我们传递了lambda函数</p>
+<blockquote>
+<p>如何知道这些参数和lambda这么设计的,其实我们点进去函数定义</p>
+<img src="./image-20241027192226450.png" alt="image-20241027192226450" style="zoom:67%;" />
+
+<p>我们可以看到第一个参数时窗口句柄,就是我们创建的窗口指针,第二个我现在肯定看得懂,时glfw窗口关闭的回调函数(functional)</p>
+<p>但是我们可以进一步点进去,我们发现原来是没有返回值,而且参数是GLFWwindow指针的函数指针类型(因为typedef)</p>
+<img src="./image-20241027192753173.png" alt="image-20241027192753173" style="zoom:67%;" />
+
+<p>我们来回顾一下函数指针的定义方式(一直用functional导致我函数指针有点忘了)</p>
+<ol>
+<li><strong>注意声明</strong></li>
+</ol>
+<pre><code class="CPP">void (*funcPtr)(int);  // 指向返回类型为 void，参数类型为 int 的函数
+int *funcPtr(int);		//如果指针不加括号会认为是返回指针的函数
+</code></pre>
+<ol start="2">
+<li><p><strong>函数名作为指针</strong>： 在 C 和 C++ 中，函数名可以自动转换为指向函数的指针，因此在给函数指针赋值时可以省略 <code>&amp;</code>：</p>
+<pre><code class="CPP">funcPtr = PrintSquare;  // 可以直接赋值
+</code></pre>
+</li>
+<li><p><strong>使用方法</strong></p>
+</li>
+</ol>
+<pre><code class="CPP">funcPtr(5);  // 调用指向的函数
+(*funcPtr)(5);  // 正确
+*funcPtr(5);    // 错误，会被误解为解引用
+</code></pre>
+<ol start="4">
+<li><p><strong>参数和返回值匹配</strong></p>
+</li>
+<li><p><strong>空指针检查</strong></p>
+</li>
+<li><p><strong>使用 <code>typedef</code> 的注意</strong></p>
+<p>当我们需要一种指针很多时我们就需要重命名这个指针类,这样之后创建这样的函数指针就很方便啦</p>
+<pre><code class="CPP"> typedef void (*FuncPtr)(int);
+FuncPtr f1, f2;  // 明确表示 f1 和 f2 都是函数指针
+</code></pre>
+</li>
+<li><p><strong>指向成员函数的指针</strong></p>
+</li>
+</ol>
+<ul>
+<li><strong>成员函数的指针</strong>： 如果要使用成员函数指针，需要额外注意语法，因为成员函数指针的类型是与类关联的：</li>
+</ul>
+<pre><code class="CPP">typedef void (MyClass::*MemberFuncPtr)(int);  // 成员函数指针类型
+
+MyClass obj;
+MemberFuncPtr ptr = &amp;MyClass::MyMethod;
+(obj.*ptr)(5);  // 正确调用
+</code></pre>
+<ol start="8">
+<li><strong>函数指针数组</strong></li>
+</ol>
+<ul>
+<li>定义数组： 如果要创建函数指针数组，语法较为复杂，确保正确：</li>
+</ul>
+<pre><code class="CPP">  void (*funcArray[10])(int);  // 定义一个包含 10 个指向函数的指针数组
+</code></pre>
+</blockquote>
+<p>这样我们就知道了传递什么样的lambda函数,去执行操作了.</p>
+<p>接下来我们看lambda的操作</p>
+<p>我们先看windowswindow的初始化</p>
+<img src="./image-20241027195026418.png" alt="image-20241027195026418" style="zoom:80%;" />
+
+<p><code>glfwGetWindowUserPointer</code> 是 GLFW 库的一个函数，用于获取与指定窗口 <code>window</code> 关联的用户指针。此指针通常由 <code>glfwSetWindowUserPointer</code> 设置，用于在 GLFW 窗口和用户数据之间建立关联。</p>
+<p>我们之所以将回调函数塞入windowData,就是为了将窗口指针和自定义存储数据建立联系,能在glfw的事件回调函数中建立和windows的关系,从而进一步传递事件.真的非常巧妙地这个m_Data设计的,这样我们就能创建事件进一步传递.</p>
+<img src="./image-20241027195418073.png" alt="image-20241027195418073" style="zoom:80%;" />
+
+<p>我们再往回看,我们就会发现我们首先获得windows的windowData对象,然后创建对应的窗口关闭事件.</p>
+<p>利用m_Data绑定的Application的OnEvent将事件直接传递给应用层. </p>
+<p>我们再看应用层是怎么处理的.</p>
+<img src="./image-20241027195758348.png" alt="image-20241027195758348" style="zoom:67%;" />
+
+<p>application类的包含的数据类型,我们看到了包含Window对象的智能指针 m_Window;</p>
+<img src="./image-20241027195635874.png" alt="image-20241027195635874" style="zoom:80%;" />
+
+<p>我们在创建应用层的时候就首先利用只能指针创建了一个windowswindow</p>
+<p>然后绑定对应窗口的m_Data的回调函数,将事件传递个OnEvent</p>
+<blockquote>
+<p>什么你说为什么创建的是WindowsWindow</p>
+<p>你看父类的函数</p>
+<img src="./image-20241027195945037.png" alt="image-20241027195945037" style="zoom:80%;" />
+
+<p>是一个静态类函数,显然是要在外界定义的,由于目前只有windowswindow</p>
+<p>我们就在全局实现了这个</p>
+<img src="./image-20241027200059481.png" alt="image-20241027200059481" style="zoom:80%;" />
+
+<p>所以这个类静态函数只能生成windowswindow</p>
+</blockquote>
+<img src="./image-20241027195700234.png" alt="image-20241027195700234" style="zoom:80%;" />
+
+<p>我们将事件传递个OnEvent,接着就是把这个操作从上往下传递,知道有有人捕获这个事件,最上层肯定是窗口关闭缩放之类的.我们为窗口关闭缩放设置一个事件调度分发对象(EventDispatcher),设置我们关闭窗口对应的事件类型,和关闭窗口操作的回调函数.</p>
+<p>当传进去的event与我们关闭窗口对应事件匹配时,我们就会执行关闭窗口逻辑,同时直接标记Event使其无法进一步向下传播,如何标记上一个文本已经解释了.</p>
+<p>所以整个事件的传播流程就是这样.</p>
+<p>我直接附上cpp文件</p>
+<pre><code class="CPP">#include &quot;hzpch.h&quot;
+#include &quot;WindowsWindow.h&quot;
+
+#include &quot;Hazel/Events/KeyEvent.h&quot;
+#include &quot;Hazel/Events/MouseEvent.h&quot;
+#include &quot;Hazel/Events/ApplicationEvent.h&quot;
+
+namespace Hazel
+&#123;
+    static bool s_GLFWInitialized = false;
+
+    static void GLFWErrorCallBack(int error, const char* description)
+    &#123;
+        HZ_CORE_ERROR(&quot;GLFW Error (&#123;0&#125;): &#123;1&#125;&quot;, error, description);
+    &#125;
+
+    Window* Window::Create(const WindowProps&amp; props)
+    &#123;
+        return new WindowsWindow(props);
+    &#125;
+
+    WindowsWindow::WindowsWindow(const WindowProps&amp; props)
+    &#123;
+        Init(props);
+    &#125;
+
+    WindowsWindow::~WindowsWindow()
+    &#123;
+        Shutdown();
+    &#125;
+
+    void WindowsWindow::Init(const WindowProps&amp; props)
+    &#123;
+        m_Data.Title = props.Title;
+        m_Data.Width = props.Width;
+        m_Data.Height = props.Height;
+
+        HZ_CORE_INFO(&quot;Creating window &#123;0&#125; (&#123;1&#125;,&#123;2&#125;)&quot;, props.Title, props.Width, props.Height);
+
+        if (!s_GLFWInitialized)
+        &#123;
+            //TODO: glfwTerminate on system shutdown
+            int success = glfwInit();
+            HZ_CORE_ASSERT(success, &quot;Could not intialized GLFW!&quot;);
+            glfwSetErrorCallback(GLFWErrorCallBack);
+
+            s_GLFWInitialized = true;
+        &#125;
+
+        m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+        glfwMakeContextCurrent(m_Window);
+        glfwSetWindowUserPointer(m_Window, &amp;m_Data);
+        SetVSync(true);
+
+        //Set GLFW callbacks
+        glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+            &#123;
+                WindowData&amp; data=*(WindowData*)glfwGetWindowUserPointer(window);
+                data.Width = width;
+                data.Height = height;
+
+                WindowResizeEvent event(width, height);
+                data.EventCallback(event);
+                
+            &#125;);
+
+        glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
+            &#123;
+                WindowData&amp; data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+                WindowCloseEvent event;
+                data.EventCallback(event);
+            &#125;);
+
+        glfwSetKeyCallback(m_Window, [](GLFWwindow* window,int key,int scancode,int action,int mods)
+            &#123;
+                WindowData&amp; data = *(WindowData*)glfwGetWindowUserPointer(window);
+                switch (action)
+                &#123;
+                case GLFW_PRESS:
+                &#123;
+                    KeyPressedEvent event(key, 0);
+                    data.EventCallback(event);
+                    break;
+                &#125;
+                case GLFW_RELEASE:
+                &#123;
+                    KeyReleaseEvent event(key);
+                    data.EventCallback(event);
+                    break;
+                &#125;
+                case GLFW_REPEAT:
+                &#123;
+                    KeyPressedEvent event(key, 1);
+                    data.EventCallback(event);
+                    break;
+                &#125;
+                default:
+                    break;
+                &#125;
+            &#125;);
+
+        glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action,int mods)
+            &#123;
+                WindowData&amp; data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+                switch (action)
+                &#123;
+                case GLFW_PRESS:
+                &#123;
+                    MouseButtonPressedEvent event(button);
+                    data.EventCallback(event);
+                    break;
+                &#125;
+                case GLFW_RELEASE:
+                &#123;
+                    MouseButtonReleasedEvent event(button);
+                    data.EventCallback(event);
+                    break;
+                &#125;
+                default:
+                    break;
+                &#125;
+            &#125;);
+
+        glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xOffset, double yOffset)
+            &#123;
+                WindowData&amp; data =*(WindowData*)glfwGetWindowUserPointer(window);
+
+                MouseScrolledEvent event((float)xOffset, (float)yOffset);
+                data.EventCallback(event);
+            &#125;);
+
+        glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double xPos, double yPos)
+            &#123;
+                WindowData&amp; data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+                MouseMovedEvent event((float)xPos, (float)yPos);
+                data.EventCallback(event);
+
+            &#125;);
+
+    &#125;
+
+    void WindowsWindow::Shutdown()
+    &#123;
+        glfwDestroyWindow(m_Window);
+    &#125;
+
+    void WindowsWindow::OnUpdate()
+    &#123;
+        glfwPollEvents();
+        glfwSwapBuffers(m_Window);
+    &#125;
+
+    void WindowsWindow::SetVSync(bool enabled)
+    &#123;
+        if (enabled)
+            glfwSwapInterval(1);
+        else
+            glfwSwapInterval(0);
+    &#125;
+
+    bool WindowsWindow::IsVSync()const
+    &#123;
+        return m_Data.VSync;
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><p>**<code>glfwSwapInterval(1)</code>**：</p>
+<ul>
+<li>这是 <code>GLFW</code> 库中的一个函数，设置交换间隔（<code>swap interval</code>）。</li>
+<li>参数 <code>1</code> 表示启用 V-Sync，让帧率与显示器的刷新率同步，以防止屏幕撕裂。每次屏幕刷新时才允许 GPU 渲染新的帧。</li>
+<li>如果显示器的刷新率是 60Hz，V-Sync 将帧率限制在 60FPS，使两者保持一致。</li>
+</ul>
+<p>**<code>glfwSwapInterval(0)</code>**：</p>
+<ul>
+<li>当 <code>glfwSwapInterval(0)</code> 被调用时，禁用了 V-Sync，不会对帧率进行限制。</li>
+<li>这允许应用程序尽可能快地渲染新帧，但可能会导致屏幕撕裂现象（因为帧的刷新不再与显示器的刷新率同步）。</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 yang_blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;yang
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

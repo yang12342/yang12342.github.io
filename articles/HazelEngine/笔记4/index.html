@@ -1,0 +1,647 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>EventSystem | yang_blog</title>
+    <meta name="author" content="yang" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>YANG_BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;YANG_BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>EventSystem</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/10/28
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                游戏引擎
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #00bcd4">
+                    游戏引擎
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="HazelEngine笔记4"><a href="#HazelEngine笔记4" class="headerlink" title="HazelEngine笔记4"></a>HazelEngine笔记4</h1><h1 id="EventSystem"><a href="#EventSystem" class="headerlink" title="EventSystem"></a>EventSystem</h1><p>为了响应玩家一些基本的输入响应，我们制作不论引擎还是任何应用程序都是需要事件系统读取玩家的操作。</p>
+<p>话不多说我们一步一步来看事件系统是如何搭建起来的</p>
+<span id="more"></span>
+
+<pre><code class="CPP">    enum class EventType
+    &#123;
+        None = 0,
+        WindowClose,WindowResize,WindowFocus,WindowLostFocus,WindowMoved,
+        AppTick,AppUpdate,AppRender,
+        KeyPressed,KeyReleased,
+        MouseButtonPressed,MouseButtonReleased,MouseMoved,MouseScrolled
+    &#125;;
+
+    enum  EventCategory
+    &#123;
+        None=0,
+        EventCategoryApplication	=	BIT(0),
+        EventCategoryInput			=	BIT(1),
+        EventCategoryKeyboard		=	BIT(2),
+        EventCategoryMouse			=	BIT(3),
+        EventCategoryMouseButton	=	BIT(4),
+    &#125;;
+</code></pre>
+<ul>
+<li><p>EventType事件类型，这是用于日志系统输出日志，同时标记不同的玩家操作的，我们从待会的宏定义就可以看到。</p>
+</li>
+<li><p>EventCategory这个就是用于事件系统逻辑上的处理，首先我们可以看到这是利用bit位操作来标记的。</p>
+<p>首先这个适用于layer上捕获玩家的操作的，当输入类型和当前事件需要捕获的类型相同（就是这个button需要你点击，当你点击在button上，而且正好是鼠标点击类型就会捕获你的操作，反观按键就不行），当前事件就会直接拦截你的操作不再向下传播这个操作</p>
+</li>
+</ul>
+<pre><code class="CPP">    class HAZEL_API Event
+    &#123;
+        friend class EventDispatcher;
+    public:
+        virtual EventType GetEventType()const = 0;				//返回事件类型
+        virtual const char* GetName()const = 0;					//返回事件的名称
+        virtual int GetCategoryFlags()const = 0;				//获取事件需要捕获的操作
+        virtual std::string ToString()const &#123; return GetName(); &#125;
+
+        inline bool IsInCategory(EventCategory category)
+        &#123;
+            return GetCategoryFlags() &amp; category;
+        &#125;
+        bool m_Handled = false;
+    protected:
+    &#125;;
+
+     inline std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const Event&amp; e)
+    &#123;
+         return os &lt;&lt; e.ToString();
+    &#125;
+</code></pre>
+<p>我们可以看到一个基本事件基类的设置</p>
+<ul>
+<li>事件调度类待会细说，因为EventDispatcher需要访问Event的一些内容，所以需要友元。</li>
+<li>重载输出流&lt;&lt;和ToString是为了迎合spdlog可以输出自定义类，这个前面有说也就不细说了。</li>
+<li>IsInCategory就是为了判别当前的操作是否属于某个事件需要的操作类型，如果是，那就捕获你，调用我的回调函数响应玩家的操作。（后面dispatch会细说）</li>
+</ul>
+<p>因为对于不同的子类，我们都需要覆写虚函数，为了方便我们定义了宏，方便操作。</p>
+<pre><code class="CPP">#define EVENT_CLASS_TYPE(type) \
+                    static EventType GetStaticType()&#123; return EventType::##type;&#125;\
+                    virtual EventType GetEventType() const override &#123;return GetStaticType();&#125;\
+                    virtual const char* GetName()const override &#123;return #type;&#125;
+
+#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override &#123;return category;&#125;
+</code></pre>
+<blockquote>
+<p>解读之前补充一下，宏定义的\表示行连接，表示与下一行是连续的，会被预处理解读为一行代码</p>
+<p>然后就是<code>##</code> 操作符用于将两个宏参数拼接成一个标识符。它常用于生成新的变量名或函数名。（将EventType和type连接起来，因为此时不知到type是什么）</p>
+<p><code>#</code> 用于将宏参数转换为字符串，即把参数名称本身转成字符串字面量。它通常用于调试或生成字符串字面量。就是直接将type转换为字符串</p>
+</blockquote>
+<p>这样我们只要在子类调用这样的宏，传入对应的事件类型，就可以直接展开拥有这些函数。</p>
+<hr>
+<h2 id="接下来让我们先看看应用程序的一些事件。"><a href="#接下来让我们先看看应用程序的一些事件。" class="headerlink" title="接下来让我们先看看应用程序的一些事件。"></a>接下来让我们先看看应用程序的一些事件。</h2><pre><code class="CPP">class HAZEL_API WindowResizeEvent :public Event
+&#123;
+public:
+    WindowResizeEvent(unsigned int width, unsigned int height)
+        :m_Width(width), m_Height(height) &#123;&#125;
+
+    inline unsigned int GetWidth() const &#123; return m_Width; &#125;
+    inline unsigned int GetHeight() const &#123; return m_Height; &#125;
+
+    std::string ToString()const override
+    &#123;
+        std::stringstream ss;
+        ss &lt;&lt; &quot;WindowResizeEvent: &quot; &lt;&lt; m_Width &lt;&lt; &quot;, &quot; &lt;&lt; m_Height;
+        return ss.str();
+    &#125;
+
+    EVENT_CLASS_TYPE(WindowResize)
+    EVENT_CLASS_CATEGORY(EventCategoryApplication)
+
+private:
+    unsigned int m_Width, m_Height;
+&#125;;
+</code></pre>
+<p>这是一个调整程序窗口的函数，基本的窗口数据，覆写的函数，没啥好说的。</p>
+<pre><code class="CPP">class HAZEL_API WindowCloseEvent :public Event
+&#123;
+public:
+    WindowCloseEvent()&#123;&#125;
+
+    EVENT_CLASS_TYPE(WindowClose)
+    EVENT_CLASS_CATEGORY(EventCategoryApplication)
+&#125;;
+</code></pre>
+<p>应用程序窗口关闭的事件。</p>
+<pre><code class="CPP">class HAZEL_API WindowTickEvent :public Event
+&#123;
+public:
+    WindowTickEvent()&#123;&#125;
+
+    EVENT_CLASS_TYPE(AppTick)
+    EVENT_CLASS_CATEGORY(EventCategoryApplication)
+&#125;;
+
+class HAZEL_API AppUpdateEvent :public Event
+&#123;
+public:
+    AppUpdateEvent()&#123;&#125;
+
+    EVENT_CLASS_TYPE(AppUpdate)
+    EVENT_CLASS_CATEGORY(EventCategoryApplication)
+&#125;;
+</code></pre>
+<p>详细说一说这俩个事件。</p>
+<p>我当时还在想为啥数据更新为什么分成俩个。</p>
+<ul>
+<li><p><code>WindowTickEvent</code> 主要用于窗口和界面方面的更新，确保窗口能实时反映变化。</p>
+</li>
+<li><p><code>AppUpdateEvent</code> 更适合逻辑方面的更新，尤其是需要独立于窗口的系统更新。</p>
+</li>
+</ul>
+<p>AppUpdate主要负责底层的数据处理和更新，类似物理计算，数据处理和储存，这样的逻辑与屏幕的刷新频率无关，处理的甚至更快。</p>
+<p>TickEvent则是负责屏幕内容的数据更新，这与屏幕的刷新频率相关，例如每一帧的动画更新，处理推迟缓冲的事件（暂时不懂），更新用户界面。</p>
+<p>显然AppUpdate处理逻辑数据，TickEvent将最终状态显示在窗口中，逻辑先于窗口更新发生。</p>
+<pre><code class="CPP">class HAZEL_API AppRenderEvent :public Event
+&#123;
+public:
+    AppRenderEvent() &#123;&#125;
+
+    EVENT_CLASS_TYPE(AppRender)
+    EVENT_CLASS_CATEGORY(EventCategoryApplication)
+&#125;;
+</code></pre>
+<p>这个就是应用程序的渲染事件，暂时不太了解暂不赘述。</p>
+<hr>
+<h2 id="按键事件"><a href="#按键事件" class="headerlink" title="按键事件"></a>按键事件</h2><pre><code class="CPP">class KeyEvent:public Event
+&#123;
+public:
+    inline int GetKeyCode()const &#123; return m_KeyCode; &#125;
+
+    EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
+protected:
+    KeyEvent(int keycode)
+        :m_KeyCode(keycode)&#123;&#125;
+
+    int m_KeyCode;
+&#125;;
+</code></pre>
+<p>先基于Event类先封装一个KeyEvent类，然后具体的按键再通过继承KeyEvent</p>
+<p>增加了一个返回对应键码的函数。</p>
+<p>同时我们也注意到，按键事件属于：键盘（EventCategoryKeyboard）和输入类型（EventCategoryInput）。</p>
+<pre><code class="CPP">    class HAZEL_API KeyPressedEvent :public KeyEvent
+    &#123;
+    public:
+        KeyPressedEvent(int keycode, int repeatCount)
+            :KeyEvent(keycode),m_RepeatCount(repeatCount)&#123;&#125;
+
+        inline int GetRepeatCount()const &#123; return m_RepeatCount; &#125;
+
+        std::string ToString() const override
+        &#123;
+            std::stringstream ss;
+            ss &lt;&lt; &quot;KeyPressedEvent: &quot; &lt;&lt; m_KeyCode &lt;&lt; &quot;(&quot; &lt;&lt; m_RepeatCount &lt;&lt; &quot;repeats)&quot;;
+            return ss.str();
+        &#125;
+
+    
+        EVENT_CLASS_TYPE(KeyPressed)
+    private:
+        int m_RepeatCount;
+    &#125;;
+
+    class HAZEL_API KeyReleaseEvent :public KeyEvent
+    &#123;
+    public:
+        KeyReleaseEvent(int keycode)
+            :KeyEvent(keycode)&#123;&#125;
+
+        std::string ToString() const  override
+        &#123;
+            std::stringstream ss;
+            ss &lt;&lt; &quot;KeyReleasedEvent: &quot; &lt;&lt; m_KeyCode;
+            return ss.str();
+        &#125;
+
+        EVENT_CLASS_TYPE(KeyReleased)
+    &#125;;
+</code></pre>
+<p>然后就是按下按键和释放按键。</p>
+<p>对于按下按键我们显然要处理长按的玩家操作，我们通过m_RepeatCount来记录当前这个按下按键是否连续。</p>
+<p>glfw通过调用window的API读取玩家操作，我们可以根据对应的API返回类型判断。</p>
+<img src="./image-20241027151103266.png" alt="image-20241027151103266" style="zoom:80%;" />
+
+<p>当有Repeat事件，我们就会创建m_RepeatCount&#x3D;1的按下事件。</p>
+<hr>
+<h2 id="然后就是MouseEvent"><a href="#然后就是MouseEvent" class="headerlink" title="然后就是MouseEvent"></a>然后就是MouseEvent</h2><pre><code class="CPP">    class HAZEL_API MouseMovedEvent :public Event
+    &#123;
+    public:
+        MouseMovedEvent(float x, float y)
+            :m_MouseX(x),m_MouseY(y)&#123;&#125;
+
+        inline float GetX() const &#123; return m_MouseX; &#125;
+        inline float GetY() const &#123; return m_MouseY; &#125;
+
+        std::string ToString()const override
+        &#123;
+            std::stringstream ss;
+            ss &lt;&lt; &quot;MouseMoveEvent: &quot; &lt;&lt; m_MouseX &lt;&lt; &quot;,&quot; &lt;&lt; m_MouseY;
+            return ss.str();
+        &#125;
+
+        EVENT_CLASS_TYPE(MouseMoved)
+        EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+
+    private:
+        float m_MouseX, m_MouseY;
+    &#125;;
+
+    class HAZEL_API MouseScrolledEvent : public Event
+    &#123;
+    public:
+        MouseScrolledEvent(float xOffset,float yOffset)
+            :m_XOffset(xOffset),m_YOffset(yOffset)&#123;&#125;
+
+        inline float GetXOffset()const &#123; return m_XOffset; &#125;
+        inline float GetYOffset()const &#123; return m_YOffset; &#125;
+
+        std::string ToString()const override
+        &#123;
+            std::stringstream ss;
+            ss &lt;&lt; &quot;MouseScrolledEvent: &quot; &lt;&lt; GetXOffset() &lt;&lt; &quot;,&quot; &lt;&lt; GetYOffset();
+            return ss.str();
+        &#125;
+
+        EVENT_CLASS_TYPE(MouseScrolled)
+        EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+    private:
+        float m_XOffset, m_YOffset;
+    &#125;;
+
+    class HAZEL_API MouseButtonEvent :public Event
+    &#123;
+    public:
+        inline int GetMouseEvent()const &#123; return m_Button; &#125;
+
+        EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+    protected:
+        MouseButtonEvent(int button)
+            :m_Button(button)&#123;&#125;
+
+        int m_Button;
+    &#125;;
+
+    class HAZEL_API MouseButtonPressedEvent : public MouseButtonEvent
+    &#123;
+    public:
+        MouseButtonPressedEvent(int button)
+            :MouseButtonEvent(button)&#123;&#125;
+
+        std::string ToString() const override
+        &#123;
+            std::stringstream ss;
+            ss &lt;&lt; &quot;MouseButtonPressedEvent: &quot; &lt;&lt; m_Button;
+            return ss.str();
+        &#125;
+
+        EVENT_CLASS_TYPE(MouseButtonPressed)
+    &#125;;
+
+    class HAZEL_API MouseButtonReleasedEvent : public MouseButtonEvent
+    &#123;
+    public:
+        MouseButtonReleasedEvent(int button)
+            :MouseButtonEvent(button) &#123;&#125;
+
+        std::string ToString() const override
+        &#123;
+            std::stringstream ss;
+            ss &lt;&lt; &quot;MouseButtonReleasedEvent: &quot; &lt;&lt; m_Button;
+            return ss.str();
+        &#125;
+
+        EVENT_CLASS_TYPE(MouseButtonReleased)
+    &#125;;
+</code></pre>
+<p>没啥好说的，包含了鼠标移动，滚轮事件，鼠标点击（鼠标按下，鼠标松开）的四个事件。</p>
+<hr>
+<h2 id="就来看一下Dispatch（事件调度）"><a href="#就来看一下Dispatch（事件调度）" class="headerlink" title="就来看一下Dispatch（事件调度）"></a>就来看一下Dispatch（事件调度）</h2><pre><code class="CPP">class EventDispatcher
+&#123;
+    template&lt;typename T&gt;
+    using EventFn = std::function&lt;bool(T&amp;)&gt;;
+
+public:
+    EventDispatcher(Event&amp; event)
+        :m_Event(event)&#123;&#125;
+
+
+    template&lt;typename T&gt;
+    bool Dispatch(EventFn&lt;T&gt; func)
+    &#123;
+        if (m_Event.GetEventType() == T::GetStaticType())
+        &#123;
+            m_Event.m_Handled = func(*(T*)&amp;m_Event);
+            return true;
+        &#125;
+        return false;
+    &#125;
+
+private:
+    Event&amp; m_Event;
+&#125;;
+</code></pre>
+<pre><code class="CPP">using EventFn = std::function&lt;bool(T&amp;)&gt;;//这是一个返回bool的函数指针类型，简化了。
+</code></pre>
+<p>每准确的来说，事件调度是用于捕获操作事件的时候用的。</p>
+<p>重要的就是我当前layer拉取的回调函数对应的事件和你传递的事件类型是否相同。</p>
+<p>例如我当前优先处理页面关闭的逻辑我就会这样设计处理。</p>
+<img src="./image-20241027152932724.png" alt="image-20241027152932724" style="zoom: 67%;" />
+
+<p>首先我们需要理解你输入的操作是需要从最上层（存放vector的最底层，最新的layer）往下传递的。</p>
+<p>窗口应用程序的关闭优先程度肯定是最高的。所以首先为其分配一个事件调度处理传进来的事件。</p>
+<pre><code class="CPP">EventDispatcher dispatcher(e);
+</code></pre>
+<p>然后我们利用Dispatch的函数传递我们需要捕获的类型和对应触发的回调函数，检查是否和传递的事件类型相同，相同就标记处理，不再向下传递。</p>
+<p>我们具体来看看怎么实现的。</p>
+<pre><code class="CPP">dispatcher.Dispatch&lt;WindowCloseEvent&gt;(BIND_EVENT_FN(OnWindowClose));
+</code></pre>
+<p>我们首先看一下BING_EVENT_FN的宏定义是什么</p>
+<img src="./image-20241027153412813.png" alt="image-20241027153412813" style="zoom:80%;" />
+
+<blockquote>
+<p>std::bind和lambda的区别</p>
+<p><code>std::bind</code> 是 C++ 标准库中的一个函数模板，用于将函数或成员函数与参数绑定，从而创建一个新的可调用对象。</p>
+<p>讲的通俗一点其实就是返回一个可调用的函数（如果你懂lambda的话，其实差不多）</p>
+<p>std::bind(绑定对象的函数地址，绑定的对象（this表明绑定时当前的Application实例），std::placeholders::_1,…_2以此类推)</p>
+<p>后面_1，_2的占位符就是传入绑定的函数对象（传入Application::x函数）的参数。</p>
+<p>其实这么长其实就等于lambda</p>
+<pre><code class="CPP">([this](Event&amp; event) &#123;this-&gt;OnEvent(event);&#125;)
+</code></pre>
+<p>【this】表示捕获当前的实例的值，参数时Event&amp; ，然后就是函数内的操作。</p>
+<p>至于返回值我们可以回忆一下lambda的语法：</p>
+<p>**<code>[&amp;]</code>**：按引用捕获外部所有变量（即可以在 Lambda 中修改这些变量）。</p>
+<p>**<code>[=]</code>**：按值捕获外部所有变量（即在 Lambda 中不可修改这些变量）。</p>
+<p>**<code>[this]</code>**：竟然是捕获当前的实例内的所有变量。</p>
+<p>对于lambda的返回类型（其实大多应该没有返回值，只有对应的逻辑操作吧）</p>
+<ul>
+<li>自动推导</li>
+</ul>
+<pre><code class="CPP">auto add = [](int a, int b) &#123; return a + b; &#125;;
+</code></pre>
+<ul>
+<li>显式推导</li>
+</ul>
+<pre><code class="CPP">[捕获列表](参数列表) -&gt; 返回类型 &#123; 函数体 &#125;
+</code></pre>
+</blockquote>
+<p>然后我们看最上层的逻辑优先处理窗口关闭的事件。于是我们</p>
+<pre><code class="CPP">EventDispatcher dispatcher(e);
+dispatcher.Dispatch&lt;WindowCloseEvent&gt;(BIND_EVENT_FN(OnWindowClose));
+</code></pre>
+<p>为传递的事件创建一个调度对象，将e放进去。</p>
+<p>窗口关闭需要的类型是<strong>WindowCloseEvent</strong>，作为模板传进去，同时传入回调函数。</p>
+<p>然后检查我当前需要回调函数（关闭窗口的操作）需要的事件类型是否相同，不同则跳过，相同则执行对应的回调函数逻辑。</p>
+<img src="./image-20241027155534871.png" alt="image-20241027155534871" style="zoom: 67%;" />
+
+
+
+<pre><code class="CPP">func(*(T*)&amp;m_Event)//如果符合，就把当前事件作为参数传进去，执行回调逻辑
+</code></pre>
+<p>当回调逻辑执行成功会返回true，标记当前Event已被捕获处理（直接修改传进来的Event内部数据），不再向下传递。</p>
+<blockquote>
+<p>这里我们看一下(*(T*)&amp;m_Event)这个操作</p>
+<p>首先我们先了解一下父子指针关系。</p>
+<p>我们先从内存布局上来看</p>
+<p>从内存布局的角度来看，<code>Derived</code> 类对象的结构大致如下：（先是父类，然后是子类）</p>
+<pre><code>| base| sub |
+</code></pre>
+<p>然后刚看过操作系统一书了解到<strong>虚表（virtualtable）</strong>的概念，这是类实现多态的机制，存在于父类的内存中。虚表中存放对应虚函数的实现地址（例如子类实现了父类的虚函数）。</p>
+<p>当用父类指针（从子类指针转换过来的，表明此时虚表已经有内容了）调用虚函数，检查虚表最终还是调用子类的函数。</p>
+<p>从内存布局上来看显然子类指针转换为父类指针完全是安全的，而且还可以调用子类实现的函数。</p>
+<p>父类指针转为子类显然是不行的（除非父类指针一开始就是从子类转过来的，又转回去了）</p>
+</blockquote>
+<p>我们从glfw创建的事件来看一开始就是子类对象，只不过Event接受参数是父类指针。</p>
+<p>其中调用的函数（GetEventType）都是子类覆写父类的虚函数，所以依然是调用子类的函数，从而可以检查对应的类型。</p>
+<p>Dispatch只不过是将这个指针又强行变回对应的子事件类指针传递到回调函数，所以没啥影响。</p>
+<p>事件系统就到此为止啦，感谢阅读，希望能帮到你。</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 yang_blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;yang
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>
