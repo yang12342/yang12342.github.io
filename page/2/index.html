@@ -186,17 +186,17 @@
         
 
 <div class="post">
-    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/">
-        <h2 class="post-title">空洞武士笔记2</h2>
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B09/">
+        <h2 class="post-title">imgui和imgui事件</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">
+            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                设计经验
+                游戏引擎
             </a>
         </span>
         
@@ -204,7 +204,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/9/23
+            2024/11/30
         </span>
         
         
@@ -212,8 +212,7 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <h2 id="资源管理器的资源管理设置"><a href="#资源管理器的资源管理设置" class="headerlink" title="资源管理器的资源管理设置"></a>资源管理器的资源管理设置</h2><p>关于对于资源文件的加载，在之前的项目都是通过硬编码的方式手写出所有路径加载对应的图片和音频资源。</p>
-<p>相对于之前，我们使用<strong>stl</strong>的<unordered_map>来存储对应的资源</p>
+            <h2 id="笔记9-imgui和imgui事件"><a href="#笔记9-imgui和imgui事件" class="headerlink" title="笔记9 imgui和imgui事件"></a>笔记9 imgui和imgui事件</h2><h3 id="再谈及imgui之前先说一说按照视频步骤拉取imgui的坑吧"><a href="#再谈及imgui之前先说一说按照视频步骤拉取imgui的坑吧" class="headerlink" title="再谈及imgui之前先说一说按照视频步骤拉取imgui的坑吧"></a>再谈及imgui之前先说一说按照视频步骤拉取imgui的坑吧</h3><p>由于版本问题，众所周知，肯定是不出意外的出意外的报错了。其实其实直接拿来用就好了，但是cherno既然是要举例子，就是暂时先把目前的教程的bug处理掉，bug也复现不出来（其实懒了，而且确实没必要，这里只是实例，后面会修改使用方法的）</p>
             
         </div>
     </div>
@@ -227,30 +226,25 @@
         
         <span class="tag">
             
-            <a href="/tags/cpp/" style="color: #ffa2c4">cpp</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #03a9f4">游戏设计</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #00a596">游戏引擎</a>
         </span>
         
     </div>
-    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/" class="go-post">阅读全文</a>
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B09/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E5%B1%82%E8%AE%BE%E8%AE%A1/">
-        <h2 class="post-title">位运算管理物理碰撞层级&amp;四叉树管理二维碰撞箱子</h2>
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B08/">
+        <h2 class="post-title">GLAD和OpenGL</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">
+            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                设计经验
+                游戏引擎
             </a>
         </span>
         
@@ -258,7 +252,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/9/23
+            2024/11/30
         </span>
         
         
@@ -266,7 +260,9 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <h1 id="空洞武士笔记3"><a href="#空洞武士笔记3" class="headerlink" title="空洞武士笔记3"></a>空洞武士笔记3</h1><h2 id="1-位运算管理物理碰撞层级"><a href="#1-位运算管理物理碰撞层级" class="headerlink" title="1.位运算管理物理碰撞层级"></a>1.位运算管理物理碰撞层级</h2><h4 id="1-确定每个层的位掩码"><a href="#1-确定每个层的位掩码" class="headerlink" title="1.确定每个层的位掩码"></a>1.确定每个层的位掩码</h4><p>当我们使用枚举类来实现碰撞层级时，是因为我们只有一对一的碰撞，当我们遇到一对多的碰撞。就需要新的解决方案。于是我们选择使位运算，将每个层级映射为位掩码。</p>
+            <h2 id="笔记8-GLAD和OpenGL"><a href="#笔记8-GLAD和OpenGL" class="headerlink" title="笔记8 GLAD和OpenGL"></a>笔记8 GLAD和OpenGL</h2><p>细节的问题后面我们再慢慢补，先把流程具体描述一下。</p>
+<p>首先就是去网站上下载对应的教程的glad的源码。</p>
+<p>然后编写更改对应的premake文件。</p>
             
         </div>
     </div>
@@ -280,30 +276,25 @@
         
         <span class="tag">
             
-            <a href="/tags/cpp/" style="color: #ff7d73">cpp</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #03a9f4">游戏设计</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #03a9f4">游戏引擎</a>
         </span>
         
     </div>
-    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E5%B1%82%E8%AE%BE%E8%AE%A1/" class="go-post">阅读全文</a>
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B08/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E5%8A%A8%E7%94%BB%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86/">
-        <h2 class="post-title">空洞武士笔记1</h2>
+    <a href="/articles/Linux/WSL/">
+        <h2 class="post-title">WSL的安装</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">
+            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                设计经验
+                操作系统
             </a>
         </span>
         
@@ -311,7 +302,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/9/23
+            2024/11/22
         </span>
         
         
@@ -319,10 +310,7 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <h2 id="处理不同形式角色动画资产的Animation管理器"><a href="#处理不同形式角色动画资产的Animation管理器" class="headerlink" title="处理不同形式角色动画资产的Animation管理器"></a>处理不同形式角色动画资产的Animation管理器</h2><p>对于一些美术资产我们常常会遇到俩种形式</p>
-<img src="./dead.png" alt="一张动画包含连续的多个帧" />
-
-<img src="./1.png" alt="一帧一张动画" />
+            <p> 本人能力有限，因为能找的linux安装教程和文档中，只有WSL的时效性和易操作性最好，所以选择了WSL安装linux，下面是基本的安装操作。</p>
             
         </div>
     </div>
@@ -336,30 +324,35 @@
         
         <span class="tag">
             
-            <a href="/tags/cpp/" style="color: #00bcd4">cpp</a>
+            <a href="/tags/linux/" style="color: #ffa2c4">linux</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #ffa2c4">游戏设计</a>
+            <a href="/tags/WSL/" style="color: #00bcd4">WSL</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="color: #00a596">操作系统</a>
         </span>
         
     </div>
-    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E5%8A%A8%E7%94%BB%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86/" class="go-post">阅读全文</a>
+    <a href="/articles/Linux/WSL/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E7%AE%80%E5%8D%95%E8%AE%BE%E8%AE%A1/">
-        <h2 class="post-title">碰撞管理器的简单设计</h2>
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B04/">
+        <h2 class="post-title">EventSystem</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">
+            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                设计经验
+                游戏引擎
             </a>
         </span>
         
@@ -367,7 +360,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/9/23
+            2024/10/28
         </span>
         
         
@@ -375,10 +368,8 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <h1 id="空洞武士笔记5"><a href="#空洞武士笔记5" class="headerlink" title="空洞武士笔记5"></a>空洞武士笔记5</h1><h3 id="碰撞管理器的简单设计"><a href="#碰撞管理器的简单设计" class="headerlink" title="碰撞管理器的简单设计"></a>碰撞管理器的简单设计</h3><p>面对物理世界的所有碰撞我们都整合在一起管理所有物体的碰撞箱，方便我们统一的进行处理。</p>
-<img src="./image-20240923203406205.png" alt="image-20240923203406205" style="zoom:67%;" />
-
-<p>就是为了方便这些的统一管理所有碰撞箱子的碰撞发生。</p>
+            <h1 id="HazelEngine笔记4"><a href="#HazelEngine笔记4" class="headerlink" title="HazelEngine笔记4"></a>HazelEngine笔记4</h1><h1 id="EventSystem"><a href="#EventSystem" class="headerlink" title="EventSystem"></a>EventSystem</h1><p>为了响应玩家一些基本的输入响应，我们制作不论引擎还是任何应用程序都是需要事件系统读取玩家的操作。</p>
+<p>话不多说我们一步一步来看事件系统是如何搭建起来的</p>
             
         </div>
     </div>
@@ -392,30 +383,25 @@
         
         <span class="tag">
             
-            <a href="/tags/cpp/" style="color: #03a9f4">cpp</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #ff7d73">游戏设计</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #03a9f4">游戏引擎</a>
         </span>
         
     </div>
-    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E7%A2%B0%E6%92%9E%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E7%AE%80%E5%8D%95%E8%AE%BE%E8%AE%A1/" class="go-post">阅读全文</a>
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B04/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA%E7%9A%84%E8%AE%BE%E8%AE%A1/">
-        <h2 class="post-title">有限状态机的设计</h2>
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B05/">
+        <h2 class="post-title">Precompiled Header</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/%E8%AE%BE%E8%AE%A1%E7%BB%8F%E9%AA%8C/">
+            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                设计经验
+                游戏引擎
             </a>
         </span>
         
@@ -423,7 +409,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/9/23
+            2024/10/28
         </span>
         
         
@@ -431,12 +417,7 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <h1 id="空洞武士笔记6"><a href="#空洞武士笔记6" class="headerlink" title="空洞武士笔记6"></a>空洞武士笔记6</h1><h2 id="有限状态机的设计"><a href="#有限状态机的设计" class="headerlink" title="有限状态机的设计"></a>有限状态机的设计</h2><img src="./image-20240923211456603.png" alt="image-20240923211456603" style="zoom:50%;" />
-
-<pre><code class="CPP">protected:
-StateMachine state_machine;
-</code></pre>
-<p>每一个继承character的对象都有状态机的成员变量。</p>
+            <h1 id="HazelEngine笔记5"><a href="#HazelEngine笔记5" class="headerlink" title="HazelEngine笔记5"></a>HazelEngine笔记5</h1><h1 id="预编译头文件（Precompiled-Header，简称-PCH）"><a href="#预编译头文件（Precompiled-Header，简称-PCH）" class="headerlink" title="预编译头文件（Precompiled Header，简称 PCH）"></a>预编译头文件（Precompiled Header，简称 PCH）</h1><p>预编译头文件（Precompiled Header，简称 PCH）是编译器为了加快编译速度所使用的一种技术。其原理是在<strong>首次编译时预先编译一部分头文件</strong>，将这些头文件生成一个预编译的二进制文件，之后的编译过程中直接重用该二进制文件，而不是重复编译这些头文件。</p>
             
         </div>
     </div>
@@ -450,30 +431,25 @@ StateMachine state_machine;
         
         <span class="tag">
             
-            <a href="/tags/cpp/" style="color: #ffa2c4">cpp</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #03a9f4">游戏设计</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #00a596">游戏引擎</a>
         </span>
         
     </div>
-    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA%E7%9A%84%E8%AE%BE%E8%AE%A1/" class="go-post">阅读全文</a>
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B05/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/const%E7%9A%84%E9%83%A8%E5%88%86%E4%BD%BF%E7%94%A8/">
-        <h2 class="post-title">const的常用场景</h2>
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B06/">
+        <h2 class="post-title">Window Abstraction and GLFW</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/cpp%E8%AF%AD%E6%B3%95/">
+            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                cpp语法
+                游戏引擎
             </a>
         </span>
         
@@ -481,7 +457,7 @@ StateMachine state_machine;
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/9/23
+            2024/10/28
         </span>
         
         
@@ -489,10 +465,7 @@ StateMachine state_machine;
     <div class="description">
         <div class="content" v-pre>
             
-            <h1 id="空洞武士笔记4"><a href="#空洞武士笔记4" class="headerlink" title="空洞武士笔记4"></a>空洞武士笔记4</h1><p>之前我们记得有这样方式传参</p>
-<pre><code class="CPP">Vector2（2，3）;
-</code></pre>
-<p>类名加括号内构造函数参数，就可以创建临时对象作为形参传递。</p>
+            <h1 id="HazelEngine笔记6"><a href="#HazelEngine笔记6" class="headerlink" title="HazelEngine笔记6"></a>HazelEngine笔记6</h1><h1 id="Window-Abstraction-and-GLFW"><a href="#Window-Abstraction-and-GLFW" class="headerlink" title="Window Abstraction and GLFW"></a>Window Abstraction and GLFW</h1><p>首先还是先了解一下glfw和glad这俩个东西。</p>
             
         </div>
     </div>
@@ -506,25 +479,25 @@ StateMachine state_machine;
         
         <span class="tag">
             
-            <a href="/tags/cpp/" style="color: #00a596">cpp</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #03a9f4">游戏引擎</a>
         </span>
         
     </div>
-    <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/const%E7%9A%84%E9%83%A8%E5%88%86%E4%BD%BF%E7%94%A8/" class="go-post">阅读全文</a>
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B06/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/articles/%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/csv/">
-        <h2 class="post-title">csv文件解析</h2>
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B03/">
+        <h2 class="post-title">Premake</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/csv/">
+            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                csv
+                游戏引擎
             </a>
         </span>
         
@@ -532,7 +505,7 @@ StateMachine state_machine;
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/7/23
+            2024/10/28
         </span>
         
         
@@ -540,7 +513,7 @@ StateMachine state_machine;
     <div class="description">
         <div class="content" v-pre>
             
-            <h2 id="CSV简单的读取"><a href="#CSV简单的读取" class="headerlink" title="CSV简单的读取"></a>CSV简单的读取</h2><p>CSV代表Comma Separated Values。CSV文件是一种纯<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6&spm=1001.2101.3001.7020">文本文件</a>，用于存储表格和电子表格信息。内容通常是由文本、数字或日期组成的表格。使用将数据存储在表中的程序可以轻松导入和导出CSV文件。</p>
+            <h1 id="HazelEngine笔记3"><a href="#HazelEngine笔记3" class="headerlink" title="HazelEngine笔记3"></a>HazelEngine笔记3</h1><p>premake是一个开源的脚本生成工具，利用lua脚本自定义项目配置，自动生成对应的的IDE和编译器的构建文件。至于能配置哪些，我会从项目的配置文件中解释，而不是一一列举了。</p>
             
         </div>
     </div>
@@ -554,25 +527,25 @@ StateMachine state_machine;
         
         <span class="tag">
             
-            <a href="/tags/csv/" style="color: #ff7d73">csv</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #00bcd4">游戏引擎</a>
         </span>
         
     </div>
-    <a href="/articles/%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/csv/" class="go-post">阅读全文</a>
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B03/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/articles/%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/cjson/">
-        <h2 class="post-title">cjson库解析json文件</h2>
+    <a href="/articles/STD/filesystem/">
+        <h2 class="post-title">标准库的filesystem</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/json/">
+            <a href="/categories/STD/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                json
+                STD
             </a>
         </span>
         
@@ -580,7 +553,7 @@ StateMachine state_machine;
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/7/23
+            2024/10/28
         </span>
         
         
@@ -588,10 +561,116 @@ StateMachine state_machine;
     <div class="description">
         <div class="content" v-pre>
             
-            <h2 id="利用cJSON库来解析json文件"><a href="#利用cJSON库来解析json文件" class="headerlink" title="利用cJSON库来解析json文件"></a>利用cJSON库来解析json文件</h2><blockquote>
-<p>cJSON是一个使用C语言编写的JSON数据解析器，具有超轻便，可移植，单文件的特点，使用MIT开源协议。</p>
-<p>#include &lt;cJSON.h&gt;使用前需要引用这个库</p>
-<p>同时将csjon.c放到工程目录</p>
+            <h2 id="filesystem"><a href="#filesystem" class="headerlink" title="filesystem"></a>filesystem</h2><p><code>filesystem</code> 库是 C++17 中引入的一个重要特性，它提供了一系列用于文件系统操作的功能。这个库包含在 <code>&lt;filesystem&gt;</code> 头文件中，并且定义在 <code>std::filesystem</code> <a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?q=%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4&zhida_source=entity&is_preview=1">命名空间</a>内。</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/STD/" style="color: #00a596">STD</a>
+        </span>
+        
+    </div>
+    <a href="/articles/STD/filesystem/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B02/">
+        <h2 class="post-title">spdlog日志库的配置和使用</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                游戏引擎
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/10/22
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="HazelEngine笔记2"><a href="#HazelEngine笔记2" class="headerlink" title="HazelEngine笔记2"></a>HazelEngine笔记2</h1><p>在游戏引擎或者大型程序项目中我们必然离不开调式功能，处于方便我们使用了github开源的日志库作为我们的日志库（spdlog）</p>
+<blockquote>
+<p>如果你也在跟随cherno的引擎制作，你也应该遇到了莫名其妙的错误，其实Youtobe正确的库不是给的链接（也许是时间太久，已经更新过了），你需要去cherno的引擎库里找到保存的spdlog库，那个才是正确的</p>
+</blockquote>
+<p>首先在命令行</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #03a9f4">游戏引擎</a>
+        </span>
+        
+    </div>
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B02/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B01/">
+        <h2 class="post-title">引擎项目环境配置</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                游戏引擎
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/10/22
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="HazelEngine笔记1"><a href="#HazelEngine笔记1" class="headerlink" title="HazelEngine笔记1"></a>HazelEngine笔记1</h1><h3 id="1-项目配置"><a href="#1-项目配置" class="headerlink" title="1.项目配置"></a>1.项目配置</h3><p>在vs中创建Hazel项目，然后打开“项目属性 -&gt;  配置属性 -&gt; 常规”中设置一下 </p>
+<ul>
+<li>配置类型： 选择**.dll**</li>
+</ul>
+<blockquote>
+<p>在配置为Dynamic Library时，项目输出的文件是一个DLL文件，其他程序可以在运行时加载和使用它。通常会生成一个<code>.dll</code>文件和一个对应的<code>.lib</code>文件（用于在编译时链接DLL）。</p>
+<p><strong>DLL (Dynamic Link Library)</strong> 是包含可执行代码和数据的二进制文件，在程序运行时动态加载到内存中。</p>
+<p>DLL文件中包含的代码和资源在程序<strong>运行时</strong>才会被加载使用，因此在编译和链接阶段，它不会直接参与到应用程序的构建中。</p>
+<p>对于使用DLL的项目来说，<strong>LIB文件</strong>并不是静态链接库，而是一个“<strong>导入库</strong>”（import library）。这个LIB文件不包含DLL的实际实现代码，而是包含指向DLL中的函数或数据的引用和符号信息。</p>
+<p>当你在Visual Studio中设置项目生成DLL时，Visual Studio同时会生成一个对应的LIB文件。这个LIB文件的作用是告诉链接器：当其他项目引用此库时，链接器应如何找到和使用对应的DLL中的函数和数据。</p>
 </blockquote>
             
         </div>
@@ -606,111 +685,11 @@ StateMachine state_machine;
         
         <span class="tag">
             
-            <a href="/tags/json/" style="color: #ff7d73">json</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #ffa2c4">游戏引擎</a>
         </span>
         
     </div>
-    <a href="/articles/%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/cjson/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/articles/STL/vector/">
-        <h2 class="post-title">STL的Vector的使用</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/STL/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                STL
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/7/13
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h1 id="Vector的使用"><a href="#Vector的使用" class="headerlink" title="Vector的使用"></a>Vector的使用</h1><h2 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h2><p>​    首先，使用需要引入头文件 <code>&lt;vector&gt;</code></p>
-<pre><code class="cpp">#include &lt;vector&gt;
-</code></pre>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/STL/" style="color: #03a9f4">STL</a>
-        </span>
-        
-    </div>
-    <a href="/articles/STL/vector/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/articles/STL/stack/">
-        <h2 class="post-title">STL的stack的使用</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/STL/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                STL
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/7/13
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h1 id="stack-栈-的使用"><a href="#stack-栈-的使用" class="headerlink" title="stack(栈)的使用"></a>stack(栈)的使用</h1><p>1.stack是一种容器适配器，专门用在具有后进先出操作的上下文环境中，其删除只能从容器的一端进行元素的插入与提取操作。</p>
-<ol start="2">
-<li><p>stack是作为容器适配器被实现的，容器适配器即是对特定类封装作为其底层的容器，并提供一组特定的成员函数来访问其元素，将特定类作为其底层的，元素特定容器的尾部(即栈顶)被压入和弹出。</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/STL/" style="color: #ffa2c4">STL</a>
-        </span>
-        
-    </div>
-    <a href="/articles/STL/stack/" class="go-post">阅读全文</a>
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B01/" class="go-post">阅读全文</a>
 </div>
 
 
@@ -728,6 +707,10 @@ StateMachine state_machine;
         3
     </a>
     
+    
+    <a class="page-num" href="/page/4">
+        4
+    </a>
     
     
     

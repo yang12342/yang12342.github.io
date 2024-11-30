@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>轮询 | yang_blog</title>
+    <meta name="author" content="yang" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>YANG_BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;YANG_BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>轮询</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/11/30
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                游戏引擎
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #ffa2c4">
+                    游戏引擎
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h2 id="笔记11-轮询"><a href="#笔记11-轮询" class="headerlink" title="笔记11 轮询"></a>笔记11 轮询</h2><p>在这个过程中我们看到了cherno试图将Hazel的平台层抽象出来，然后为不同的平台兼容腾出空间，虽然目前都是基于windows和glfw，但后面肯定是可以是实现的，就像后面的cherno将渲染层也抽象出来，为基于openGL的渲染实现了一份。这种思路很想我们之前看懂imgui的为了可移植性和兼容性的设计。</p>
+<span id="more"></span>
+
+<p>cherno将window抽象出来，实现了一个windowswindow。</p>
+<p>然后这期又将input实现出来，实现了windowsinput。</p>
+<hr>
+<p>在此之前，我们可以先了解一下为什么要实现轮询这个功能。</p>
+<p>轮询的好处：</p>
+<ol>
+<li><p>轮询输入设备（如键盘、鼠标、手柄等）能够提供更快的响应时间，因为输入状态是在每帧中都被检查的，而不是等到事件发生时才处理。</p>
+</li>
+<li><p>通过轮询，游戏可以在每一帧中即时检查用户输入和状态变化，从而保持流畅的用户体验。例如，角色移动、动画和碰撞检测都需要在每帧内进行处理。</p>
+</li>
+<li><p>在一些情况下，游戏可能需要处理多个输入源（如多个玩家的输入、鼠标移动、触摸屏等）。轮询能够更有效地整合这些输入，而事件驱动可能会导致复杂的事件管理。</p>
+</li>
+<li><p><strong>事件分发</strong> 是阻塞的，程序会等待特定事件的发生，可能导致响应延迟。</p>
+<p><strong>轮询</strong> 是非阻塞的，程序在每一帧内检查状态和输入，能够提供快速的响应和流畅的体验。</p>
+</li>
+</ol>
+<p><strong>问题</strong>：如果input是通过轮询从glfw直接获取，那还要event干什么？</p>
+<p>轮询非常适合<strong>需要实时信息</strong>的场景，因为它在每一帧都会获取最新的输入状态，适合频繁、精确控制的操作。轮询的高频调用适合这些操作场景，因为它能以帧速率响应输入，确保控制和反馈几乎是“实时”的。典型应用包括：</p>
+<ul>
+<li><strong>玩家的移动、旋转、开火等操作，连续状态的检测</strong>。</li>
+</ul>
+<p>事件机制适合<strong>响应速度要求不那么高的场景</strong>，因为它只在输入状态发生变化时被触发。典型应用包括：</p>
+<ul>
+<li><strong>UI控件的响应</strong>，<strong>一次性的状态变化</strong>：例如键盘按下和抬起、鼠标点击或释放等，这些事件在触发时才处理即可，不需要频繁检测。</li>
+</ul>
+<hr>
+<p>然后我们来看看具体的实现</p>
+<p>Input时全局独立的。静态的</p>
+<ul>
+<li>首先是Input抽象类的构成</li>
+</ul>
+<pre><code class="CPP">class HAZEL_API Input
+&#123;
+public:
+    static bool IsKeyPressed(int keycode) &#123; return s_Instance-&gt;IsKeyPressedImpl(keycode); &#125;
+    static bool IsMouseButtonPressed(int button) &#123; return s_Instance-&gt;IsMouseButtonPressedImpl(button); &#125;
+    static std::pair&lt;float,float&gt; GetMousePosition() &#123; return s_Instance-&gt;GetMousePositionImpl(); &#125;
+    static float GetMouseX() &#123; return s_Instance-&gt;GetMouseXImpl(); &#125;
+    static float GetMouseY() &#123; return s_Instance-&gt;GetMouseYImpl(); &#125;
+
+protected:
+    virtual bool IsKeyPressedImpl(int keycode) = 0;
+
+    virtual bool IsMouseButtonPressedImpl(int button) = 0;
+    virtual std::pair&lt;float, float&gt; GetMousePositionImpl() = 0;
+    virtual float GetMouseXImpl() = 0;
+    virtual float GetMouseYImpl() = 0;
+
+private:
+    static Input* s_Instance;
+&#125;;
+</code></pre>
+<p>父类静态对外提够抽象的接口，根据平台创建的子类，实现内部具体的实现方法。</p>
+<p>然后内部提供一个静态全局指针，方便到时候实例化对应的平台实现。</p>
+<ul>
+<li>接着我们来看windowsInput的实现</li>
+</ul>
+<pre><code class="CPP">//windowsInput.h
+namespace Hazel
+&#123;
+    class WindowsInput :public Input
+    &#123;
+    protected:
+        virtual bool IsKeyPressedImpl(int key) override;
+
+        virtual bool IsMouseButtonPressedImpl(int button)override;
+        virtual std::pair&lt;float, float&gt; GetMousePositionImpl()override;
+        virtual float GetMouseXImpl()override;
+        virtual float GetMouseYImpl()override;
+        
+    &#125;;
+&#125;
+</code></pre>
+<pre><code class="CPP">//windowsInput.cpp
+namespace Hazel
+&#123;
+    Input* Input::s_Instance = new WindowsInput();
+
+    bool WindowsInput::IsKeyPressedImpl(int keycode)
+    &#123;
+        auto window = static_cast&lt;GLFWwindow*&gt;(Application::Get().GetWindow().GetNativeWindow());
+
+        auto state=glfwGetKey(window, keycode);
+        return state == GLFW_PRESS || state == GLFW_REPEAT;
+    &#125;
+
+    bool WindowsInput::IsMouseButtonPressedImpl(int button)
+    &#123;
+        auto window = static_cast&lt;GLFWwindow*&gt;(Application::Get().GetWindow().GetNativeWindow());
+
+        auto state = glfwGetKey(window, button);
+        return state == GLFW_PRESS;
+    &#125;
+
+    std::pair&lt;float, float&gt; WindowsInput::GetMousePositionImpl()
+    &#123;
+        auto window = static_cast&lt;GLFWwindow*&gt;(Application::Get().GetWindow().GetNativeWindow());
+        double xpos, ypos;
+        glfwGetCursorPos(window, &amp;xpos, &amp;ypos);
+        return &#123; (float)xpos,(float)ypos &#125;;
+    &#125;
+
+    float WindowsInput::GetMouseXImpl()
+    &#123;
+        auto [x,y] = GetMousePositionImpl();
+        return x;
+    &#125;
+
+    float WindowsInput::GetMouseYImpl()
+    &#123;
+        auto [x, y] = GetMousePositionImpl();
+        return y;
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>就是实现父类的内部实现方法</li>
+<li>实例化全局静态指针</li>
+</ul>
+<p>我们具体来看一下时如何实现轮询的，这里我们基于window和glfw实现的窗口和轮询。</p>
+<p>为了查询对应的键位状态，我们必然需要拿到对应的窗口句柄（GLFWWindow），但是我们又不想让windowsInput和windowswindow产生直接的联系。</p>
+<p>glfwWindow时基于平台的向上封，我们当前的glfwWindow基于Windowswindow平台，但是我们想让基于Input可以兼容其他平台MacOS，对于接受GLFWWIndow的Input基于哪个平台都没关系。</p>
+<p>所以还是想让二者分离，不想产生过多的耦合，所以我们选择Input向Application获取GLFWWIndow。</p>
+<p>下面是具体的实现方法</p>
+<img src="./image-20241110135740246.png" alt="image-20241110135740246" style="zoom:80%;" />
+
+<p>第一个是返回Application自己的单例。</p>
+<img src="./image-20241110135714735.png" alt="image-20241110135714735" style="zoom:80%;" />
+
+<p>第二个则是返回Application的Windows指针，显然是父类指针（注意这里的window是我们自己定义的，而不是glfw或者windowAPI的）</p>
+<img src="./image-20241110140029867.png" alt="image-20241110140029867" style="zoom:80%;" />
+
+<p>为了返回对应的平台的window，我们在window.h的父类中声明了一个返回任意指针的函数，用于返回本地实现的窗口句柄。</p>
+<img src="./image-20241110140053215.png" alt="image-20241110140053215" style="zoom:80%;" />
+
+<p>那么在windowswindow中我们实现了父类虚函数的实现，返回对应的glfwWindow</p>
+<p>所以在最后的获取中，我们通过强制类型转换说明返回的任意类型指针，成功获取对应的GLFWWindow</p>
+<pre><code class="CPP">auto window = static_cast&lt;GLFWwindow*&gt;(Application::Get().GetWindow().GetNativeWindow())
+</code></pre>
+<blockquote>
+<p>这里插一句吧，虚函数子类其实还是虚函数，前面加着其实就是为了增加代码的可读性，override写上也是良好的代码习惯。</p>
+</blockquote>
+<p>轮询和事件的响应差距（按了一下，明显轮询检查次数更多，事件就一次）</p>
+<img src="./image-20241031125746777-1732976264234-5.png" alt="image-20241031125746777" style="zoom:80%;" />
+
+
+
+
+
+<hr>
+<h3 id="cpp20的结构化绑定"><a href="#cpp20的结构化绑定" class="headerlink" title="cpp20的结构化绑定"></a>cpp20的结构化绑定</h3><p>我们在上面看到了这样的返回方式和接受方式</p>
+<pre><code class="CPP">std::pair&lt;float, float&gt; WindowsInput::GetMousePositionImpl()
+&#123;
+    .......
+    return &#123; (float)xpos,(float)ypos &#125;;
+&#125;
+
+float WindowsInput::GetMouseXImpl()
+&#123;
+    auto [x,y] = GetMousePositionImpl();
+    return x;
+&#125;
+</code></pre>
+<h2 id="聚合初始化"><a href="#聚合初始化" class="headerlink" title="聚合初始化"></a>聚合初始化</h2><p><strong>聚合初始化</strong>是一种直接初始化类或结构体成员的方式，适用于一些特定类型的对象，比如没有用户定义构造函数、没有私有或受保护的非静态数据成员的结构体或类。</p>
+<p>要求：</p>
+<ol>
+<li>聚合类型通常包括 <code>struct</code>、<code>class</code> 或 <code>array</code>，</li>
+<li>且<strong>所有成员必须是公共的</strong>，且没有自定义的构造函数、虚函数或基类。</li>
+<li>没有私有或受保护的非静态数据成员</li>
+</ol>
+<p>如果一个简单的类或者结构体</p>
+<p>有构造函数，那么return{1，2}（返回类型为MyType，则会自动调用构造函数生成对象）</p>
+<p>倘若没有下面的构造函数，则会按照声明简单类型的顺序，聚合初始化一个对象出来。</p>
+<pre><code class="CPP">struct MyType &#123;
+    int x;
+    int y;
+    MyType(int a, int b) : x(a), y(b) &#123;&#125;  // 自定义构造函数
+&#125;;
+</code></pre>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
+<li><strong>无需构造函数</strong>：聚合初始化不需要构造函数，因此适用于简单的数据结构。</li>
+<li><strong>成员按顺序初始化</strong>：初始化值按照声明顺序匹配到每个成员。</li>
+<li><strong>适用数组</strong>：可以直接使用花括号初始化数组中的每个元素。</li>
+</ol>
+<p>同理</p>
+<p><code>std::pair</code> 可以使用聚合初始化直接返回，比如使用 <code>return &#123;结果1, 结果2&#125;;</code>。这样写会自动构造一个 <code>std::pair</code>，并将 <code>结果1</code> 作为第一个元素，<code>结果2</code> 作为第二个元素返回。</p>
+<hr>
+<p>接下来就是接受对象了</p>
+<p>这是解构绑定</p>
+<pre><code class="CPP">
+float WindowsInput::GetMouseXImpl()
+&#123;
+    auto [x,y] = GetMousePositionImpl();
+    return x;
+&#125;
+</code></pre>
+<h3 id="auto-类型推导"><a href="#auto-类型推导" class="headerlink" title="auto 类型推导"></a><code>auto</code> 类型推导</h3><ul>
+<li><code>auto</code> 会自动推导 <code>GetMousePositionImpl()</code> 的返回类型。</li>
+<li><code>GetMousePositionImpl()</code> 返回的是 <code>std::pair&lt;float, float&gt;</code>，所以编译器会推导出 <code>auto</code> 的类型为 <code>std::pair&lt;float, float&gt;</code></li>
+</ul>
+<h3 id="方括号-解构绑定"><a href="#方括号-解构绑定" class="headerlink" title="方括号 [] 解构绑定"></a>方括号 <code>[]</code> 解构绑定</h3><ul>
+<li>方括号中的 <code>[x, y]</code> 表示将 <code>std::pair</code> 的两个元素分别解构到 <code>x</code> 和 <code>y</code> 变量中。</li>
+<li><code>std::pair</code> 的第一个元素（<code>first</code>）会被绑定到 <code>x</code>，第二个元素（<code>second</code>）会被绑定到 <code>y</code>。</li>
+</ul>
+<p>常见用途：（细说也用不到，等用到再说吧）</p>
+<ol>
+<li>处理 <code>std::pair</code> 或 <code>std::tuple</code> 返回值</li>
+<li>使用 <code>std::map</code> 等容器的迭代器</li>
+<li>函数多值返回</li>
+<li>结构体解构（C++20）</li>
+<li>标准库函数中的解构绑定</li>
+</ol>
+<hr>
+<p>最后的话，Input由于是全局的静态单例，我们在Cpp文件中定义并赋予实例，最后我们直接在Application中直接使用就好了</p>
+<img src="./image-20241110160407474.png" alt="image-20241110160407474" style="zoom:80%;" />
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 yang_blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;yang
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

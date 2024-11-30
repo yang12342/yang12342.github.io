@@ -1,0 +1,358 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>Layer | yang_blog</title>
+    <meta name="author" content="yang" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>YANG_BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;YANG_BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Layer</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/11/30
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                游戏引擎
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #00a596">
+                    游戏引擎
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h2 id="笔记7-Layer"><a href="#笔记7-Layer" class="headerlink" title="笔记7 Layer"></a>笔记7 Layer</h2><p>对于应用，我们都需要layer去处理渲染顺序和用户事件响应。</p>
+<ul>
+<li>渲染顺序层级，我们需要从底层往上处理渲染逻辑，将最新的一层，放在最后渲染。</li>
+<li>对于事件处理，我们肯定需要曾最上层优先处理，然后层层往下处理。</li>
+</ul>
+<span id="more"></span>
+
+<p>然后我们优先来看Layer的抽象层。</p>
+<pre><code class="CPP">    class HAZEL_API Layer
+    &#123;
+    public:
+        Layer(const std::string&amp; name = &quot;Layer&quot;);
+        virtual ~Layer();
+
+        virtual void OnAttach()	&#123;&#125;
+        virtual void OnDetach() &#123;&#125;
+        virtual void OnUpdate() &#123;&#125;
+        virtual void OnImGuiRender()&#123;&#125;
+        virtual void OnEvent(Event&amp; event) &#123; &#125;
+
+        inline const std::string&amp; GetName() const &#123; return m_DebugName; &#125;
+    protected:
+        std::string m_DebugName;
+    &#125;;
+</code></pre>
+<ul>
+<li><p>**OnAttach()**：在层被附加（激活）到应用程序时调用，通常用于初始化资源。（例如在使用imgui的时候，我们imgui肯定是在最上层，创建窗口的时候，OnAttach就需要创建imgui窗口和上下文等初始化操作）</p>
+</li>
+<li><p>**OnDetach()**：在层被移除（卸载）时调用，用于释放资源。（依旧以imgui为例，我们只需要在关闭imgui时销毁上下文和窗口等）</p>
+</li>
+<li><p>**OnUpdate()**：在每一帧更新时调用，处理与该层相关的逻辑（如渲染或物理计算）。</p>
+</li>
+<li><p>**OnEvent(Event&amp; event)**：用于处理与该层相关的事件，如用户输入、窗口事件等。</p>
+</li>
+<li><p>**std::string m_DebugName;**暂时是用string作为不同的层的id</p>
+</li>
+</ul>
+<p>既然我们有了Layer，那我们也必然需要装载Layer的容器去统一管理。</p>
+<hr>
+<p>目前，我们使用了Vector为的容器创建的LayerStack类，去统一管理Layer层级。</p>
+<pre><code class="CPP">    class HAZEL_API LayerStack
+    &#123;
+    public:
+        LayerStack();
+        ~LayerStack();
+
+        void PushLayer(Layer* layer);
+        void PushOverlay(Layer* overlay);
+        void PopLayer(Layer* layer);
+        void PopOverlay(Layer* overlay);
+
+        std::vector&lt;Layer*&gt;::iterator begin() &#123; return m_Layers.begin(); &#125;//返回vector的头指针
+        std::vector&lt;Layer*&gt;::iterator end() &#123; return m_Layers.end(); &#125;///返回尾巴指针
+
+    private:
+        std::vector&lt;Layer*&gt; m_Layers;				//存放层级的容器
+        unsigned int  m_LayerInsertIndex = 0;		//普通层级的最后一个索引，原本是使用指针，但是改为使用索引了，后面看到我再补充。
+    &#125;;
+</code></pre>
+<p>对于LayerStack的设计，将层级主要分为了俩个层级—–普通层和覆盖层。</p>
+<p>普通层依赖于特定的渲染和处理顺序，做为前半层级，覆盖层则优于普通层处理（一般类似ui和调式层），做为后半层级。</p>
+<img src="./image-20241109152258979.png" alt="image-20241109152258979" style="zoom:67%;" />
+
+<p>Layer就是普通层级。</p>
+<pre><code class="CPP">void LayerStack::PushLayer(Layer* layer)
+&#123;
+    m_Layers.emplace(m_Layers.begin()+m_LayerInsertIndex, layer);
+    m_LayerInsertIndex++;
+&#125;
+
+void LayerStack::PopLayer(Layer* layer)
+&#123;
+    auto it = std::find(m_Layers.begin(), m_Layers.end(), layer);
+    if (it != m_Layers.end())
+    &#123;
+        m_Layers.erase(it);
+        m_LayerInsertIndex--;
+    &#125;
+&#125;
+</code></pre>
+<p><strong><code>PushLayer</code></strong></p>
+<ul>
+<li>这个函数通过 <code>emplace</code> 方法，将 <code>layer</code> 插入到 <code>m_Layers.begin() + m_LayerInsertIndex</code> 位置上。</li>
+<li>每插入一个 <code>layer</code>，<code>m_LayerInsertIndex</code> 都会自增 1，因此新插入的 <code>layer</code> 总是位于之前插入的 <code>layer</code> 的后面。</li>
+<li>这种设计使得 “layer” 和 “overlay” 之间有一个明确的分界线，<code>PushLayer</code> 的元素在前，<code>PushOverlay</code> 的元素在后。</li>
+</ul>
+<p><strong><code>PopLayer</code></strong></p>
+<ul>
+<li>利用find函数找到vector对应的层级，使用erase将后面的元素则整体前进一个单位。</li>
+</ul>
+<p>OverLayer就是覆盖层</p>
+<pre><code class="CPP">void LayerStack::PushOverlay(Layer* overlay)
+&#123;
+    m_Layers.emplace_back(overlay);
+&#125;
+
+void LayerStack::PopOverlay(Layer* overlay)
+&#123;
+    auto it = std::find(m_Layers.begin(), m_Layers.end(), overlay);
+    if (it != m_Layers.end())
+        m_Layers.erase(it);
+&#125;
+</code></pre>
+<ul>
+<li><strong><code>PushOverLayer</code></strong></li>
+</ul>
+<p>很简单就是直接放在vector的最后一层，使用emplace_back</p>
+<hr>
+<p>最后的话，也是将layerStack对象放在引擎内的application中</p>
+<img src="./image-20241109181111113.png" alt="image-20241109181111113" style="zoom:67%;" />
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 yang_blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;yang
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>
