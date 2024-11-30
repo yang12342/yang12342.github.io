@@ -1,0 +1,563 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>git基本使用2 | yang_blog</title>
+    <meta name="author" content="yang" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>YANG_BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;YANG_BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>git基本使用2</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/11/30
+        </span>
+        
+        <span class="category">
+            <a href="/categories/git/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                git
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/git/" style="color: #03a9f4">
+                    git
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h2 id="git-远程"><a href="#git-远程" class="headerlink" title="git 远程"></a>git 远程</h2><h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><p>远程仓库并不复杂, 在如今的云计算盛行的世界很容易把远程仓库想象成一个富有魔力的东西, 但实际上它们只是你的仓库在另个一台计算机上的拷贝。你可以通过因特网与这台计算机通信 —— 也就是增加或是获取提交记录</p>
+<span id="more"></span>
+
+<p>话虽如此, 远程仓库却有一系列强大的特性</p>
+<ul>
+<li>首先也是最重要的的点, 远程仓库是一个强大的备份。本地仓库也有恢复文件到指定版本的能力, 但所有的信息都是保存在本地的。有了远程仓库以后，即使丢失了本地所有数据, 你仍可以通过远程仓库拿回你丢失的数据。</li>
+<li>还有就是, 远程让代码社交化了! 既然你的项目被托管到别的地方了, 你的朋友可以更容易地为你的项目做贡献(或者拉取最新的变更)</li>
+</ul>
+<hr>
+<h3 id="如何将远程仓库拉取到本地托管"><a href="#如何将远程仓库拉取到本地托管" class="headerlink" title="如何将远程仓库拉取到本地托管"></a>如何将远程仓库拉取到本地托管</h3><ul>
+<li>安装git，并配置好相应的邮箱，用户名等信息。</li>
+<li>获取仓库的克隆地址（HTTPS或者SSH，如果使用SSH。确保配置了SSH密钥，可以参考github[文档](<a target="_blank" rel="noopener" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh">关于 SSH - GitHub 文档 — About SSH - GitHub Docs</a>)）</li>
+<li>选择你保存的目录，点开git（或者git，利用cd进入保存的目录），克隆对应的仓库地址</li>
+</ul>
+<pre><code class="CPP">git clone https://github.com/username/repository.git
+</code></pre>
+<h3 id="如何将本地仓库托管到远程"><a href="#如何将本地仓库托管到远程" class="headerlink" title="如何将本地仓库托管到远程"></a>如何将本地仓库托管到远程</h3><ul>
+<li>首先在github创建仓库，不建议勾选添加readme文件，保证仓库为空</li>
+<li>进入需要本地仓库目录，打开git</li>
+<li>初始化git仓库</li>
+</ul>
+<pre><code class="CPP">git init
+</code></pre>
+<ul>
+<li>添加所有文件到暂存区</li>
+</ul>
+<pre><code class="CPP">git add *
+</code></pre>
+<ul>
+<li>提交到本地git仓库</li>
+</ul>
+<pre><code class="CPP">git commit -m &quot;初始化项目&quot;
+</code></pre>
+<ul>
+<li>将 GitHub 仓库的地址添加为远程仓库，复制 GitHub 仓库地址：<ul>
+<li>HTTPS 示例：<code>https://github.com/username/repository.git</code></li>
+</ul>
+</li>
+<li>添加远程仓库</li>
+</ul>
+<pre><code class="CPP">git remote add origin 仓库地址
+</code></pre>
+<ul>
+<li><p>验证远程仓库是否添加成功：</p>
+<pre><code>git remote -v
+</code></pre>
+</li>
+<li><p>推送到github</p>
+</li>
+</ul>
+<pre><code class="CPP">git push
+</code></pre>
+<hr>
+<p>当我们完成上面的步骤，我们可以看一下发生了什么。</p>
+<p>你可能注意到的第一个事就是在我们的本地仓库多了一个名为 <code>o/main</code> 的分支, 这种类型的分支就叫<strong>远程</strong>分支。由于远程分支的特性导致其拥有一些特殊属性。（其实是origin&#x2F;main）</p>
+<blockquote>
+<p><code>origin</code> 是本地仓库和远程仓库之间的一个标识符，默认指向你克隆或关联的远程仓库。</p>
+<p>虽然你可以给远程仓库起其他名字，但 <code>origin</code> 是最常用的默认名称</p>
+</blockquote>
+<p>远程分支反映了远程仓库(在你上次和它通信时)的<strong>状态</strong>,只有你每次推送或者拉取的时候o&#x2F;main才会改变，因为这是和远程分支同步的，所以只会保留在上次通讯的时候。</p>
+<p><strong>这会有助于你理解本地的工作与公共工作的差别</strong> —— 这是你与别人分享工作成果前至关重要的一步.</p>
+<blockquote>
+<p>远程分支有一个特别的属性，当你切换到远程分支（如 <code>git checkout origin/main</code>）时，Git 不会将 <code>HEAD</code> 指向一个可写分支，而是指向某个特定的提交（远程分支的当前状态），自动进入分离 HEAD 状态,意味着你无法对o&#x2F;main指向修改，只是指向它指向的点。</p>
+<p>Git 这么做是出于不能直接在这些分支上进行操作的原因, 你必须在别的地方完成你的工作, （更新了远程分支之后）再用远程分享你的工作成果。</p>
+<p>因为远程分支本质上只是一个只读的指针，用来同步和反映远程仓库的状态。</p>
+<p>远程分支的内容由远程仓库控制。如果允许在本地直接操作 <code>origin/main</code>，可能会造成本地状态和远程仓库之间的冲突。</p>
+</blockquote>
+<hr>
+<p>切换到远程分支（虚线为远程仓库）</p>
+<p>![image-20241129210052316](.&#x2F;git 远程&#x2F;image-20241129210052316.png)</p>
+<pre><code class="CPP">git check origin/main
+git commit
+</code></pre>
+<p>正如你所见，Git 变成了分离 HEAD 状态，当添加新的提交时 <code>o/main</code> 也不会更新。这是因为 <code>o/main</code> 只有在远程仓库中相应的分支更新了以后才会更新。</p>
+<p>![image-20241129210144622](.&#x2F;git 远程&#x2F;image-20241129210144622.png)</p>
+<h2 id="Git-Fetch"><a href="#Git-Fetch" class="headerlink" title="Git Fetch"></a>Git Fetch</h2><p>Git 远程仓库相当的操作G实际可以归纳为两点：向远程仓库传输数据以及从远程仓库获取数据。</p>
+<p>从远程仓库获取数据</p>
+<img src="./git 远程/image-20241129210414693.png" alt="image-20241129210414693" style="zoom: 67%;" />
+
+<pre><code class="CPP">git fetch
+</code></pre>
+<p><code>C2</code>,<code>C3</code> 被下载到了本地仓库，同时远程分支 <code>o/main</code> 也被更新，反映到了这一变化。注意本地main没有动。</p>
+<img src="./git 远程/image-20241129210542493.png" alt="image-20241129210542493" style="zoom:50%;" />
+
+<p><code>git fetch</code> 完成了仅有的但是很重要的两步:</p>
+<ul>
+<li>从远程仓库下载本地仓库中缺失的提交记录</li>
+<li>更新远程分支指针(如 <code>o/main</code>)</li>
+</ul>
+<p><code>git fetch</code> 实际上将本地仓库中的远程分支更新成了远程仓库相应分支最新的状态。</p>
+<h3 id="git-fetch-不会做的事"><a href="#git-fetch-不会做的事" class="headerlink" title="git fetch 不会做的事"></a>git fetch 不会做的事</h3><p><code>git fetch</code> 并不会改变你本地仓库的状态。它不会更新你的 <code>main</code> 分支，也不会修改你磁盘上的文件。</p>
+<p>理解这一点很重要，因为许多开发人员误以为执行了 <code>git fetch</code> 以后，他们本地仓库就与远程仓库同步了。它可能已经将进行这一操作所需的所有数据都下载了下来，但是<strong>并没有</strong>修改你本地的文件。</p>
+<p><code>git fetch</code> 的理解为单纯的下载操作。</p>
+<hr>
+<h2 id="Git-Pull"><a href="#Git-Pull" class="headerlink" title="Git Pull"></a>Git Pull</h2><p> 当远程分支中有新的提交时，你可以像合并本地分支那样来合并远程分支。也就是说就是你可以执行以下命令:</p>
+<ul>
+<li><code>git cherry-pick o/main</code></li>
+<li><code>git rebase o/main</code></li>
+<li><code>git merge o/main</code></li>
+</ul>
+<p>实际上，由于先抓取更新再合并到本地分支这个流程很常用，因此 Git 提供了一个专门的命令来完成这两个操作。它就是我们要讲的 <code>git pull</code>。</p>
+<p>![image-20241129210937653](.&#x2F;git 远程&#x2F;image-20241129210937653.png)</p>
+<p>先看fetch和merge依次执行的操作</p>
+<pre><code class="CPP">git fetch
+git merge origin/main
+</code></pre>
+<p>就是拉取最新的变化，来与本地进行整合，不改变origin&#x2F;main的指向。</p>
+<p><strong>注意</strong>：foo 追踪 o&#x2F;foo，要想pull时候merge，是应该head必须在本地的foo上。(最后的origin应该会打破些常规)</p>
+<p>如果你当前的 <code>HEAD</code> 不在 <code>foo</code> 上，而是在其他分支（比如 <code>bar</code>）上，<code>git pull</code> 会尝试将远程 <code>foo</code> 分支的更改合并到当前分支（例如 <code>bar</code>），这可能导致意外的合并问题，或者根本无法合并。</p>
+<img src="./git 远程/image-20241129211041257.png" alt="image-20241129211041257" style="zoom:67%;" />
+
+<p>如果使用 <code>git pull</code> 呢，一样的效果。</p>
+<p>就是在下载之后，merge到HEAD指向的节点。</p>
+<hr>
+<h2 id="Git-Push"><a href="#Git-Push" class="headerlink" title="Git Push"></a>Git Push</h2><p><code>git push</code> 负责将<strong>你的</strong>变更上传到指定的远程仓库，并在远程仓库上合并你的新提交记录。一旦 <code>git push</code> 完成, 你的朋友们就可以从这个远程仓库下载你分享的成果了！</p>
+<p><em>注意 —— <code>git push</code> 不带任何参数时的行为与 Git 的一个名为 <code>push.default</code> 的配置有关。它的默认值取决于你正使用的 Git 的版本，但是在教程中我们使用的是 <code>upstream</code>。 这没什么太大的影响，但是在你的项目中进行推送之前，最好检查一下这个配置。</em>（TO DO）</p>
+<p>![image-20241129211805636](.&#x2F;git 远程&#x2F;image-20241129211805636.png)</p>
+<pre><code class="CPP">git push
+</code></pre>
+<p>远程仓库接收了 <code>C2</code>，远程仓库中的 <code>main</code> 分支也被更新到指向 <code>C2</code> 了，我们的远程分支 (o&#x2F;main) 也同样被更新了。所有的分支都同步了！</p>
+<p>![image-20241129211825159](.&#x2F;git 远程&#x2F;image-20241129211825159.png)</p>
+<h2 id="偏离的工作"><a href="#偏离的工作" class="headerlink" title="偏离的工作"></a>偏离的工作</h2><p>假设你周一克隆了一个仓库，然后开始研发某个新功能。到周五时，你新功能开发测试完毕，可以发布了。但是 —— 天啊！你的同事这周写了一堆代码，还改了许多你的功能中使用的 API，这些变动会导致你新开发的功能变得不可用。但是他们已经将那些提交推送到远程仓库了，因此你的工作就变成了基于项目<strong>旧版</strong>的代码，与远程仓库最新的代码不匹配了。</p>
+<p>这种情况下, <code>git push</code> 就不知道该如何操作了。如果你执行 <code>git push</code>，Git 应该让远程仓库回到星期一那天的状态吗？还是直接在新代码的基础上添加你的代码，亦或由于你的提交已经过时而直接忽略你的提交？</p>
+<p>因为这情况（历史偏离）有许多的不确定性，Git 是不会允许你 <code>push</code> 变更的。实际上它会强制你先合并远程最新的代码，然后才能分享你的工作。</p>
+<p>![image-20241129212045976](.&#x2F;git 远程&#x2F;image-20241129212045976.png)</p>
+<p>你的工作是基于c1发展的，但是远程仓库已经发展到c2，你显然已经无法push了， Git 会拒绝你的推送请求。</p>
+<p>很简单，你需要做的就是使你的工作基于最新的远程分支。</p>
+<pre><code class="CPP">git fetch
+git rebase origin/main 
+git push
+</code></pre>
+<p>我们用 <code>git fetch</code> 更新了本地仓库中的远程分支，然后用 rebase 将我们的工作移动到最新的提交记录下，最后再用 <code>git push</code> 推送到远程仓库。</p>
+<p>![image-20241129212342984](.&#x2F;git 远程&#x2F;image-20241129212342984.png)</p>
+<p>当然可以使用merge融合，但是push后确实另一种。</p>
+<pre><code class="CPp">git fetch
+git merge origin/main 
+git push
+</code></pre>
+<p>融合过程中给的c3并没有被忽视，而是同时传递到了远程仓库中</p>
+<p>![image-20241129212525546](.&#x2F;git 远程&#x2F;image-20241129212525546.png)</p>
+<p>前面已经介绍过 <code>git pull</code> 就是 fetch 和 merge 的简写，类似的 <code>git pull --rebase</code> 就是 fetch 和 rebase 的简写！</p>
+<pre><code class="CPP">git pull --rebase 
+git push
+</code></pre>
+<p>跟rebase一样，命令更加简洁了</p>
+<img src="./git 远程/image-20241129212922726.png" alt="image-20241129212922726" style="zoom:50%;" />
+
+<pre><code class="CPP">git pull
+git push
+</code></pre>
+<p>这个就和merge一模一样了</p>
+<img src="./git 远程/image-20241129213047874.png" alt="image-20241129213047874" style="zoom:50%;" />
+
+<hr>
+<h2 id="远程服务器拒绝-Remote-Rejected"><a href="#远程服务器拒绝-Remote-Rejected" class="headerlink" title="远程服务器拒绝!(Remote Rejected)"></a>远程服务器拒绝!(Remote Rejected)</h2><p>如果你是在一个大的合作团队中工作, 很可能是main被锁定了, 需要一些Pull Request流程来合并修改。如果你直接提交(commit)到本地main, 然后试图推送(push)修改, 你将会收到这样类似的信息:</p>
+<pre><code>! [远程服务器拒绝] main -&gt; main (TF402455: 不允许推送(push)这个分支; 你必须使用pull request来更新这个分支.)
+</code></pre>
+<p>远程服务器拒绝直接推送(push)提交到main, 因为策略配置要求 pull requests 来提交更新.</p>
+<p>![image-20241129213633829](.&#x2F;git 远程&#x2F;image-20241129213633829.png)</p>
+<p>你应该按照流程,新建一个分支, 推送(push)这个分支并申请pull request,但是你忘记并直接提交给了main.现在你卡住并且无法推送你的更新.</p>
+<pre><code class="CPP">git checkout -b feature
+git push
+</code></pre>
+<p>我们可以看见创建的分支在远程仓库创建了分支，远程的main并没有改变</p>
+<p>![image-20241129213815994](.&#x2F;git 远程&#x2F;image-20241129213815994.png)</p>
+<p>新建一个分支feature, 推送到远程服务器. 然后reset你的main分支和远程服务器保持一致, 否则下次你pull并且他人的提交和你冲突的时候就会有问题.</p>
+<pre><code class="CPP">git branch -f main o/main
+</code></pre>
+<p>如果你的本地 <code>main</code> 分支与远程 <code>main</code> 分支不一致，下次拉取远程更改时可能会发生冲突。例如：</p>
+<ul>
+<li>你在本地 <code>main</code> 分支做了一些临时更改，但未提交。</li>
+<li>远程 <code>main</code> 分支有其他人提交的新内容。</li>
+</ul>
+<p>![image-20241129214253184](.&#x2F;git 远程&#x2F;image-20241129214253184.png)</p>
+<h2 id="为什么不用-merge-呢"><a href="#为什么不用-merge-呢" class="headerlink" title="为什么不用 merge 呢?"></a>为什么不用 merge 呢?</h2><p>了 push 新变更到远程仓库，你要做的就是<strong>包含</strong>远程仓库中最新变更。意思就是只要你的本地分支包含了远程分支（如 <code>o/main</code>）中的最新变更就可以了，至于具体是用 rebase 还是 merge，并没有限制。</p>
+<ul>
+<li><p>Rebase 使你的提交树变得很干净, 所有的提交都在一条线上(优点)</p>
+</li>
+<li><p>Rebase 修改了提交树的历史（缺点，比如, 提交 C1 可以被 rebase 到 C3 之后。这看起来 C1 中的工作是在 C3 之后进行的，但实际上是在 C3 之前。）</p>
+</li>
+</ul>
+<p>仁者见仁，智者见智</p>
+<p>![image-20241129220453813](.&#x2F;git 远程&#x2F;image-20241129220453813.png)</p>
+<p>为了实现上面的，我们首先要拉取不同远程的c3,然后合并推送即可</p>
+<hr>
+<h3 id="远程跟踪分支"><a href="#远程跟踪分支" class="headerlink" title="远程跟踪分支"></a>远程跟踪分支</h3><p>Git 好像知道 <code>main</code> 与 <code>o/main</code> 是相关的。当然这些分支的名字是相似的，可能会让你觉得是依此将远程分支 main 和本地的 main 分支进行了关联。这种关联在以下两种情况下可以清楚地得到展示：</p>
+<ul>
+<li><p>pull 操作时, 提交记录会被先下载到 o&#x2F;main 上，之后再合并到本地的 main 分支。隐含的合并目标由这个关联确定的。</p>
+</li>
+<li><p>push 操作时, 我们把工作从 <code>main</code> 推到远程仓库中的 <code>main</code> 分支(同时会更新远程分支 <code>o/main</code>) 。这个推送的目的地也是由这种关联确定的！</p>
+</li>
+</ul>
+<p><code>main</code> 和 <code>o/main</code> 的关联关系就是由分支的“remote tracking”属性决定的。<code>main</code> 被设定为跟踪 <code>o/main</code> —— 这意味着为 <code>main</code> 分支指定了推送的目的地以及拉取后合并的目标，好吧, 当你克隆仓库的时候, Git 就自动帮你把这个属性设置好了。</p>
+<p>可以让任意分支跟踪 <code>o/main</code>, 然后该分支会像 <code>main</code> 分支一样得到隐含的 push 目的地以及 merge 的目标。</p>
+<p>有两种方法设置这个属性，第一种就是通过远程分支切换到一个新的分支，执行:</p>
+<pre><code>git checkout -b totallyNotMain o/main
+</code></pre>
+<p>就可以创建一个名为 <code>totallyNotMain</code> 的分支，它跟踪远程分支 <code>o/main</code>。</p>
+<p>![image-20241129221028090](.&#x2F;git 远程&#x2F;image-20241129221028090.png)</p>
+<pre><code class="CPP">git checkout -b foo o/main
+git pull
+</code></pre>
+<p>正如你所看到的, 我们使用了隐含的目标 <code>o/main</code> 来更新 <code>foo</code> 分支。需要注意的是 main 并未被更新！融合的是foo分支</p>
+<img src="./git 远程/image-20241129221105099.png" alt="image-20241129221105099" style="zoom:50%;" />
+
+<p>git push 同样适用</p>
+<pre><code class="CPp">git checkout -b foo o/main
+git commit
+git push
+</code></pre>
+<p>我们将一个并不叫 <code>main</code> 的分支上的工作推送到了远程仓库中的 <code>main</code> 分支上</p>
+<img src="./git 远程/image-20241129221303322.png" alt="image-20241129221303322" style="zoom: 67%;" />
+
+<h3 id="第二种方法"><a href="#第二种方法" class="headerlink" title="第二种方法"></a>第二种方法</h3><p>另一种设置远程追踪分支的方法就是使用：<code>git branch -u</code> 命令，执行：</p>
+<pre><code>git branch -u o/main foo
+</code></pre>
+<p>这样 <code>foo</code> 就会跟踪 <code>o/main</code> 了。如果当前HEAD就在 foo 分支上, 还可以省略 foo：</p>
+<pre><code>git branch -u o/main
+</code></pre>
+<hr>
+<h2 id="Git-Push-的参数"><a href="#Git-Push-的参数" class="headerlink" title="Git Push 的参数"></a>Git Push 的参数</h2><p>首先来看 <code>git push</code>。在远程跟踪课程中，你已经学到了 Git 是通过当前所在分支的属性来确定远程仓库以及要 push 的目的地的。这是未指定参数时的行为，我们可以为 push 指定参数，语法是：</p>
+<pre><code>git push &lt;remote&gt; &lt;place&gt;
+</code></pre>
+<p>remote(远程仓库)：一般设置的都是origin（内部地址在配置的时候就弄好了）</p>
+<pre><code class="CPP">git push origin main
+</code></pre>
+<p>意思是：<em>切到本地仓库中的“main”分支，获取所有的提交，再到远程仓库“origin”中找到“main”分支，将远程仓库中没有的提交记录都添加上去，搞定之后告诉我。</em></p>
+<p>通过“place”参数来告诉 Git 提交记录来自于 main, 要推送到远程仓库中的 main。它实际就是要同步的两个仓库的位置。</p>
+<p>![image-20241129221756208](.&#x2F;git 远程&#x2F;image-20241129221756208.png)</p>
+<pre><code class="CPP">git checkout c0
+git push origin main
+</code></pre>
+<p>即使HEAD分离，我们依然能供将对应的上传，远程仓库中的 <code>main</code> 分支得到了更新。</p>
+<p>如果不指定参数，就是无法上传因为此时HEAD没有跟踪任何分支</p>
+<img src="./git 远程/image-20241129221823644.png" alt="image-20241129221823644" style="zoom:50%;" />
+
+<hr>
+<h2 id="参数详解"><a href="#参数详解" class="headerlink" title="&lt;place&gt;参数详解"></a><code>&lt;place&gt;</code>参数详解</h2><p>如果来源和去向分支的名称不同呢？比如你想把本地的 <code>foo</code> 分支推送到远程仓库中的 <code>bar</code> 分支。</p>
+<p>同时为源和目的地指定 <code>&lt;place&gt;</code> 的话，只需要用冒号 <code>:</code> 将二者连起来就可以了：</p>
+<pre><code>git push origin &lt;source&gt;:&lt;destination&gt;
+</code></pre>
+<p><code>source</code> 可以是任何 Git 能识别的位置：意思是 Git 能识别的位置（比如分支 <code>foo</code> 或者 <code>HEAD~1</code>）</p>
+<p><code>destination</code>显然不是随意的。</p>
+<p>例如</p>
+<p>![image-20241129222304482](.&#x2F;git 远程&#x2F;image-20241129222304482.png)</p>
+<pre><code class="CPP">git push origin foo^:main
+</code></pre>
+<p>这是个令人困惑的命令，但是它确实是可以运行的 —— Git 将 <code>foo^</code> 解析为一个位置，<strong>上传所有未被包含到远程仓库里 <code>main</code> 分支中的提交记录。</strong></p>
+<p>![image-20241129222313424](.&#x2F;git 远程&#x2F;image-20241129222313424.png)</p>
+<p>如果你要推送到的目的分支不存在会怎么样呢？没问题！Git 会在远程仓库中根据你提供的名称帮你创建这个分支！</p>
+<p>![image-20241129222352873](.&#x2F;git 远程&#x2F;image-20241129222352873.png)</p>
+<pre><code class="CPP">git push origin main:newBranch
+</code></pre>
+<p>![image-20241129222416732](.&#x2F;git 远程&#x2F;image-20241129222416732.png)</p>
+<hr>
+<h2 id="Git-fetch-的参数"><a href="#Git-fetch-的参数" class="headerlink" title="Git fetch 的参数"></a>Git fetch 的参数</h2><p><code>git fetch</code> 的参数和 <code>git push</code> 极其相似。他们的概念是相同的，只是方向相反罢了（因为现在你是下载，而非上传）</p>
+<p>![image-20241129222549305](.&#x2F;git 远程&#x2F;image-20241129222549305.png)</p>
+<pre><code>git fetch origin foo
+</code></pre>
+<p>Git 会到远程仓库的 <code>foo</code> 分支上，然后获取所有本地不存在的提交，放到本地的 <code>o/foo</code> 上。</p>
+<p>我们只下载了远程仓库中 <code>foo</code> 分支中的最新提交记录，并更新了 o&#x2F;foo</p>
+<p>![image-20241129222610148](.&#x2F;git 远程&#x2F;image-20241129222610148.png)</p>
+<p>你可能会好奇 —— 为何 Git 会将新提交放到 <code>o/foo</code> 而不是放到我本地的 foo 分支呢？之前不是说这样的 参数就是同时应用于本地和远程的位置吗？</p>
+<p>好吧, 本例中 Git 做了一些特殊处理，因为你可能在 foo 分支上的工作还未完成，你也不想弄乱它。还记得在 <code>git fetch</code> 课程里我们讲到的吗 —— 它不会更新你的本地的非远程分支, 只是下载提交记录（这样, 你就可以对远程分支进行检查或者合并了）。</p>
+<p>这里有一点是需要注意的 —— <code>source</code> 现在指的是远程仓库中的位置，而 <code>&lt;destination&gt;</code> 才是要放置提交的本地仓库的位置。它与 git push 刚好相反，这是可以讲的通的，因为我们在往相反的方向传送数据。</p>
+<p>![image-20241129223004750](.&#x2F;git 远程&#x2F;image-20241129223004750.png)</p>
+<pre><code class="CPP">git fetch origin C2:bar
+</code></pre>
+<p> Git 将 <code>C2</code> 解析成一个 origin 仓库的位置，然后将那些提交记录下载到了本地的 <code>bar</code> 分支（一个本地分支）上。</p>
+<p>![image-20241129223031773](.&#x2F;git 远程&#x2F;image-20241129223031773.png)</p>
+<p>如果执行命令前目标分支不存在会怎样呢？</p>
+<p>跟 git push 一样，Git 会在 fetch 前自己创建立本地分支, 就像是 Git 在 push 时，如果远程仓库中不存在目标分支，会自己在建立一样。</p>
+<p>没有参数呢?</p>
+<p>如果 <code>git fetch</code> 没有参数，它会下载所有的提交记录到各个远程分支……</p>
+<img src="./git 远程/image-20241129223135508.png" alt="image-20241129223135508" style="zoom:67%;" />
+
+<img src="./git 远程/image-20241129223224336.png" alt="image-20241129223224336" style="zoom: 67%;" />
+
+<hr>
+<h3 id="古怪的"><a href="#古怪的" class="headerlink" title="古怪的 &lt;source&gt;"></a>古怪的 <code>&lt;source&gt;</code></h3><p>Git 有两种关于 <code>&lt;source&gt;</code> 的用法是比较诡异的，即你可以在 git push 或 git fetch 时不指定任何 <code>source</code>，方法就是仅保留冒号和 destination 部分，source 部分留空。</p>
+<ul>
+<li><code>git push origin :side</code></li>
+<li><code>git fetch origin :bugFix</code></li>
+</ul>
+<p>如果 push 空 到远程仓库会如何呢？它会删除远程仓库中的分支！</p>
+<p>![image-20241129223358785](.&#x2F;git 远程&#x2F;image-20241129223358785.png)</p>
+<pre><code class="CPP">`git push origin :foo
+</code></pre>
+<p>![image-20241129223421813](.&#x2F;git 远程&#x2F;image-20241129223421813.png)</p>
+<p>如果 fetch 空 到本地，会在本地创建一个新分支</p>
+<p>![image-20241129223441938](.&#x2F;git 远程&#x2F;image-20241129223441938.png)</p>
+<pre><code class="CPP">`git fetch origin :bar
+</code></pre>
+<p>![image-20241129223500731](.&#x2F;git 远程&#x2F;image-20241129223500731.png)</p>
+<hr>
+<h2 id="Git-pull-参数"><a href="#Git-pull-参数" class="headerlink" title="Git pull 参数"></a>Git pull 参数</h2><p>以下命令在 Git 中是等效的:</p>
+<p><code>git pull origin foo</code> 相当于：</p>
+<pre><code>git fetch origin foo; git merge o/foo
+</code></pre>
+<p>还有…</p>
+<p><code>git pull origin bar:bugFix</code> 相当于：</p>
+<pre><code>git fetch origin bar:bugFix; git merge bugFix
+</code></pre>
+<p>![image-20241129223731928](.&#x2F;git 远程&#x2F;image-20241129223731928.png)</p>
+<pre><code class="CPP">git pull origin main
+</code></pre>
+<p>通过指定 <code>main</code> 我们更新了 <code>o/main</code>。然后将 <code>o/main</code> merge 到我们的所在的分支，<strong>无论我们当前所在的位置是哪。</strong></p>
+<img src="./git 远程/image-20241129223800056.png" alt="image-20241129223800056" style="zoom:80%;" />
+
+<p>![image-20241129224008500](.&#x2F;git 远程&#x2F;image-20241129224008500.png)</p>
+<pre><code class="CPP">git pull origin main:foo
+</code></pre>
+<p>它先在本地创建了一个叫 <code>foo</code> 的分支，从远程仓库中的 main 分支中下载提交记录，并合并到 <code>foo</code>，然后再 merge 到我们的当前所在的分支 <code>bar</code> 上。</p>
+<p>![image-20241129224038474](.&#x2F;git 远程&#x2F;image-20241129224038474.png)</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 yang_blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;yang
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>
