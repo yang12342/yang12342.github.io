@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>Tags: 塔防课程 | yang_blog</title>
+    <title>yang_blog</title>
     <meta name="author" content="yang" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -46,6 +46,8 @@
 
 
 
+
+<script src="/js/lib/home.js"></script>
 
 <link rel="stylesheet" href="/css/main.css" />
 
@@ -155,252 +157,138 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                游戏引擎
-            </a>
+            <div id="home-head">
+    <div
+        id="home-background"
+        ref="homeBackground"
+        data-images="/images/background.jpg"
+    ></div>
+    <div id="home-info" @click="homeClick">
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="info">
+            <div class="wrap">
+                <h1>yang_blog</h1>
+                <h3></h3>
+                <h5></h5>
+            </div>
         </span>
+    </div>
+</div>
+<div
+    id="home-posts-wrap"
+    ref="homePostsWrap"
+    true
+>
+    <div id="home-posts">
         
+
+<div class="post">
+    <a href="/articles/%E6%B8%B8%E6%88%8F%E5%BF%83%E5%BE%97/%E5%A5%A5%E6%97%A5%E4%B8%8E%E8%90%A4%E7%81%AB%E6%A3%AE%E6%9E%97%E4%BD%93%E4%BC%9A/">
+        <h2 class="post-title">奥日与萤火森林2</h2>
+    </a>
+    <div class="category-and-date">
         
-        
-        <span>
-            <a href="/tags/c-%E8%AF%AD%E6%B3%95/" style="background: #00a596">
+        <span class="category">
+            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BF%83%E5%BE%97/">
                 <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                c++语法
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                数据结构
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/STD/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                STD
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/STL/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                STL
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/cpp/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                cpp
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                游戏设计
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                设计模式
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/c/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                c++
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E5%A1%94%E9%98%B2%E8%AF%BE%E7%A8%8B/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                塔防课程
-            </a>
-        </span>
-        
-        
-        
-        
-        
-        <span>
-            <a href="/tags/csv/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                csv
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BF%83%E5%BE%97/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
                 游戏心得
             </a>
         </span>
         
-        
-        
-        <span>
-            <a href="/tags/json/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                json
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/linux/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                linux
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/WSL/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                WSL
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                操作系统
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/git/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                git
-            </a>
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/31
         </span>
         
         
     </div>
-    
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2024/6/25</div>
-            <a href="/articles/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
-                <h3>简单的单例模式实现</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        设计模式
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="color: #ff7d73">
-                            设计模式
-                        </a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/c/" style="color: #00a596">
-                            c++
-                        </a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E5%A1%94%E9%98%B2%E8%AF%BE%E7%A8%8B/" style="color: #ff7d73">
-                            塔防课程
-                        </a>
-                    </span>
-                    
-                </span>
-                
-            </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="玩奥日有感（真随笔）"><a href="#玩奥日有感（真随笔）" class="headerlink" title="玩奥日有感（真随笔）"></a>玩奥日有感（真随笔）</h1><h2 id="剧情上"><a href="#剧情上" class="headerlink" title="剧情上"></a>剧情上</h2><ul>
+<li>剧情上，目前是主角是一位精灵，不小心与猫头鹰库到一处森林分离，在初期的探索中初步认识了这个地方，认识了莫基小生物和地方守护者夸洛克，解决了当地的水源问题，与朋友会和但又不幸主角的朋友库在静谧森林因为攻击而晕过去，于是为了朋友和森林又踏上了整个大陆的冒险寻找森林光的碎片。<br>这里分析一下主线推动和技能玩法的探索，显然在一些必备的要素技能都没有，你是探索不了主线的地图<br>解锁了地底下和森林的碎片<br>唤醒了底下的蜘蛛（被腐朽吞噬了心智）<br>夸洛克牺牲了自我换回碎片</li>
+</ul>
+            
         </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BF%83%E5%BE%97/" style="color: #03a9f4">游戏心得</a>
+        </span>
+        
+    </div>
+    <a href="/articles/%E6%B8%B8%E6%88%8F%E5%BF%83%E5%BE%97/%E5%A5%A5%E6%97%A5%E4%B8%8E%E8%90%A4%E7%81%AB%E6%A3%AE%E6%9E%97%E4%BD%93%E4%BC%9A/" class="go-post">阅读全文</a>
+</div>
+
+
+        <div class="page-current">
+    
+    <a class="page-num" href="/page/4/">
+        <i class="fa-solid fa-caret-left fa-fw"></i>
+    </a>
+    <a class="page-num" href="/">1</a>
+    <span class="page-omit">...</span>
+    
+    <span class="current">5</span>
+    
+    
+    
+    
+</div>
+
+    </div>
+    
+    <div id="home-card">
+        <div id="card-style">
+    <div id="card-div">
+        <div class="avatar">
+            <img src="/images/avatar.jpg" alt="avatar" />
+        </div>
+        <div class="name">yang</div>
+        <div class="description">
+            <p>漫无目的的人生<br>何时能找到方向</p>
+
+        </div>
+        
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/yang12342?tab=repositories">
+                    <i
+                        class="fa- fa-github fa-fw"
+                    ></i>
+                </a>
+            </span>
+            
+        </div>
+        
+        
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://argvchs.github.io">Argvchs</a>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+
     </div>
     
 </div>

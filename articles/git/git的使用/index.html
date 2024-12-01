@@ -189,7 +189,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/git/" style="color: #03a9f4">
+                <a href="/tags/git/" style="color: #00bcd4">
                     git
                 </a>
             </span>
@@ -244,7 +244,8 @@ git commit -m &quot;添加 example.txt&quot;  	# 提交更改
 <hr>
 <h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a><strong>注意事项</strong></h3><ol>
 <li><p><strong>忽略不需要的文件</strong>： 如果有文件不需要被追踪，可以在 <code>.gitignore</code> 文件中添加规则：</p>
-<p>![image-20241129191002727](.&#x2F;git 的使用&#x2F;image-20241129191002727.png)</p>
+<img src="./image-20241129191002727.png" alt="image-20241129191002727" style="zoom:80%;" />
+
 <p>然后运行：</p>
 <pre><code>git add .gitignore
 git commit -m &quot;更新 .gitignore 文件&quot;
@@ -267,12 +268,12 @@ git commit -m &quot;更新 .gitignore 文件&quot;
 //示例
 git branch bugFix HEAD~^2~
 </code></pre>
-<img src="./git 的使用/image-20241129174343859.png" alt="image-20241129174343859" style="zoom:50%;" />
+<img src="./image-20241129174343859.png" alt="image-20241129174343859" style="zoom:50%;" />
 
 <p>一般就是（括号是可加可不加）</p>
 <pre><code class="CPP">git commit （-m“备注”）		//备注就是提交时候会附带你的更改说明
 </code></pre>
-<img src="./git 的使用/image-20241129174400853.png" alt="image-20241129174400853" style="zoom:50%;" />
+<img src="./image-20241129174400853.png" alt="image-20241129174400853" style="zoom:50%;" />
 
 <blockquote>
 <p>里面的c2什么的其实是标记的哈希码，是一段很长的字母和数字，一般用前三位就能表示</p>
@@ -280,23 +281,26 @@ git branch bugFix HEAD~^2~
 <hr>
 <h2 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a>git branch</h2><p>分支其实就是一个新的指针。</p>
 <p>就是在当前的head节点创建一个分支，最开始的都是main。</p>
-<img src="./git 的使用/image-20241129181855232.png" alt="image-20241129181855232" style="zoom: 67%;" />
+<img src="./image-20241129181855232.png" alt="image-20241129181855232" style="zoom: 67%;" />
 
 <p>然后就是</p>
 <pre><code class="CPP">git branch newImage //创建一个新的分支（指针）
 </code></pre>
-<img src="./git 的使用/image-20241129181949193.png" alt="image-20241129181949193" style="zoom: 67%;" />
+<img src="./image-20241129181949193.png" alt="image-20241129181949193" style="zoom: 67%;" />
 
 <p>但是注意head指针依然附在main上所以你提交依然是在main上操作</p>
 <pre><code class="CPP">git commit
 </code></pre>
-<img src="./git 的使用/image-20241129182044002.png" alt="image-20241129182044002" style="zoom:67%;" />
+<img src="./image-20241129182044002.png" alt="image-20241129182044002" style="zoom:67%;" />
 
 <h3 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout"></a>git checkout</h3><p>切换head跟踪的分支或者节点</p>
 <pre><code class="CPP">git checkout newImage（或者对应节点的哈希值）
 </code></pre>
 <p>然后我们提交就会如图，在新的分支上提交。</p>
-<p>![image-20241129182240750](.&#x2F;git 的使用&#x2F;image-20241129182240750.png)</p>
+<img src="./image-20241129182240750.png" alt="image-20241129182240750" style="zoom:80%;" />
+
+
+
 <p><em>注意：在 Git 2.23 版本中，引入了一个名为 <code>git switch</code> 的新命令，最终会取代 <code>git checkout</code>，因为 <code>checkout</code> 作为单个命令有点超载（它承载了很多独立的功能）。 由于现在很多人还无法使用 <code>switch</code>，本次课程仍然使用 <code>checkout</code> 而不是 <code>switch</code>， 但是如果你想尝试一下新命令，我们的应用也是支持的！并且你可以从<a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-switch">这里</a>学到更多关于新命令的内容。</em></p>
 <p>对了，有个更简洁的方式：如果你想创建一个新的分支同时切换到新创建的分支的话，可以通过 </p>
 <h3 id="git-checkout-b"><a href="#git-checkout-b" class="headerlink" title="git checkout -b &lt;your-branch-name&gt;"></a><code>git checkout -b &lt;your-branch-name&gt;</code></h3><p>来实现</p>
@@ -306,19 +310,19 @@ git branch bugFix HEAD~^2~
 <p>咱们先来看一下第一种方法 —— <code>git merge</code>。在 Git 中合并两个分支时会产生一个特殊的提交记录，它有两个 parent 节点。翻译成自然语言相当于：“我要把这两个 parent 节点本身及它们所有的祖先都包含进来。”</p>
 <hr>
 <p>当前处于main分支</p>
-<img src="./git 的使用/image-20241129182757083.png" alt="image-20241129182757083" style="zoom:67%;" />
+<img src="./image-20241129182757083.png" alt="image-20241129182757083" style="zoom:67%;" />
 
 <pre><code class="CPP">git merge bugFix
 </code></pre>
 <p>表示将bugFix融合至当前的head指向的节点来。如果当前head指向的是一个分支，那么这个分支也会指向新的合并点</p>
 <p>这意味着 <code>main</code> 包含了对代码库的所有修改。</p>
-<img src="./git 的使用/image-20241129182813530.png" alt="image-20241129182813530" style="zoom:50%;" />
+<img src="./image-20241129182813530.png" alt="image-20241129182813530" style="zoom:50%;" />
 
 <p>此时我们将main融合至bugFix中，我们会发现Git 什么都不做，只是简单地把 <code>bugFix</code> 移动到 <code>main</code> 所指向的那个提交记录，因为 <code>main</code> 继承自 <code>bugFix</code></p>
 <pre><code class="CPp">git checkout bugFix
 git merge main
 </code></pre>
-<img src="./git 的使用/image-20241129183104512.png" alt="image-20241129183104512" style="zoom:50%;" />
+<img src="./image-20241129183104512.png" alt="image-20241129183104512" style="zoom:50%;" />
 
 <hr>
 <h3 id="git-rebase"><a href="#git-rebase" class="headerlink" title="git rebase"></a>git rebase</h3><p>第二种合并分支的方法是 <code>git rebase</code></p>
@@ -328,36 +332,40 @@ git merge main
 </code></pre>
 <p>注意如果复制的源节点是分支，那么分支会指向新的复制节点。</p>
 <p>但是如果复制到的目标节点如果是分支，他的分支指向的节点是不会变的（就是说我复制到bugFix节点下方，但是bugFix节点是不动的）</p>
-<img src="./git 的使用/image-20241129184425956.png" alt="image-20241129184425956" style="zoom:50%;" />
+<img src="./image-20241129184425956.png" alt="image-20241129184425956" style="zoom:50%;" />
 
 <p>此时我执行</p>
 <pre><code class="CPP">git rebase main bugFix
 </code></pre>
 <p>main不变，bugFix显然变化了（不论head在哪，head是肯定会指向复制的最后一个）</p>
-<img src="./git 的使用/image-20241129184517563.png" alt="image-20241129184517563" style="zoom:50%;" />
+<img src="./image-20241129184517563.png" alt="image-20241129184517563" style="zoom:50%;" />
 
 <p>这样会把俩个节点的不同点，全部复制到目标节点下，这么说可能有点抽象</p>
 <p>我们看到如图的结构，我现在执行下面的命令</p>
-<p>![image-20241129201851639](.&#x2F;git 的使用&#x2F;image-20241129201851639.png)</p>
+<img src="./image-20241129201851639.png" alt="image-20241129201851639" style="zoom:80%;" />
+
 <pre><code class="CPP">git rebase bugFix side
 </code></pre>
 <p>我们就可以看见从side到c4的节点全部复制过来了</p>
-<img src="./git 的使用/image-20241129202121638.png" alt="image-20241129202121638" style="zoom:67%;" />
+<img src="./image-20241129202121638.png" alt="image-20241129202121638" style="zoom:67%;" />
 
 <hr>
-<img src="./git 的使用/image-20241129183547683.png" alt="image-20241129183547683" style="zoom:50%;" />
+<img src="./image-20241129183547683.png" alt="image-20241129183547683" style="zoom:50%;" />
 
 <pre><code class="CPP">git rebase main		//将head此时指向的bugFix分支上的不同点复制到mian下面
 </code></pre>
 <p>注意此时的head如果指向的是分支，那么分支也会指到新的复制点上</p>
-<img src="./git 的使用/image-20241129183651149.png" alt="image-20241129183651149" style="zoom:50%;" />
+<img src="./image-20241129183651149.png" alt="image-20241129183651149" style="zoom:50%;" />
 
 <p>假设此时将head指向main，然后复制到bugFix，他会复制吗。</p>
 <pre><code class="CPp">git checkout main
 git rebase bugFix
 </code></pre>
 <p>答案是不会，只会将main指向bugFix指向的节点，因为bugFix继承mian</p>
-<p>![image-20241129183924357](.&#x2F;git 的使用&#x2F;image-20241129183924357.png)</p>
+<img src="./image-20241129183924357.png" alt="image-20241129183924357" style="zoom:80%;" />
+
+
+
 <hr>
 <h3 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h3><p>我们首先看一下 “HEAD”。 HEAD 是一个对当前所在分支的符号引用 —— 也就是指向你正在其基础上进行工作的提交记录。</p>
 <p>HEAD 总是指向当前分支上最近一次提交记录。大多数修改提交树的 Git 命令都是从改变 HEAD 的指向开始的。</p>
@@ -368,7 +376,7 @@ git rebase bugFix
 <p>我们执行下面的方式,可以看到，此时HEAD就是<strong>分离</strong>出来了</p>
 <pre><code class="CPP">git checkout  c2
 </code></pre>
-<img src="./git 的使用/image-20241129184859340.png" alt="image-20241129184859340" style="zoom: 67%;" />
+<img src="./image-20241129184859340.png" alt="image-20241129184859340" style="zoom: 67%;" />
 
 <hr>
 <h3 id="相对引用-和"><a href="#相对引用-和" class="headerlink" title="相对引用^和~"></a>相对引用<code>^</code>和<code>~</code></h3><p>通过指定提交记录哈希值的方式在 Git 中移动不太方便。在实际应用时，可不像示例的c1，c2。是非常复杂的哈希值，我们必须使用<code>git log</code>去查询提交记录和哈希值（例如<code>fed2da64c0efc5293610bdd892f82a58e8cbc5d8</code>）。</p>
@@ -388,33 +396,33 @@ git rebase bugFix
 <p>现在咱们切换到 main 的 parent 节点，此时HEAD就指向了父节点</p>
 <pre><code class="CPP">git checkout main^
 </code></pre>
-<img src="./git 的使用/image-20241129185309862.png" alt="image-20241129185309862" style="zoom:67%;" />
+<img src="./image-20241129185309862.png" alt="image-20241129185309862" style="zoom:67%;" />
 
 <p>你也可以将 <code>HEAD</code> 作为相对引用的参照。下面咱们就用 <code>HEAD</code> 在提交树中向上移动几次。</p>
 <pre><code class="CPP">git checkout head^^	//指移动俩次
 </code></pre>
 <hr>
 <h3 id="“-”操作符"><a href="#“-”操作符" class="headerlink" title="“~”操作符"></a>“~”操作符</h3><p>该操作符后面可以跟一个数字（可选，不跟数字时与 <code>^</code> 相同，向上移动一次），指定向上移动多少次。</p>
-<img src="./git 的使用/image-20241129185517916.png" alt="image-20241129185517916" style="zoom:67%;" />
+<img src="./image-20241129185517916.png" alt="image-20241129185517916" style="zoom:67%;" />
 
 <p>然后我们移动四次，直接移动到c0</p>
 <pre><code class="CPP">git checkout HEAD~4
 </code></pre>
-<img src="./git 的使用/image-20241129185555878.png" alt="image-20241129185555878" style="zoom: 67%;" />
+<img src="./image-20241129185555878.png" alt="image-20241129185555878" style="zoom: 67%;" />
 
 <h3 id="选择-parent-提交记录"><a href="#选择-parent-提交记录" class="headerlink" title="选择 parent 提交记录"></a>选择 parent 提交记录</h3><p>操作符 <code>^</code>并不是用来指定向上返回几代，而是指定合并提交记录的某个 parent 提交。一个合并提交有两个 parent 提交吧，所以遇到这样的节点时该选择哪条路径就不是很清晰了。</p>
 <p>Git 默认选择合并提交的“第一个” parent 提交，在操作符 <code>^</code> 后跟一个数字可以改变这一默认行为。</p>
-<img src="./git 的使用/image-20241129202655086.png" alt="image-20241129202655086" style="zoom: 67%;" />
+<img src="./image-20241129202655086.png" alt="image-20241129202655086" style="zoom: 67%;" />
 
 <p>如果我们想回到c1</p>
 <pre><code class="CPP">git checkout main^
 </code></pre>
-<img src="./git 的使用/image-20241129202734490.png" alt="image-20241129202734490" style="zoom:67%;" />
+<img src="./image-20241129202734490.png" alt="image-20241129202734490" style="zoom:67%;" />
 
 <p>但是如果我们想要回到c2，就要使用下面的指令</p>
 <pre><code class="CPP">git checkout main^2
 </code></pre>
-<img src="./git 的使用/image-20241129202824043.png" alt="image-20241129202824043" style="zoom:67%;" />
+<img src="./image-20241129202824043.png" alt="image-20241129202824043" style="zoom:67%;" />
 
 <p>这些操作符还支持链式操作！试一下这个：</p>
 <pre><code class="CPP">git checkout HEAD~^2~2  //往上一个，选择父节点2，再次往上俩个
@@ -426,25 +434,25 @@ git rebase bugFix
 <pre><code>git branch -f main HEAD~3
 </code></pre>
 <p>上面的命令会将 main 分支强制指向 HEAD 的第 3 级 parent 提交。</p>
-<img src="./git 的使用/image-20241129190022088.png" alt="image-20241129190022088" style="zoom: 67%;" />
+<img src="./image-20241129190022088.png" alt="image-20241129190022088" style="zoom: 67%;" />
 
 <hr>
 <h2 id="撤销变更"><a href="#撤销变更" class="headerlink" title="撤销变更"></a>撤销变更</h2><p>在 Git 里撤销变更的方法很多。和提交一样，撤销变更由底层部分（暂存区的独立文件或者片段）和上层部分（变更到底是通过哪种方式被撤销的）组成。我们这个应用主要关注的是后者。</p>
 <p>主要有两种方法用来撤销变更 —— 一是 <code>git reset</code>，还有就是 <code>git revert</code>。</p>
 <h2 id="Git-Reset"><a href="#Git-Reset" class="headerlink" title="Git Reset"></a>Git Reset</h2><p><code>git reset</code> 通过把分支记录回退几个提交记录来实现撤销改动。你可以将这想象成“改写历史”。<code>git reset</code> 向上移动分支，原来指向的提交记录就跟从来没有提交过一样。</p>
-<img src="./git 的使用/image-20241129191301894.png" alt="image-20241129191301894" style="zoom:50%;" />
+<img src="./image-20241129191301894.png" alt="image-20241129191301894" style="zoom:50%;" />
 
 <p>Git 把 main 分支移回到 <code>C1</code>；现在我们的本地代码库根本就不知道有 <code>C2</code> 这个提交了。</p>
 <p>（在reset后， <code>C2</code> 所做的变更还在，就是你目前本地库的代码依然是修改过后的，但是只不过main指向的，但是处于未加入暂存区状态。）</p>
 <pre><code class="CPP">git reset HEAD~1
 </code></pre>
-<img src="./git 的使用/image-20241129191524229.png" alt="image-20241129191524229" style="zoom:67%;" />
+<img src="./image-20241129191524229.png" alt="image-20241129191524229" style="zoom:67%;" />
 
 <p>虽然在你的本地分支中使用 <code>git reset</code> 很方便，但是这种“改写历史”的方法对大家一起使用的远程分支是无效的哦！我们是无法提交这种更改的，因为假设远程仓库不可能让你去动已经是中间节点的c1，在远程仓库c1已经被继承过了，所以无法推送。</p>
 <h2 id="Git-Revert"><a href="#Git-Revert" class="headerlink" title="Git Revert"></a>Git Revert</h2><p>所以我们将回撤的节点作为新的提交推送就行了。</p>
 <pre><code class="CPP">git revert HEAD
 </code></pre>
-<img src="./git 的使用/image-20241129191628824.png" alt="image-20241129191628824" style="zoom:67%;" />
+<img src="./image-20241129191628824.png" alt="image-20241129191628824" style="zoom:67%;" />
 
 <p>我们可以看到不想reset，我们而是拥有了一个新的提交，是因为新提交记录 <code>C2&#39;</code> 引入了<strong>更改</strong> —— 这些更改刚好是用来撤销 <code>C2</code> 这个提交的。也就是说 <code>C2&#39;</code> 的状态与 <code>C1</code> 是相同的。</p>
 <p>这样之后，我们就可以推送到远程仓库</p>
@@ -455,14 +463,14 @@ git rebase bugFix
 <h2 id="Git-Cherry-pick"><a href="#Git-Cherry-pick" class="headerlink" title="Git Cherry-pick"></a>Git Cherry-pick</h2><p>本系列的第一个命令是 <code>git cherry-pick</code>, 命令形式为:</p>
 <pre><code class="CPP">git cherry-pick 节点1 节点2 ...(按顺序复制到head下方)
 </code></pre>
-<img src="./git 的使用/image-20241129192654894.png" alt="image-20241129192654894" style="zoom: 67%;" />
+<img src="./image-20241129192654894.png" alt="image-20241129192654894" style="zoom: 67%;" />
 
 <p>这里有一个仓库, 我们想将 <code>side</code> 分支上的工作复制到 <code>main</code> 分支，你立刻想到了之前学过的 <code>rebase</code> 了吧？但是咱们还是看看 <code>cherry-pick</code> 有什么本领吧。</p>
 <pre><code class="CPP">git cherry-pick c2 c4
 </code></pre>
 <p>就是在当前的分支下面复制c2和c4的提交，按顺序写。</p>
 <p>（如果head指向是一个分支（未分离状态），那么分支也会随着复制向下走，head是肯定会指向复制的最后一个）</p>
-<img src="./git 的使用/image-20241129192736774.png" alt="image-20241129192736774" style="zoom:50%;" />
+<img src="./image-20241129192736774.png" alt="image-20241129192736774" style="zoom:50%;" />
 
 <hr>
 <h2 id="交互式的-rebase"><a href="#交互式的-rebase" class="headerlink" title="交互式的 rebase"></a>交互式的 rebase</h2><p>当你知道你所需要的提交记录（<strong>并且</strong>还知道这些提交记录的哈希值）时, 用 cherry-pick 再好不过了 —— 没有比这更简单的方式了。</p>
@@ -478,16 +486,17 @@ git rebase bugFix
 <li>删除你不想要的提交（通过切换 <code>pick</code> 的状态来完成，关闭就意味着你不想要这个提交记录）</li>
 <li>合并提交。 遗憾的是由于某种逻辑的原因，我们的课程不支持此功能，因此我不会详细介绍这个操作。简而言之，它允许你把多个提交记录合并成一个。</li>
 </ul>
-<img src="./git 的使用/image-20241129193423389.png" alt="image-20241129193423389" style="zoom:80%;" />
+<img src="./image-20241129193423389.png" alt="image-20241129193423389" style="zoom:80%;" />
 
 <pre><code class="cpp">git rebase -i HEAD~4
 </code></pre>
 <p>教程就会出现这样的UI，供你重新调整，或者丢弃。注意我回溯4的节点，但是注意最后一个c1是不包含在下面的修改列表。</p>
-<img src="./git 的使用/image-20241129193502882.png" alt="image-20241129193502882" style="zoom: 50%;" />
+<img src="./image-20241129193502882.png" alt="image-20241129193502882" style="zoom: 50%;" />
 
 <p>随后就是从c1，重新创建分支将修改后进行复制成如图的逻辑。</p>
 <p>（注意此时不管head在哪里，head都会指向此操作后最后一个，此处的c4‘）</p>
-<p>![image-20241129193649249](.&#x2F;git 的使用&#x2F;image-20241129193649249.png)</p>
+<img src="./image-20241129193649249.png" alt="image-20241129193649249" style="zoom:80%;" />
+
 <hr>
 <h2 id="本地栈式提交"><a href="#本地栈式提交" class="headerlink" title="本地栈式提交"></a>本地栈式提交</h2><p>来看一个在开发中经常会遇到的情况：我正在解决某个特别棘手的 Bug，为了便于调试而在代码中添加了一些调试命令并向控制台打印了一些信息。</p>
 <p>这些调试和打印语句都在它们各自的提交记录里。最后我终于找到了造成这个 Bug 的根本原因，解决掉以后觉得沾沾自喜！</p>
@@ -501,7 +510,7 @@ git rebase bugFix
 <pre><code class="CPP">git checkout main
 git cherry-pick bugFix
 </code></pre>
-<img src="./git 的使用/image-20241129194043401.png" alt="image-20241129194043401" style="zoom:67%;" />
+<img src="./image-20241129194043401.png" alt="image-20241129194043401" style="zoom:67%;" />
 
 <h2 id="提交的技巧-1"><a href="#提交的技巧-1" class="headerlink" title="提交的技巧 #1"></a>提交的技巧 #1</h2><p>接下来这种情况也是很常见的：你之前在 <code>newImage</code> 分支上进行了一次提交，然后又基于它创建了 <code>caption</code> 分支，然后又提交了一次。</p>
 <p>此时你想对某个以前的提交记录进行一些小小的调整。比如设计师想修改一下 <code>newImage</code> 中图片的分辨率，尽管那个提交记录并不是最新的了。</p>
@@ -531,7 +540,7 @@ git cherry-pick bugFix
 <pre><code class="CPP">git tag v1 c1
 </code></pre>
 <p>我们将这个标签命名为 <code>v1</code>，并且明确地让它指向提交记录 <code>C1</code>，如果你不指定提交记录，Git 会用 <code>HEAD</code> 所指向的位置。</p>
-<img src="./git 的使用/image-20241129200645385.png" alt="image-20241129200645385" style="zoom:67%;" />
+<img src="./image-20241129200645385.png" alt="image-20241129200645385" style="zoom:67%;" />
 
 <h3 id="Git-Describe"><a href="#Git-Describe" class="headerlink" title="Git Describe"></a>Git Describe</h3><p>由于标签在代码库中起着“锚点”的作用，Git 还为此专门设计了一个命令用来<strong>描述</strong>离你最近的锚点（也就是标签），它就是 <code>git describe</code>！</p>
 <p>Git Describe 能帮你在提交历史中移动了多次以后找到方向；当你用 <code>git bisect</code>（一个查找产生 Bug 的提交记录的指令）找到某个提交记录时，或者是当你坐在你那刚刚度假回来的同事的电脑前时， 可能会用到这个命令。</p>
@@ -544,7 +553,8 @@ git cherry-pick bugFix
 </code></pre>
 <p><code>tag</code> 表示的是离 <code>ref</code> 最近的标签， <code>numCommits</code> 是表示这个 <code>ref</code> 与 <code>tag</code> 相差有多少个提交记录， <code>hash</code> 表示的是你所给定的 <code>ref</code> 所表示的提交记录哈希值的前几位。</p>
 <p>当 <code>ref</code> 交记录上有某个标签时，则只输出标签名称</p>
-<p>![image-20241129200955580](.&#x2F;git 的使用&#x2F;image-20241129200955580.png)</p>
+<img src="./image-20241129200955580.png" alt="image-20241129200955580" style="zoom:80%;" />
+
 <p>对这个图使用</p>
 <pre><code class="CPP">git describe main
 </code></pre>
