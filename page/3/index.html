@@ -186,64 +186,6 @@
         
 
 <div class="post">
-    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B01/">
-        <h2 class="post-title">引擎项目环境配置</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                游戏引擎
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/10/22
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h1 id="HazelEngine笔记1"><a href="#HazelEngine笔记1" class="headerlink" title="HazelEngine笔记1"></a>HazelEngine笔记1</h1><h3 id="1-项目配置"><a href="#1-项目配置" class="headerlink" title="1.项目配置"></a>1.项目配置</h3><p>在vs中创建Hazel项目，然后打开“项目属性 -&gt;  配置属性 -&gt; 常规”中设置一下 </p>
-<ul>
-<li>配置类型： 选择**.dll**</li>
-</ul>
-<blockquote>
-<p>在配置为Dynamic Library时，项目输出的文件是一个DLL文件，其他程序可以在运行时加载和使用它。通常会生成一个<code>.dll</code>文件和一个对应的<code>.lib</code>文件（用于在编译时链接DLL）。</p>
-<p><strong>DLL (Dynamic Link Library)</strong> 是包含可执行代码和数据的二进制文件，在程序运行时动态加载到内存中。</p>
-<p>DLL文件中包含的代码和资源在程序<strong>运行时</strong>才会被加载使用，因此在编译和链接阶段，它不会直接参与到应用程序的构建中。</p>
-<p>对于使用DLL的项目来说，<strong>LIB文件</strong>并不是静态链接库，而是一个“<strong>导入库</strong>”（import library）。这个LIB文件不包含DLL的实际实现代码，而是包含指向DLL中的函数或数据的引用和符号信息。</p>
-<p>当你在Visual Studio中设置项目生成DLL时，Visual Studio同时会生成一个对应的LIB文件。这个LIB文件的作用是告诉链接器：当其他项目引用此库时，链接器应如何找到和使用对应的DLL中的函数和数据。</p>
-</blockquote>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #00a596">游戏引擎</a>
-        </span>
-        
-    </div>
-    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B01/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
     <a href="/articles/%E7%A9%BA%E6%B4%9E%E6%AD%A6%E5%A3%AB/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/">
         <h2 class="post-title">空洞武士笔记2</h2>
     </a>
@@ -285,12 +227,12 @@
         
         <span class="tag">
             
-            <a href="/tags/cpp/" style="color: #ffa2c4">cpp</a>
+            <a href="/tags/cpp/" style="color: #00bcd4">cpp</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #ff7d73">游戏设计</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #03a9f4">游戏设计</a>
         </span>
         
     </div>
@@ -343,7 +285,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #00bcd4">游戏设计</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #ff7d73">游戏设计</a>
         </span>
         
     </div>
@@ -394,12 +336,12 @@
         
         <span class="tag">
             
-            <a href="/tags/cpp/" style="color: #ffa2c4">cpp</a>
+            <a href="/tags/cpp/" style="color: #00a596">cpp</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #00bcd4">游戏设计</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #ffa2c4">游戏设计</a>
         </span>
         
     </div>
@@ -450,7 +392,7 @@
         
         <span class="tag">
             
-            <a href="/tags/cpp/" style="color: #00bcd4">cpp</a>
+            <a href="/tags/cpp/" style="color: #03a9f4">cpp</a>
         </span>
         
         <span class="tag">
@@ -513,7 +455,7 @@ StateMachine state_machine;
         
         <span class="tag">
             
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #03a9f4">游戏设计</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" style="color: #00a596">游戏设计</a>
         </span>
         
     </div>
@@ -612,7 +554,7 @@ StateMachine state_machine;
         
         <span class="tag">
             
-            <a href="/tags/csv/" style="color: #ff7d73">csv</a>
+            <a href="/tags/csv/" style="color: #00bcd4">csv</a>
         </span>
         
     </div>
@@ -664,7 +606,7 @@ StateMachine state_machine;
         
         <span class="tag">
             
-            <a href="/tags/json/" style="color: #ffa2c4">json</a>
+            <a href="/tags/json/" style="color: #03a9f4">json</a>
         </span>
         
     </div>
@@ -721,6 +663,56 @@ StateMachine state_machine;
     <a href="/articles/STL/vector/" class="go-post">阅读全文</a>
 </div>
 
+<div class="post">
+    <a href="/articles/STL/stack/">
+        <h2 class="post-title">STL的stack的使用</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/STL/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                STL
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/7/13
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="stack-栈-的使用"><a href="#stack-栈-的使用" class="headerlink" title="stack(栈)的使用"></a>stack(栈)的使用</h1><p>1.stack是一种容器适配器，专门用在具有后进先出操作的上下文环境中，其删除只能从容器的一端进行元素的插入与提取操作。</p>
+<ol start="2">
+<li><p>stack是作为容器适配器被实现的，容器适配器即是对特定类封装作为其底层的容器，并提供一组特定的成员函数来访问其元素，将特定类作为其底层的，元素特定容器的尾部(即栈顶)被压入和弹出。</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/STL/" style="color: #ff7d73">STL</a>
+        </span>
+        
+    </div>
+    <a href="/articles/STL/stack/" class="go-post">阅读全文</a>
+</div>
+
 
         <div class="page-current">
     
@@ -736,10 +728,6 @@ StateMachine state_machine;
         4
     </a>
     
-    
-    <a class="page-num" href="/page/5">
-        5
-    </a>
     
     
     

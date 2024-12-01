@@ -186,38 +186,6 @@
         
 
 <div class="post">
-    <a href="/2024/12/01/Hazel_Engine/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">
-        <h2 class="post-title"></h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/12/1
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>智能指针</p>
-<p>整形类的使用原因</p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/12/01/Hazel_Engine/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
     <a href="/articles/git/git%E7%9A%84%E4%BD%BF%E7%94%A8/">
         <h2 class="post-title">git基本使用</h2>
     </a>
@@ -260,7 +228,7 @@
         
         <span class="tag">
             
-            <a href="/tags/git/" style="color: #ff7d73">git</a>
+            <a href="/tags/git/" style="color: #ffa2c4">git</a>
         </span>
         
     </div>
@@ -308,7 +276,7 @@
         
         <span class="tag">
             
-            <a href="/tags/git/" style="color: #03a9f4">git</a>
+            <a href="/tags/git/" style="color: #00a596">git</a>
         </span>
         
     </div>
@@ -405,7 +373,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #ff7d73">游戏引擎</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #ffa2c4">游戏引擎</a>
         </span>
         
     </div>
@@ -455,7 +423,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #00bcd4">游戏引擎</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #03a9f4">游戏引擎</a>
         </span>
         
     </div>
@@ -505,7 +473,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #00a596">游戏引擎</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #03a9f4">游戏引擎</a>
         </span>
         
     </div>
@@ -563,7 +531,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #ff7d73">游戏引擎</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #ffa2c4">游戏引擎</a>
         </span>
         
     </div>
@@ -614,7 +582,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #00a596">游戏引擎</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #ff7d73">游戏引擎</a>
         </span>
         
     </div>
@@ -662,11 +630,63 @@
         
         <span class="tag">
             
-            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #00a596">游戏引擎</a>
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #ff7d73">游戏引擎</a>
         </span>
         
     </div>
     <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B013/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B07/">
+        <h2 class="post-title">Layer</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                游戏引擎
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/11/30
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="笔记7-Layer"><a href="#笔记7-Layer" class="headerlink" title="笔记7 Layer"></a>笔记7 Layer</h2><p>对于应用，我们都需要layer去处理渲染顺序和用户事件响应。</p>
+<ul>
+<li>渲染顺序层级，我们需要从底层往上处理渲染逻辑，将最新的一层，放在最后渲染。</li>
+<li>对于事件处理，我们肯定需要曾最上层优先处理，然后层层往下处理。</li>
+</ul>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" style="color: #ff7d73">游戏引擎</a>
+        </span>
+        
+    </div>
+    <a href="/articles/HazelEngine/%E7%AC%94%E8%AE%B07/" class="go-post">阅读全文</a>
 </div>
 
 
@@ -685,7 +705,7 @@
     
     
     <span class="page-omit">...</span>
-    <a class="page-num" href="/page/5">5</a>
+    <a class="page-num" href="/page/4">4</a>
     
     
     <a class="page-num" href="/page/2/">
